@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34309.116
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GOBTracker", "GOBTracker\GOBTracker.csproj", "{32819E95-E72B-44D3-B044-8413C61DF99B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GOBTrackerUI", "GOBTrackerUI\GOBTrackerUI.csproj", "{D8188DC5-909B-4E25-8E84-880A36A0348F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{32819E95-E72B-44D3-B044-8413C61DF99B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32819E95-E72B-44D3-B044-8413C61DF99B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32819E95-E72B-44D3-B044-8413C61DF99B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32819E95-E72B-44D3-B044-8413C61DF99B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8188DC5-909B-4E25-8E84-880A36A0348F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8188DC5-909B-4E25-8E84-880A36A0348F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8188DC5-909B-4E25-8E84-880A36A0348F}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{D8188DC5-909B-4E25-8E84-880A36A0348F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8188DC5-909B-4E25-8E84-880A36A0348F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8188DC5-909B-4E25-8E84-880A36A0348F}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {86F7A781-4AAC-470C-9ED4-4103CE5AD988}
+	EndGlobalSection
+EndGlobal
