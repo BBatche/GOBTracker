@@ -5,11 +5,19 @@ namespace GOBTracker.Models;
 
 public partial class Game
 {
-    public int GameId { get; set; }
+    public int Id { get; set; }
 
-    public int MyTeamId { get; set; }
+    public int OurTeamId { get; set; }
 
     public int OpponentTeamId { get; set; }
 
-    public DateTime GameDateTime { get; set; }
+    public string? Location { get; set; }
+
+    public DateTimeOffset GameDateTime { get; set; }
+
+    public virtual Team OpponentTeam { get; set; } = null!;
+
+    public virtual Team OurTeam { get; set; } = null!;
+
+    public virtual ICollection<Stat> Stats { get; set; } = new List<Stat>();
 }

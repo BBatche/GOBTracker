@@ -13,9 +13,9 @@ namespace GOBTracker.Controllers
     [ApiController]
     public class GamesController : ControllerBase
     {
-        private readonly GameOfBasketballDbContext _context;
+        private readonly GobtrackerDbContext _context;
 
-        public GamesController(GameOfBasketballDbContext context)
+        public GamesController(GobtrackerDbContext context)
         {
             _context = context;
         }
@@ -54,7 +54,7 @@ namespace GOBTracker.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutGame(int id, Game game)
         {
-            if (id != game.GameId)
+            if (id != game.Id)
             {
                 return BadRequest();
             }
@@ -87,12 +87,12 @@ namespace GOBTracker.Controllers
         {
           if (_context.Games == null)
           {
-              return Problem("Entity set 'GameOfBasketballDbContext.Games'  is null.");
+              return Problem("Entity set 'GobtrackerDbContext.Games'  is null.");
           }
             _context.Games.Add(game);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetGame", new { id = game.GameId }, game);
+            return CreatedAtAction("GetGame", new { id = game.Id }, game);
         }
 
         // DELETE: api/Games/5
@@ -117,7 +117,7 @@ namespace GOBTracker.Controllers
 
         private bool GameExists(int id)
         {
-            return (_context.Games?.Any(e => e.GameId == id)).GetValueOrDefault();
+            return (_context.Games?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

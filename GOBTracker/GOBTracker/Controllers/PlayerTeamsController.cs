@@ -13,9 +13,9 @@ namespace GOBTracker.Controllers
     [ApiController]
     public class PlayerTeamsController : ControllerBase
     {
-        private readonly GameOfBasketballDbContext _context;
+        private readonly GobtrackerDbContext _context;
 
-        public PlayerTeamsController(GameOfBasketballDbContext context)
+        public PlayerTeamsController(GobtrackerDbContext context)
         {
             _context = context;
         }
@@ -87,7 +87,7 @@ namespace GOBTracker.Controllers
         {
           if (_context.PlayerTeams == null)
           {
-              return Problem("Entity set 'GameOfBasketballDbContext.PlayerTeams'  is null.");
+              return Problem("Entity set 'GobtrackerDbContext.PlayerTeams'  is null.");
           }
             _context.PlayerTeams.Add(playerTeam);
             await _context.SaveChangesAsync();
