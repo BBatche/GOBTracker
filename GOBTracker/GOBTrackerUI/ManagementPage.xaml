@@ -3,7 +3,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GOBTrackerUI.ManagementPage"
              Title="ManagementPage">
-
+    <ContentPage.Resources>
+        <Style TargetType="Grid">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                    Value="Gray" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
     <StackLayout Padding="20">
 
         <!-- Header -->
@@ -20,39 +36,39 @@
         
         
 <!--Player LIst-->
-        <ListView x:Name="rosterListView">
-            <!--ItemSelected="PlayerPicker_SelectedIndexChanged"--> 
-            <ListView.ItemTemplate>
+        <CollectionView x:Name="rosterCollectionView" SelectionChanged="Player_SelectionChanged" SelectionMode="Single">
+            <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <ViewCell>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="150" />
-                                <ColumnDefinition Width="150" />
-                                
-                            </Grid.ColumnDefinitions>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="150" />
+                        </Grid.ColumnDefinitions>
 
-                            <!-- First Name -->
-                            <Frame Grid.Column="0"
-                                       BorderColor="Black"
-                                       CornerRadius="0"
-                                       HasShadow="false"
-                                       Padding="5">
-                                <Label Text="{Binding FirstName}" FontSize="Subtitle" />
-                            </Frame>
-                            <Frame Grid.Column="1"
-                                       BorderColor="Black"
-                                       CornerRadius="0"
-                                       HasShadow="false"
-                                       Padding="5">
-                                <Label Text="{Binding LastName}" FontSize="Subtitle" />
-                            </Frame>
-                            
-                        </Grid>
-                    </ViewCell>
+                        <!-- First Name -->
+                        <Frame Grid.Column="0"
+                       BorderColor="Black"
+                       CornerRadius="5"
+                       HasShadow="false"
+                       Margin="5"
+                       Padding="5">
+                            <Label Text="{Binding FirstName}" FontSize="Subtitle" />
+                        </Frame>
+
+                        <!-- Last Name -->
+                        <Frame Grid.Column="1"
+                       BorderColor="Black"
+                       CornerRadius="5"
+                       HasShadow="false"
+                       Margin="5"
+                       Padding="5">
+                            <Label Text="{Binding LastName}" FontSize="Subtitle" />
+                        </Frame>
+                    </Grid>
                 </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
 
         <!-- Player List -->
         <CollectionView x:Name="playerCollectionView"

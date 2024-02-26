@@ -81,13 +81,21 @@ namespace GOBTrackerUI
             }
         }
 
+        private async void Player_SelectionChanged(object sender, EventArgs e)
+        {
+            TeamRoster selectedPlayer = (TeamRoster)rosterCollectionView.SelectedItem;
+           
+            Console.WriteLine(selectedPlayer.ToString());
+
+        }
+
         async private void LoadTeamRoster(int teamId)
         {
             var roster = await GetTeamRosterByIdAsync(teamId);
 
             MainThread.BeginInvokeOnMainThread(() =>
             {
-                rosterListView.ItemsSource = roster;
+                rosterCollectionView.ItemsSource = roster;
             });
         }
 
