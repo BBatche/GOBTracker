@@ -17,13 +17,17 @@
             
 
         </Picker>
-
-        <ListView x:Name="teamlistview" ItemSelected="TeamPicker_SelectedIndexChanged">
+        
+        
+<!--Player LIst-->
+        <ListView x:Name="rosterListView">
+            <!--ItemSelected="PlayerPicker_SelectedIndexChanged"--> 
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
                         <Grid>
                             <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150" />
                                 <ColumnDefinition Width="150" />
                                 
                             </Grid.ColumnDefinitions>
@@ -34,7 +38,14 @@
                                        CornerRadius="0"
                                        HasShadow="false"
                                        Padding="5">
-                                <Label Text="{Binding TeamName}" FontSize="Subtitle" />
+                                <Label Text="{Binding FirstName}" FontSize="Subtitle" />
+                            </Frame>
+                            <Frame Grid.Column="1"
+                                       BorderColor="Black"
+                                       CornerRadius="0"
+                                       HasShadow="false"
+                                       Padding="5">
+                                <Label Text="{Binding LastName}" FontSize="Subtitle" />
                             </Frame>
                             
                         </Grid>

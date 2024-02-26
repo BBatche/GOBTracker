@@ -22,8 +22,8 @@ namespace GOBTrackerUI
 
             MainThread.BeginInvokeOnMainThread(() =>
             {
-                teamlistview.ItemsSource = teams;
-                teamPicker.ItemsSource = teams;
+                
+                teamPicker.ItemsSource = teams.Select(team => team.TeamName).ToList();
                 //foreach (var team in teams)
                 //{
                 //    teamPicker.Items.Add(team.TeamName);
@@ -65,16 +65,63 @@ namespace GOBTrackerUI
 
 
         // Event handler for when the selected team in the picker changes
-        private void TeamPicker_SelectedIndexChanged(object sender, EventArgs e)
+        private async void TeamPicker_SelectedIndexChanged(object sender, EventArgs e)
         {
             var picker = (Picker)sender;
             int selectedIndex = picker.SelectedIndex;
+            
             if (selectedIndex != -1)
             {
-                //viewModel.SelectedTeam = viewModel.Teams[selectedIndex];
-                //// Update the list of players based on the selected team
-                //viewModel.UpdatePlayersByTeam();
+                var selectedTeamName = picker.SelectedItem as String;
+                var teams = await GetTeamsAsync();
+                Team selectedTeam = teams.FirstOrDefault(team => team.TeamName == selectedTeamName);
+                //load the players for the team
+
+                LoadTeamRoster(selectedTeam.Id);
             }
+        }
+
+        async private void LoadTeamRoster(int teamId)
+        {
+            var roster = await GetTeamRosterByIdAsync(teamId);
+
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                rosterListView.ItemsSource = roster;
+            });
+        }
+
+        async private Task<List<TeamRoster>> GetTeamRosterByIdAsync(int teamId)
+        {
+            string apiUrl = "https://localhost:7063/api/TeamRoster";
+            List<TeamRoster> roster = null;
+            using (HttpClient client = new HttpClient())
+            {
+                try
+                {
+                    string urlWithId = $"{apiUrl}/{teamId}";
+                    HttpResponseMessage response = await client.GetAsync(urlWithId);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string jsonString = await response.Content.ReadAsStringAsync();
+                        roster = JsonConvert.DeserializeObject<List<TeamRoster>>(jsonString);
+
+                    }
+                    else
+                    {
+                        Debug.WriteLine("API request failed with status code: " + response.StatusCode);
+                        return null;
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Error: " + ex.Message);
+                    return null;
+                }
+            }
+            return roster;
         }
 
         private void PlayerCollectionView_SelectionChanged()
