@@ -1,62 +1,74 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="GOBTrackerUI.ManagementPage">
-    <ContentPage.Resources>
-        <StyleSheet>
-            <![CDATA[
-                .labelStyle {
-                    font-size: 20;
-                    font-weight: bold;
-                    margin-bottom: 10;
-                }
+             x:Class="GOBTrackerUI.ManagementPage"
+             Title="ManagementPage">
 
-                .entryStyle {
-                    margin-right: 10;
-                }
+    <StackLayout Padding="20">
 
-                .buttonStyle {
-                    margin-right: 10;
-                }
-            ]]>
-        </StyleSheet>
-    </ContentPage.Resources>
+        <!-- Header -->
+        <Label Text="Players" FontSize="Large" HorizontalOptions="Center" Margin="0,20,0,10" />
 
-    <ScrollView>
-        <StackLayout Margin="20" Spacing="20">
-            <!-- Players Section -->
-            <StackLayout>
-                <Label Text="Players" StyleClass="labelStyle"/>
-                <Grid ColumnDefinitions="Auto, Auto, Auto, Auto, Auto, Auto">
-                    <Entry Placeholder="Enter first name" x:Name="FirstNameEntry" StyleClass="entryStyle"/>
-                    <Entry Placeholder="Enter last name" x:Name="LastNameEntry" StyleClass="entryStyle"
-                           Grid.Column="1"/>
-                    <Button Text="Create Player" Clicked="CreatePlayer_Clicked" StyleClass="buttonStyle"
-                            Grid.Column="2"/>
-                    <Button Text="Update Player" Clicked="UpdatePlayer_Clicked" StyleClass="buttonStyle"
-                            Grid.Column="3"/>
-                    <Button Text="Delete Player" Clicked="DeletePlayer_Clicked" StyleClass="buttonStyle"
-                            Grid.Column="4"/>
-                    <Button Text="View Players" Clicked="ViewPlayers_Clicked" StyleClass="buttonStyle"
-                            Grid.Column="5"/>
-                </Grid>
-            </StackLayout>
+        <!-- Team Picker -->
+        <Picker x:Name="teamPicker"
+                Title="Select Team"
+                ItemsSource="{Binding TeamName}"
+                SelectedIndexChanged="TeamPicker_SelectedIndexChanged">
+            
 
-            <!-- Teams Section -->
-            <StackLayout>
-                <Label Text="Teams" StyleClass="labelStyle"/>
-                <Grid ColumnDefinitions="Auto, Auto, Auto, Auto, Auto">
-                    <Entry Placeholder="Enter team name" x:Name="TeamNameEntry" StyleClass="entryStyle"/>
-                    <Button Text="Create Team" Clicked="CreateTeam_Clicked" StyleClass="buttonStyle"
-                            Grid.Column="1"/>
-                    <Button Text="Update Team" Clicked="UpdateTeam_Clicked" StyleClass="buttonStyle"
-                            Grid.Column="2"/>
-                    <Button Text="Delete Team" Clicked="DeleteTeam_Clicked" StyleClass="buttonStyle"
-                            Grid.Column="3"/>
-                    <Button Text="View Teams" Clicked="ViewTeams_Clicked" StyleClass="buttonStyle"
-                            Grid.Column="4"/>
-                </Grid>
-            </StackLayout>
+        </Picker>
+
+        <ListView x:Name="teamlistview" ItemSelected="TeamPicker_SelectedIndexChanged">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150" />
+                                
+                            </Grid.ColumnDefinitions>
+
+                            <!-- First Name -->
+                            <Frame Grid.Column="0"
+                                       BorderColor="Black"
+                                       CornerRadius="0"
+                                       HasShadow="false"
+                                       Padding="5">
+                                <Label Text="{Binding TeamName}" FontSize="Subtitle" />
+                            </Frame>
+                            
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <!-- Player List -->
+        <CollectionView x:Name="playerCollectionView"
+                        SelectionMode="Single"
+                        ItemSizingStrategy="MeasureAllItems"
+                        ItemsSource="{Binding Players}">
+            <!--SelectionChanged="PlayerCollectionView_SelectionChanged">-->
+
+            <!-- Define ItemTemplate -->
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Padding="10" BackgroundColor="{Binding IsActive, Converter={StaticResource IsActiveToColorConverter}}">
+                        <Label Text="{Binding Name}" FontSize="Medium"/>
+                        <!-- Add more player details as needed -->
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+        <!-- CRUD Operations Buttons -->
+        <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Spacing="20" Margin="0,20,0,0">
+            <Button Text="Add Player" Clicked="AddPlayer_Clicked" />
+            <Button Text="Edit Player" Clicked="EditPlayer_Clicked" IsEnabled="{Binding IsPlayerSelected}" />
+            <Button Text="Delete Player" Clicked="DeletePlayer_Clicked" IsEnabled="{Binding IsPlayerSelected}" />
         </StackLayout>
-    </ScrollView>
+
+    </StackLayout>
+
 </ContentPage>
