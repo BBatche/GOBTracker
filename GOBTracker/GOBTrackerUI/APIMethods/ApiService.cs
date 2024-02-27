@@ -15,6 +15,8 @@ namespace GOBTrackerUI.APIMethods
         private readonly HttpClient _httpClient;
         string teamsApiUrl = "https://localhost:7063/api/Teams";
         string teamRosterApiUrl = "https://localhost:7063/api/TeamRoster";
+        string playersApiUrl = "https://localhost:7063/api/Players";
+        string playerTeamsApiUrl = "https://localhost:7063/api/PlayerTeams";
         public ApiService()
         {
             _httpClient = new HttpClient();
@@ -54,6 +56,69 @@ namespace GOBTrackerUI.APIMethods
             return teams;
         }
 
+        async public Task<List<Player>> GetPlayersAsync()
+        {
+            string apiUrl = playersApiUrl;
+            List<Player> players = null;
+            using (HttpClient client = new HttpClient())
+            {
+                try
+                {
+                    HttpResponseMessage response = await client.GetAsync(apiUrl);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string jsonString = await response.Content.ReadAsStringAsync();
+                        players = JsonConvert.DeserializeObject<List<Player>>(jsonString);
+
+                    }
+                    else
+                    {
+                        Debug.WriteLine("API request failed with status code: " + response.StatusCode);
+                        return null;
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Error: " + ex.Message);
+                    return null;
+                }
+            }
+            return players;
+        }
+
+        async public Task<bool> AddPlayerAsync(Player player)
+        {
+            string apiUrl = playersApiUrl;
+
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    string jsonCustomer = JsonConvert.SerializeObject(player);
+                    HttpContent content = new StringContent(jsonCustomer, Encoding.UTF8, "application/json");
+
+                    HttpResponseMessage response = await client.PostAsync(apiUrl, content);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        Debug.WriteLine("Player added successfully");
+                        return true;
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Failed to add player. Status code: " + response.StatusCode);
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Error: " + ex.Message);
+                return false;
+            }
+        }
 
         async public Task<List<TeamRoster>> GetTeamRosterByIdAsync(int teamId)
         {
@@ -88,7 +153,37 @@ namespace GOBTrackerUI.APIMethods
             return roster;
         }
 
+        async public Task<bool> AddPlayerTeamAsync(PlayerTeam playerTeam)
+        {
+            string apiUrl = playerTeamsApiUrl;
 
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    string jsonCustomer = JsonConvert.SerializeObject(playerTeam);
+                    HttpContent content = new StringContent(jsonCustomer, Encoding.UTF8, "application/json");
+
+                    HttpResponseMessage response = await client.PostAsync(apiUrl, content);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        Debug.WriteLine("PlayerTeam added successfully");
+                        return true;
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Failed to add playerTeam. Status code: " + response.StatusCode);
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Error: " + ex.Message);
+                return false;
+            }
+        }
 
     }
 }
