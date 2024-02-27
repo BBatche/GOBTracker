@@ -1,24 +1,26 @@
-﻿using GOBTrackerUI.Models;
+﻿using GOBTrackerUI.APIMethods;
+using GOBTrackerUI.Models;
 using Newtonsoft.Json;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 namespace GOBTrackerUI
 {
     public partial class ManagementPage : ContentPage
     {
-
+        public ApiService apiService;
         public ManagementPage()
         {
             InitializeComponent();
+            apiService = new ApiService();
             LoadTeams();
-            //viewModel = new PlayerViewModel(); // Initialize the ViewModel
-            //BindingContext = viewModel; // Set the BindingContext to the ViewModel
+            
+            
         }
 
         async private void LoadTeams()
         {
-
-            var teams = await GetTeamsAsync();
+            var teams = await apiService.GetTeamsAsync();
 
             MainThread.BeginInvokeOnMainThread(() =>
             {
@@ -31,39 +33,7 @@ namespace GOBTrackerUI
             });
         }
 
-        async private Task<List<Team>> GetTeamsAsync()
-        {
-            string apiUrl = "https://localhost:7063/api/Teams";
-            List<Team> teams = null;
-            using (HttpClient client = new HttpClient())
-            {
-                try
-                {
-                    HttpResponseMessage response = await client.GetAsync(apiUrl);
-
-                    if (response.IsSuccessStatusCode)
-                    {
-                        string jsonString = await response.Content.ReadAsStringAsync();
-                        teams = JsonConvert.DeserializeObject<List<Team>>(jsonString);
-
-                    }
-                    else
-                    {
-                        Debug.WriteLine("API request failed with status code: " + response.StatusCode);
-                        return null;
-
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine("Error: " + ex.Message);
-                    return null;
-                }
-            }
-            return teams;
-        }
-
-
+        
         // Event handler for when the selected team in the picker changes
         private async void TeamPicker_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -73,7 +43,7 @@ namespace GOBTrackerUI
             if (selectedIndex != -1)
             {
                 var selectedTeamName = picker.SelectedItem as String;
-                var teams = await GetTeamsAsync();
+                var teams = await apiService.GetTeamsAsync();
                 Team selectedTeam = teams.FirstOrDefault(team => team.TeamName == selectedTeamName);
                 //load the players for the team
 
@@ -91,7 +61,7 @@ namespace GOBTrackerUI
 
         async private void LoadTeamRoster(int teamId)
         {
-            var roster = await GetTeamRosterByIdAsync(teamId);
+            var roster = await apiService.GetTeamRosterByIdAsync(teamId);
 
             MainThread.BeginInvokeOnMainThread(() =>
             {
@@ -99,38 +69,7 @@ namespace GOBTrackerUI
             });
         }
 
-        async private Task<List<TeamRoster>> GetTeamRosterByIdAsync(int teamId)
-        {
-            string apiUrl = "https://localhost:7063/api/TeamRoster";
-            List<TeamRoster> roster = null;
-            using (HttpClient client = new HttpClient())
-            {
-                try
-                {
-                    string urlWithId = $"{apiUrl}/{teamId}";
-                    HttpResponseMessage response = await client.GetAsync(urlWithId);
-
-                    if (response.IsSuccessStatusCode)
-                    {
-                        string jsonString = await response.Content.ReadAsStringAsync();
-                        roster = JsonConvert.DeserializeObject<List<TeamRoster>>(jsonString);
-
-                    }
-                    else
-                    {
-                        Debug.WriteLine("API request failed with status code: " + response.StatusCode);
-                        return null;
-
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine("Error: " + ex.Message);
-                    return null;
-                }
-            }
-            return roster;
-        }
+        
 
         private void PlayerCollectionView_SelectionChanged()
         { }
