@@ -11,21 +11,32 @@
 
         <SearchBar Placeholder="Enter last name" Text="{Binding SearchText}" SearchButtonPressed="OnSearchButtonPressed" />
 
+        <StackLayout Orientation="Horizontal" Padding="10" BackgroundColor="#3498db">
+            <Label Text="First" TextColor="White" HorizontalOptions="CenterAndExpand" />
+            <Label Text="Last" TextColor="White" HorizontalOptions="CenterAndExpand" />
+            <Label Text="2 pts made" TextColor="White" HorizontalOptions="CenterAndExpand" />
+            <Label Text="3 pts made" TextColor="White" HorizontalOptions="CenterAndExpand" />
+            <Label Text="total pts" TextColor="White" HorizontalOptions="CenterAndExpand" />
+            <Label Text="game id" TextColor="White" HorizontalOptions="CenterAndExpand" />
+            <Label Text="game time" TextColor="White" HorizontalOptions="CenterAndExpand" />
+        </StackLayout>
+
+ 
 
         <!--Player Stat List-->
-        <CollectionView x:Name="playerStatCollectionView" >
+        <CollectionView x:Name="playerStatCollectionView"  HorizontalOptions="FillAndExpand" >
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="150" />
-                            <ColumnDefinition Width="150" />
-                            <ColumnDefinition Width="150" />
-                            <ColumnDefinition Width="150" />
-                            <ColumnDefinition Width="150" />
-                            <ColumnDefinition Width="150" />
-                            <ColumnDefinition Width="150" />
-                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="200" />
                         </Grid.ColumnDefinitions>
 
                         <!-- First Name -->
@@ -47,7 +58,7 @@
                        Padding="5">
                             <Label Text="{Binding LastName}" FontSize="Subtitle" />
                         </Frame>
-                        <!-- First Name -->
+                        <!-- Total2ptsMade -->
                         <Frame Grid.Column="2"
                         BorderColor="Black"
                         CornerRadius="5"
@@ -57,7 +68,7 @@
                             <Label Text="{Binding Total2ptsMade}" FontSize="Subtitle" />
                         </Frame>
 
-                        <!-- Last Name -->
+                        <!-- Total3ptsMade -->
                         <Frame Grid.Column="3"
                         BorderColor="Black"
                         CornerRadius="5"
@@ -68,7 +79,7 @@
                             
                         </Frame>
 
-                        <!-- First Name -->
+                        <!-- TotalPoints -->
                         <Frame Grid.Column="4"
                         BorderColor="Black"
                         CornerRadius="5"
@@ -78,7 +89,7 @@
                             <Label Text="{Binding TotalPoints}" FontSize="Subtitle" />
                         </Frame>
 
-                        <!-- Last Name -->
+                        <!-- GameId -->
                         <Frame Grid.Column="5"
                         BorderColor="Black"
                         CornerRadius="5"
@@ -89,7 +100,7 @@
 
                         </Frame>
 
-                        <!-- First Name -->
+                        <!-- GameDateTime -->
                         <Frame Grid.Column="6"
                         BorderColor="Black"
                         CornerRadius="5"
@@ -99,16 +110,7 @@
                             <Label Text="{Binding GameDateTime}" FontSize="Subtitle" />
                         </Frame>
 
-                        <!-- Last Name -->
-                        <Frame Grid.Column="7"
-                        BorderColor="Black"
-                        CornerRadius="5"
-                        HasShadow="false"
-                        Margin="5"
-                        Padding="5">
-                            <Label Text="{Binding PlayerId}" FontSize="Subtitle" />
-
-                        </Frame>
+                        
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
