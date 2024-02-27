@@ -25,9 +25,9 @@ namespace GOBTrackerUI
 
         }
 
-        private void Statistics_Clicked(object sender, EventArgs e)
+        private async void Statistics_Clicked(object sender, EventArgs e)
         {
-
+            await Navigation.PushAsync(new StatsModePage());
         }
     }
 
