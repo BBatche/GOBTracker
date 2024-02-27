@@ -18,18 +18,18 @@
         <!-- First column -->
         <VerticalStackLayout Grid.Column="0" VerticalOptions="FillAndExpand">
             <HorizontalStackLayout Padding="50" Spacing="25" HorizontalOptions="CenterAndExpand">
-                <Button Text="2PT Made" HeightRequest="200" WidthRequest="200" />
-                <Button Text="2PT Miss" HeightRequest="200" WidthRequest="200" />
+                <Button Text="2PT Made" HeightRequest="200" WidthRequest="200" FontAttributes="Bold" FontSize="30"/>
+                <Button Text="2PT Miss" HeightRequest="200" WidthRequest="200" FontAttributes="Bold" FontSize="30"/>
             </HorizontalStackLayout>
 
             <HorizontalStackLayout Padding="50" Spacing="25" HorizontalOptions="CenterAndExpand">
-                <Button Text="3PT Made" HeightRequest="200" WidthRequest="200" />
-                <Button Text="3PT Miss" HeightRequest="200" WidthRequest="200" />
+                <Button Text="3PT Made" HeightRequest="200" WidthRequest="200" FontAttributes="Bold" FontSize="30"/>
+                <Button Text="3PT Miss" HeightRequest="200" WidthRequest="200" FontAttributes="Bold" FontSize="30"/>
             </HorizontalStackLayout>
 
             <HorizontalStackLayout Padding="50" Spacing="25" HorizontalOptions="CenterAndExpand">
-                <Button Text="Offensive Rebound" HeightRequest="200" WidthRequest="200" />
-                <Button Text="Assist" HeightRequest="200" WidthRequest="200" />
+                <Button Text="Off. Rebound" HeightRequest="200" WidthRequest="200" FontAttributes="Bold" FontSize="25"/>
+                <Button Text="Assist" HeightRequest="200" WidthRequest="200" FontAttributes="Bold" FontSize="30" />
             </HorizontalStackLayout>
         </VerticalStackLayout>
 
@@ -63,8 +63,10 @@
                                        CornerRadius="5"
                                        HasShadow="false"
                                        Margin="5"
-                                       Padding="5">
-                                    <Label Text="{Binding FirstName}" FontSize="Subtitle" />
+                                       Padding="5"
+                                       HeightRequest="50"
+                                       >
+                                    <Label Text="{Binding FirstName}" FontSize="Subtitle" FontAttributes="Bold"/>
                                 </Frame>
 
                                 <!-- Last Name -->
@@ -73,8 +75,9 @@
                                        CornerRadius="5"
                                        HasShadow="false"
                                        Margin="5"
-                                       Padding="5">
-                                    <Label Text="{Binding LastName}" FontSize="Subtitle" />
+                                       Padding="5"
+                                       HeightRequest="50">
+                                    <Label Text="{Binding LastName}" FontSize="Subtitle" FontAttributes="Bold"/>
                                 </Frame>
                             </Grid>
                         </DataTemplate>
@@ -86,18 +89,18 @@
         <!-- Third column -->
         <VerticalStackLayout Grid.Column="2" VerticalOptions="FillAndExpand">
             <HorizontalStackLayout Padding="50" Spacing="25" HorizontalOptions="CenterAndExpand">
-                <Button Text="Turnover" HeightRequest="200" WidthRequest="200" />
-                <Button Text="Steal" HeightRequest="200" WidthRequest="200" />
+                <Button Text="Turnover" HeightRequest="200" WidthRequest="200" FontAttributes="Bold" FontSize="30"/>
+                <Button Text="Steal" HeightRequest="200" WidthRequest="200" FontAttributes="Bold" FontSize="30"/>
             </HorizontalStackLayout>
 
             <HorizontalStackLayout Padding="50" Spacing="25" HorizontalOptions="CenterAndExpand">
-                <Button Text="Defensive Rebound" HeightRequest="200" WidthRequest="200" />
-                <Button Text="Block" HeightRequest="200" WidthRequest="200" />
+                <Button Text="Def. Rebound" HeightRequest="200" WidthRequest="200" FontAttributes="Bold" FontSize="25" />
+                <Button Text="Block" HeightRequest="200" WidthRequest="200" FontAttributes="Bold" FontSize="30"/>
             </HorizontalStackLayout>
 
             <HorizontalStackLayout Padding="50" Spacing="25" HorizontalOptions="CenterAndExpand">
-                <Button Text="Foul" HeightRequest="200" WidthRequest="200" />
-                <Button Text="Undo" HeightRequest="200" WidthRequest="200" />
+                <Button Text="Foul" HeightRequest="200" WidthRequest="200" FontAttributes="Bold" FontSize="30"/>
+                <Button Text="Undo" HeightRequest="200" WidthRequest="200" FontAttributes="Bold" FontSize="30"/>
             </HorizontalStackLayout>
         </VerticalStackLayout>
     </Grid>

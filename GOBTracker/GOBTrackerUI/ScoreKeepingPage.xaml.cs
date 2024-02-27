@@ -17,8 +17,6 @@ namespace GOBTrackerUI
             InitializeComponent();
             apiService = new ApiService();
             LoadTeams();
-
-            
         }
 
        async private void LoadTeams()
@@ -35,7 +33,6 @@ namespace GOBTrackerUI
                 //}
             });
         }
-
         
         // Event handler for when the selected team in the picker changes
         private async void TeamPicker_SelectedIndexChanged(object sender, EventArgs e)
@@ -52,10 +49,7 @@ namespace GOBTrackerUI
 
                 LoadTeamRoster(selectedTeam.Id);
                 
-            }
-
-            
-            
+            }       
         }
 
         private async void Player_SelectionChanged(object sender, EventArgs e)
@@ -76,10 +70,10 @@ namespace GOBTrackerUI
             });
         }
 
-        
-
         private void PlayerCollectionView_SelectionChanged()
-        { }
+        { 
+        
+        }
 
         // Event handler for adding a new player
         /*private async void AddPlayer_Clicked(object sender, EventArgs e)
@@ -188,6 +182,3 @@ namespace GOBTrackerUI
     }
 
 }
-    
-
-
