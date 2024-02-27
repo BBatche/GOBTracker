@@ -17,7 +17,7 @@ namespace GOBTrackerUI.APIMethods
         string teamRosterApiUrl = "https://localhost:7063/api/TeamRoster";
         string playersApiUrl = "https://localhost:7063/api/Players";
         string playerTeamsApiUrl = "https://localhost:7063/api/PlayerTeams";
-
+        string playerGameStatsApiUrl = "https://localhost:7063/api/PlayerGameStats";
 
         public ApiService()
         {
