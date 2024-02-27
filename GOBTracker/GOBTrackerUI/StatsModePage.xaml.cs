@@ -20,5 +20,6 @@ public partial class StatsModePage : ContentPage
         var stats = await apiService.GetRawStatsAsync(lastName);
 
         MainThread.BeginInvokeOnMainThread(() => { playerStatCollectionView.ItemsSource = stats; });
+
     }
 }
