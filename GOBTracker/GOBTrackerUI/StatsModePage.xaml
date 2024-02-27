@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GOBTrackerUI.StatsModePage"
+             Title="StatsModePage">
+    <VerticalStackLayout>
+        <Label 
+            Text="Welcome to .NET MAUI!"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+
+        <SearchBar Placeholder="Enter last name" Text="{Binding SearchText}" SearchButtonPressed="OnSearchButtonPressed" />
+
+
+        <!--Player Stat List-->
+        <CollectionView x:Name="playerStatCollectionView" >
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="150" />
+                        </Grid.ColumnDefinitions>
+
+                        <!-- First Name -->
+                        <Frame Grid.Column="0"
+                       BorderColor="Black"
+                       CornerRadius="5"
+                       HasShadow="false"
+                       Margin="5"
+                       Padding="5">
+                            <Label Text="{Binding FirstName}" FontSize="Subtitle" />
+                        </Frame>
+
+                        <!-- Last Name -->
+                        <Frame Grid.Column="1"
+                       BorderColor="Black"
+                       CornerRadius="5"
+                       HasShadow="false"
+                       Margin="5"
+                       Padding="5">
+                            <Label Text="{Binding LastName}" FontSize="Subtitle" />
+                        </Frame>
+                        <!-- First Name -->
+                        <Frame Grid.Column="2"
+                        BorderColor="Black"
+                        CornerRadius="5"
+                        HasShadow="false"
+                        Margin="5"
+                        Padding="5">
+                            <Label Text="{Binding Total2ptsMade}" FontSize="Subtitle" />
+                        </Frame>
+
+                        <!-- Last Name -->
+                        <Frame Grid.Column="3"
+                        BorderColor="Black"
+                        CornerRadius="5"
+                        HasShadow="false"
+                        Margin="5"
+                        Padding="5">
+                            <Label Text="{Binding Total3ptsMade}" FontSize="Subtitle" />
+                            
+                        </Frame>
+
+                        <!-- First Name -->
+                        <Frame Grid.Column="4"
+                        BorderColor="Black"
+                        CornerRadius="5"
+                        HasShadow="false"
+                        Margin="5"
+                        Padding="5">        
+                            <Label Text="{Binding TotalPoints}" FontSize="Subtitle" />
+                        </Frame>
+
+                        <!-- Last Name -->
+                        <Frame Grid.Column="5"
+                        BorderColor="Black"
+                        CornerRadius="5"
+                        HasShadow="false"
+                        Margin="5"
+                        Padding="5">
+                            <Label Text="{Binding GameId}" FontSize="Subtitle" />
+
+                        </Frame>
+
+                        <!-- First Name -->
+                        <Frame Grid.Column="6"
+                        BorderColor="Black"
+                        CornerRadius="5"
+                        HasShadow="false"
+                        Margin="5"
+                        Padding="5">            
+                            <Label Text="{Binding GameDateTime}" FontSize="Subtitle" />
+                        </Frame>
+
+                        <!-- Last Name -->
+                        <Frame Grid.Column="7"
+                        BorderColor="Black"
+                        CornerRadius="5"
+                        HasShadow="false"
+                        Margin="5"
+                        Padding="5">
+                            <Label Text="{Binding PlayerId}" FontSize="Subtitle" />
+
+                        </Frame>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+
+    </VerticalStackLayout>
+</ContentPage>
