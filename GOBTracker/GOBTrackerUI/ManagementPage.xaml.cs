@@ -3,18 +3,21 @@ using GOBTrackerUI.Models;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using Microsoft.Maui.Controls;
+
 
 namespace GOBTrackerUI
 {
     public partial class ManagementPage : ContentPage
     {
+        public Team selectedTeam;
         public ApiService apiService;
         public ManagementPage()
         {
             InitializeComponent();
             apiService = new ApiService();
             LoadTeams();
-            
+
             
         }
 
@@ -44,11 +47,15 @@ namespace GOBTrackerUI
             {
                 var selectedTeamName = picker.SelectedItem as String;
                 var teams = await apiService.GetTeamsAsync();
-                Team selectedTeam = teams.FirstOrDefault(team => team.TeamName == selectedTeamName);
+                selectedTeam = teams.FirstOrDefault(team => team.TeamName == selectedTeamName);
                 //load the players for the team
 
                 LoadTeamRoster(selectedTeam.Id);
+                AddPlayerButton.IsEnabled = true;
             }
+
+            
+            
         }
 
         private async void Player_SelectionChanged(object sender, EventArgs e)
@@ -75,9 +82,95 @@ namespace GOBTrackerUI
         { }
 
         // Event handler for adding a new player
-        private void AddPlayer_Clicked(object sender, EventArgs e)
+        private async void AddPlayer_Clicked(object sender, EventArgs e)
         {
-            // Implement your logic for adding a new player
+            var firstNameEntry = new Entry { Placeholder = "First Name" };
+            var lastNameEntry = new Entry { Placeholder = "Last Name" };
+
+            var saveButton = new Button { Text = "Save" };
+            saveButton.Clicked += async (s, args) =>
+            {
+                string firstName = firstNameEntry.Text;
+                string lastName = lastNameEntry.Text;
+
+                // Check if both fields are filled
+                if (!string.IsNullOrWhiteSpace(firstName) && !string.IsNullOrWhiteSpace(lastName))
+                {
+                    // Proceed with adding the player
+                    Player newPlayer = new Player { FirstName=firstName, LastName=lastName };
+                    string playerName = $"{firstName} {lastName}";
+                    // Call the AddPlayerAsync method to attempt to add the customer
+                    bool success = await apiService.AddPlayerAsync(newPlayer);
+
+                    // Check if adding the plyaer was successful
+                    if (success)
+                    {
+                        // Player added successfully, you can show a message or perform any other action here
+                        Debug.WriteLine("Player added successfully");
+                        
+                        
+
+                        //Assign Player to current team
+                        //get the player you just added
+                        var players = await apiService.GetPlayersAsync();
+                        Player addedPlayer = players.FirstOrDefault( player => player.FirstName == firstNameEntry.Text );
+                        //players = players.Where(x => x.LastName.Trim() == lastName ).ToList();
+                        //Player addedPlayer = players[0];
+
+                        //Grab the selected team
+                        
+                        PlayerTeam newPlayerTeam = new PlayerTeam { PlayerId = addedPlayer.Id, TeamId = selectedTeam.Id };
+
+                        bool success2 = await apiService.AddPlayerTeamAsync(newPlayerTeam);
+
+                        if (success2)
+                        {
+                            Debug.WriteLine("PlayerTeam added successfully");
+                            await DisplayAlert("Player Added", $"Player '{playerName}' added successfully!", "OK");
+                        }
+                        else
+                        {
+                            Debug.WriteLine("Failed to add PlayerTeam");
+                        }
+
+
+                        
+                    }
+                    else
+                    {
+                        // Failed to add player
+                        Debug.WriteLine("Failed to add player");
+                    }
+                    
+
+                    // Dismiss the popup
+                    await Navigation.PopModalAsync();
+                    LoadTeams();
+                }
+                else
+                {
+                    // Display an alert if any field is empty
+                    await DisplayAlert("Error", "Please fill in both first name and last name.", "OK");
+                }
+            };
+
+            var stackLayout = new StackLayout
+            {
+                Children =
+                {
+                    new Label { Text = "Enter Player Details" },
+                    firstNameEntry,
+                    lastNameEntry,
+                    saveButton
+                }
+            };
+
+            var contentPage = new ContentPage
+            {
+                Content = stackLayout
+            };
+
+            await Navigation.PushModalAsync(contentPage);
         }
 
         // Event handler for editing an existing player
