@@ -1,24 +1,33 @@
-﻿namespace GOBTrackerUI
+﻿using System.Runtime.Loader;
+
+namespace GOBTrackerUI
 {
     public partial class MainPage : ContentPage
     {
-        int count = 0;
 
         public MainPage()
         {
             InitializeComponent();
         }
 
-        private void OnCounterClicked(object sender, EventArgs e)
+        private async void Management_Clicked(object sender, EventArgs e)
         {
-            count++;
+            await Navigation.PushAsync(new ManagementPage());
+        }
 
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
-            else
-                CounterBtn.Text = $"Clicked {count} times";
+        private void ScoreKeeping_Clicked(object sender, EventArgs e)
+        {
 
-            SemanticScreenReader.Announce(CounterBtn.Text);
+        }
+
+        private void GameView_Clicked(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Statistics_Clicked(object sender, EventArgs e)
+        {
+
         }
     }
 
