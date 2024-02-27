@@ -57,12 +57,18 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="ScoreKeepingPage.xaml.cs">
+	    <DependentUpon>ScoreKeepingPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="ManagementPage.xaml.cs">
 	    <DependentUpon>ManagementPage.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="ScoreKeepingPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="ManagementPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

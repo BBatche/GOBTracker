@@ -15,9 +15,9 @@ namespace GOBTrackerUI
             await Navigation.PushAsync(new ManagementPage());
         }
 
-        private void ScoreKeeping_Clicked(object sender, EventArgs e)
+        private async void ScoreKeeping_Clicked(object sender, EventArgs e)
         {
-
+            await Navigation.PushAsync(new ScoreKeepingPage());
         }
 
         private void GameView_Clicked(object sender, EventArgs e)

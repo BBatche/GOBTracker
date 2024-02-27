@@ -13,11 +13,16 @@ namespace GOBTrackerUI.APIMethods
     public class ApiService
     {
         private readonly HttpClient _httpClient;
-        string teamsApiUrl = "https://localhost:7063/api/Teams";
-        string teamRosterApiUrl = "https://localhost:7063/api/TeamRoster";
-        string playersApiUrl = "https://localhost:7063/api/Players";
-        string playerTeamsApiUrl = "https://localhost:7063/api/PlayerTeams";
-        string playerGameStatsApiUrl = "https://localhost:7063/api/PlayerGameStats";
+        //string teamsApiUrl = "https://localhost:7063/api/Teams";
+        //string teamRosterApiUrl = "https://localhost:7063/api/TeamRoster";
+        //string playersApiUrl = "https://localhost:7063/api/Players";
+        //string playerTeamsApiUrl = "https://localhost:7063/api/PlayerTeams";
+        //string playerGameStatsApiUrl = "https://localhost:7063/api/PlayerGameStats";
+        string teamsApiUrl = "http://localhost:5123/api/Teams";
+        string teamRosterApiUrl = "http://localhost:5123/api/TeamRoster";
+        string playersApiUrl = "http://localhost:5123/api/Players";
+        string playerTeamsApiUrl = "http://localhost:5123/api/PlayerTeams";
+        string playerGameStatsApiUrl = "http://localhost:5123/api/PlayerGameStats";
 
         public ApiService()
         {
