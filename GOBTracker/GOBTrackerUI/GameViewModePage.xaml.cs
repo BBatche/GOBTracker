@@ -7,7 +7,7 @@ namespace GOBTrackerUI;
 public partial class GameViewModePage : ContentPage
 {
 
-    public Game selectedGame;
+    public int selectedGameId;
     public ApiService apiService;
 
     public GameViewModePage()
@@ -23,8 +23,9 @@ public partial class GameViewModePage : ContentPage
 
         MainThread.BeginInvokeOnMainThread(() =>
         {
-
-            gamePicker.ItemsSource = games.Select(game => game.GameDateTime).ToList();
+            gamePicker.ItemsSource = games.Select(game => game.Id).ToList();
+            
+            
             //foreach (var team in teams)
             //{
             //    teamPicker.Items.Add(team.TeamName);
@@ -39,16 +40,18 @@ public partial class GameViewModePage : ContentPage
 
         if (selectedIndex != -1)
         {
-            var selectedGameName = picker.SelectedItem as String;
+            //var selectedGameName = picker.SelectedItem as String;
+
+            selectedGameId = (int)picker.SelectedItem;
 
             //call api method
-            var homePlayerStatsRawInGame = await apiService.GetHomeRawTeamStatsFromGameAsync(selectedGameName);
-            var awayPlayerStatsRawInGame = await apiService.GetAwayRawTeamStatsFromGameAsync(selectedGameName);
+            var homePlayerStatsRawInGame = await apiService.GetHomeRawTeamStatsFromGameAsync(selectedGameId);
+            var awayPlayerStatsRawInGame = await apiService.GetAwayRawTeamStatsFromGameAsync(selectedGameId);
 
 
 
             MainThread.BeginInvokeOnMainThread(() => { Team1StatCollectionView.ItemsSource = homePlayerStatsRawInGame; });
-            //MainThread.BeginInvokeOnMainThread(() => { Team2StatCollectionView.ItemsSource = awayPlayerStatsRawInGame; });
+            MainThread.BeginInvokeOnMainThread(() => { Team2StatCollectionView.ItemsSource = awayPlayerStatsRawInGame; });
 
 
 

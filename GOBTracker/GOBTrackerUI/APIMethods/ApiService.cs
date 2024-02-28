@@ -19,15 +19,16 @@ namespace GOBTrackerUI.APIMethods
         string playersApiUrl = "https://localhost:7063/api/Players";
         string playerTeamsApiUrl = "https://localhost:7063/api/PlayerTeams";
         string playerGameStatsApiUrl = "https://localhost:7063/api/PlayerGameStats";
+        string HomeTeamGameStatsApiUrl = "https://localhost:7063/api/OurTeamGameStats";
+        string AwayTeamGameStatsApiUrl = "https://localhost:7063/api/OpponentTeamGameStats";
+
         //string teamsApiUrl = "http://localhost:5123/api/Teams";
         //string teamRosterApiUrl = "http://localhost:5123/api/TeamRoster";
         //string playersApiUrl = "http://localhost:5123/api/Players";
         //string playerTeamsApiUrl = "http://localhost:5123/api/PlayerTeams";
         //string playerGameStatsApiUrl = "http://localhost:5123/api/PlayerGameStats";
 
-        string HomeTeamGameStatsApiUrl = "https://localhost:7063/api/HomeTeamGameStats";
-        string AwayTeamGameStatsApiUrl = "https://localhost:7063/api/AwayTeamGameStats";
-
+       
 
         public ApiService()
         {
@@ -271,53 +272,11 @@ namespace GOBTrackerUI.APIMethods
         }
 
 
-        /*async public Task<List<PlayerGameStat>> GetGameStatsAsync(String selectedGame)  ///////finish this
-        {
-            string apiUrl = playerGameStatsApiUrl;
-
-            List<PlayerGameStat> rawStatsFirstTeam = null;
-            List<PlayerGameStat> rawStatsSecondTeam = null;
-
-
-            using (HttpClient client = new HttpClient())
-            {
-                try
-                {
-                    HttpResponseMessage response = await client.GetAsync(apiUrl);
-
-                    if (response.IsSuccessStatusCode)
-                    {
-                        string jsonString = await response.Content.ReadAsStringAsync();
-
-                        rawStatsFirstTeam = JsonConvert.DeserializeObject<List<PlayerGameStat>>(jsonString);
-                        rawStatsSecondTeam = JsonConvert.DeserializeObject<List<PlayerGameStat>>(jsonString);
-
-
-                        rawStatsFirstTeam = rawStatsFirstTeam.Where(x => x.GameDateTime.Equals(selectedGame)).ToList(); //add 2nd condition
-                        rawStatsSecondTeam = rawStatsSecondTeam.Where(x => x.GameDateTime.Equals(selectedGame)).ToList(); //add 2nd condition
-
-                    }
-                    else
-                    {
-                        Debug.WriteLine("API request failed with status code: " + response.StatusCode);
-                        return null;
-
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine("Error: " + ex.Message);
-                    return null;
-                }
-            }
-            return rawStats;
-        }
-        */
 
 
         async public Task<List<Game>> GetGamesAsync()
         {
-            string apiUrl = playerGameStatsApiUrl;
+            string apiUrl = gamesApiUrl;
 
             List<Game> games = null;
 
@@ -350,73 +309,14 @@ namespace GOBTrackerUI.APIMethods
         }
 
 
-        /*async public Task<List<List<PlayerGameStat>>> GetSeperateTeamStatsFromGameAsync(String thisGame)
-        {
-            string apiUrl = teamsApiUrl;
-
-            string tempApiUrl = gamesApiUrl;
 
 
-            List<PlayerGameStat> rawStatsFirstTeam = null;
-            List<PlayerGameStat> rawStatsSecondTeam = null;
-
-            List<Game> totalGames = null
-            List<Team> bothTeams = null;
-            
-            //List<PlayerGameStat> rawStatsSecondTeam = null;
-
-            using (HttpClient client = new HttpClient())
-            {
-                try
-                {
-                    HttpResponseMessage response = await client.GetAsync(apiUrl);
-                    HttpResponseMessage tempResponse = await client.GetAsync(tempApiUrl);
-
-                    //totalGames
-
-
-                    if (response.IsSuccessStatusCode)
-                    {
-                        string jsonString = await response.Content.ReadAsStringAsync();
-
-                        rawStatsFirstTeam = JsonConvert.DeserializeObject<List<PlayerGameStat>>(jsonString);
-                        rawStatsSecondTeam = JsonConvert.DeserializeObject<List<PlayerGameStat>>(jsonString);
-
-
-                        rawStatsFirstTeam = rawStatsFirstTeam.Where(x => x.GameDateTime.Equals(thisGame)).ToList(); 
-                        //rawStatsFirstTeam = rawStatsFirstTeam.Where(x => x..Equals(thisGame)).ToList(); //add conditition 4 team1 only
-
-
-                        rawStatsSecondTeam = rawStatsSecondTeam.Where(x => x.GameDateTime.Equals(thisGame)).ToList();
-                        //rawStatsSecondTeam = rawStatsSecondTeam.Where(x => x.GameDateTime.Equals(thisGame)).ToList(); //add condition 4 team2 only
-
-                    }
-                    else
-                    {
-                        Debug.WriteLine("API request failed with status code: " + response.StatusCode);
-                        return null;
-
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine("Error: " + ex.Message);
-                    return null;
-                }
-            }
-            return teams;
-        }
-        
-        */
-
-
-        async public Task<List<OurTeamGameStat>> GetHomeRawTeamStatsFromGameAsync(String gameSearch)
+        async public Task<List<OurTeamGameStat>> GetHomeRawTeamStatsFromGameAsync(int gameId)
         {
             string apiUrl = HomeTeamGameStatsApiUrl;
-            //string apiUrl2 = AwayTeamGameStatsApiUrl;
 
 
-            //List<HomeTeamGameStats> rawStatsHome = null;
+        
             List<OurTeamGameStat> rawStatsHome = null;
 
 
@@ -424,18 +324,18 @@ namespace GOBTrackerUI.APIMethods
             {
                 try
                 {
-                    HttpResponseMessage response = await client.GetAsync(apiUrl);
+                    string urlWithId = $"{apiUrl}/{gameId}";
+                    HttpResponseMessage response = await client.GetAsync(urlWithId);
+                    
 
                     if (response.IsSuccessStatusCode)
                     {
                         string jsonString = await response.Content.ReadAsStringAsync();
 
                         rawStatsHome = JsonConvert.DeserializeObject<List<OurTeamGameStat>>(jsonString);
-                        //rawStatsAway = JsonConvert.DeserializeObject<List<AwayTeamGameStats>>(jsonString);
 
 
-                        rawStatsHome = rawStatsHome.Where(x => x.GameDateTime.Equals(gameSearch)).ToList();
-                        //rawStatsAway = rawStatsAway.Where(x => x.GameDateTime.Equals(gameSearch)).ToList();
+                        rawStatsHome = rawStatsHome.Where(x => x.GameId == gameId).ToList();
 
                     }
                     else
@@ -454,13 +354,11 @@ namespace GOBTrackerUI.APIMethods
             return rawStatsHome;
         }
 
-        async public Task<List<OpponentTeamGameStat>> GetAwayRawTeamStatsFromGameAsync(String gameSearch)
+        async public Task<List<OpponentTeamGameStat>> GetAwayRawTeamStatsFromGameAsync(int gameId)
         {
             string apiUrl = AwayTeamGameStatsApiUrl;
-            //string apiUrl2 = AwayTeamGameStatsApiUrl;
+            
 
-
-            //List<HomeTeamGameStats> rawStatsHome = null;
             List<OpponentTeamGameStat> rawStatsAway = null;
 
 
@@ -468,18 +366,19 @@ namespace GOBTrackerUI.APIMethods
             {
                 try
                 {
-                    HttpResponseMessage response = await client.GetAsync(apiUrl);
+                    string urlWithId = $"{apiUrl}/{gameId}";
+                    HttpResponseMessage response = await client.GetAsync(urlWithId);
 
                     if (response.IsSuccessStatusCode)
                     {
                         string jsonString = await response.Content.ReadAsStringAsync();
 
                         rawStatsAway = JsonConvert.DeserializeObject<List<OpponentTeamGameStat>>(jsonString);
-                        //rawStatsAway = JsonConvert.DeserializeObject<List<AwayTeamGameStats>>(jsonString);
+                        
 
 
-                        rawStatsAway = rawStatsAway.Where(x => x.GameDateTime.Equals(gameSearch)).ToList();
-                        //rawStatsAway = rawStatsAway.Where(x => x.GameDateTime.Equals(gameSearch)).ToList();
+                        rawStatsAway = rawStatsAway.Where(x => x.GameId == gameId).ToList();
+                        
 
                     }
                     else

@@ -11,8 +11,8 @@
         <!-- Team Picker -->
         <Picker x:Name="gamePicker"
          Title="Select Game"
-         ItemsSource="{Binding GameDateTime}"
-         FontSize="30"
+         ItemsSource="{Binding Game}"
+         FontSize="10"
          FontAttributes="Bold"
          SelectedIndexChanged="gamePicker_SelectedIndexChanged">
         </Picker>
