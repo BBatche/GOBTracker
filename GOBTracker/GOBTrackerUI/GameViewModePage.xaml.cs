@@ -10,6 +10,9 @@ public partial class GameViewModePage : ContentPage
     public int selectedGameId;
     public ApiService apiService;
 
+    //public var homePlayerStatsRawInGame;
+    //public var awayPlayerStatsRawInGame;
+
     public GameViewModePage()
 	{
 		InitializeComponent();
@@ -18,6 +21,8 @@ public partial class GameViewModePage : ContentPage
 
         Team1StatLabel.IsVisible = false;
         Team2StatLabel.IsVisible = false;
+
+
 
     }
 
@@ -46,26 +51,73 @@ public partial class GameViewModePage : ContentPage
 
         if (selectedIndex != -1)
         {
-            //var selectedGameName = picker.SelectedItem as String;
 
             selectedGameId = (int)picker.SelectedItem;
 
-            //call api method
-            var homePlayerStatsRawInGame = await apiService.GetHomeRawTeamStatsFromGameAsync(selectedGameId);
-            var awayPlayerStatsRawInGame = await apiService.GetAwayRawTeamStatsFromGameAsync(selectedGameId);
 
+            await UpdateData();
 
+            // Start a timer to refresh data every, for example, 30 seconds
+            Device.StartTimer(TimeSpan.FromSeconds(10), () =>
+            {
+                // Update data periodically
+                MainThread.BeginInvokeOnMainThread(async () =>
+                {
+                    await UpdateData();
+                });
 
-            MainThread.BeginInvokeOnMainThread(() => { Team1StatCollectionView.ItemsSource = homePlayerStatsRawInGame; });
-
-            Team1StatLabel.IsVisible = true;
-            Team2StatLabel.IsVisible = true;
-
-            MainThread.BeginInvokeOnMainThread(() => { Team2StatCollectionView.ItemsSource = awayPlayerStatsRawInGame; });
-
-
+                // Continue the timer
+                return true;
+            });
 
 
         }
+    }
+
+
+
+    private async Task UpdateData()
+    {
+        //call api method
+        var homePlayerStatsRawInGame = await apiService.GetHomeRawTeamStatsFromGameAsync(selectedGameId);
+        var awayPlayerStatsRawInGame = await apiService.GetAwayRawTeamStatsFromGameAsync(selectedGameId);
+
+
+        bool view1Status = Team1StatCollectionView.IsEnabled;
+        bool view2Status = Team2StatCollectionView.IsEnabled;
+
+
+        MainThread.BeginInvokeOnMainThread(() => { Team1StatCollectionView.ItemsSource = homePlayerStatsRawInGame; });
+        MainThread.BeginInvokeOnMainThread(() => { Team2StatCollectionView.ItemsSource = awayPlayerStatsRawInGame; });
+
+        Team1StatCollectionView.IsEnabled = view1Status;
+        Team2StatCollectionView.IsEnabled = view2Status;
+
+
+    }
+
+    private void ToggleTeam1StatsVisibility_Clicked(object sender, EventArgs e)
+    {
+        Team2StatButton.IsEnabled = true;
+        Team1StatButton.IsEnabled = false;
+
+        Team1StatLabel.IsVisible = true;
+
+        Team1StatCollectionView.IsEnabled = true;
+        Team2StatCollectionView.IsEnabled = false;
+
+
+    }
+
+    private void ToggleTeam2StatsVisibility_Clicked(object sender, EventArgs e)
+    {
+        Team2StatButton.IsEnabled = false;
+        Team1StatButton.IsEnabled = true;
+
+        Team2StatLabel.IsVisible = true;
+
+        Team1StatCollectionView.IsEnabled = false;
+        Team2StatCollectionView.IsEnabled = true;
+
     }
 }
