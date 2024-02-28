@@ -13,16 +13,16 @@ namespace GOBTrackerUI.APIMethods
     public class ApiService
     {
         private readonly HttpClient _httpClient;
-        //string teamsApiUrl = "https://localhost:7063/api/Teams";
-        //string teamRosterApiUrl = "https://localhost:7063/api/TeamRoster";
-        //string playersApiUrl = "https://localhost:7063/api/Players";
-        //string playerTeamsApiUrl = "https://localhost:7063/api/PlayerTeams";
-        //string playerGameStatsApiUrl = "https://localhost:7063/api/PlayerGameStats";
-        string teamsApiUrl = "http://localhost:5123/api/Teams";
-        string teamRosterApiUrl = "http://localhost:5123/api/TeamRoster";
-        string playersApiUrl = "http://localhost:5123/api/Players";
-        string playerTeamsApiUrl = "http://localhost:5123/api/PlayerTeams";
-        string playerGameStatsApiUrl = "http://localhost:5123/api/PlayerGameStats";
+        string teamsApiUrl = "https://localhost:7063/api/Teams";
+        string teamRosterApiUrl = "https://localhost:7063/api/TeamRoster";
+        string playersApiUrl = "https://localhost:7063/api/Players";
+        string playerTeamsApiUrl = "https://localhost:7063/api/PlayerTeams";
+        string playerGameStatsApiUrl = "https://localhost:7063/api/PlayerGameStats";
+        //string teamsApiUrl = "http://localhost:5123/api/Teams";
+        //string teamRosterApiUrl = "http://localhost:5123/api/TeamRoster";
+        //string playersApiUrl = "http://localhost:5123/api/Players";
+        //string playerTeamsApiUrl = "http://localhost:5123/api/PlayerTeams";
+        //string playerGameStatsApiUrl = "http://localhost:5123/api/PlayerGameStats";
 
         public ApiService()
         {
@@ -103,8 +103,8 @@ namespace GOBTrackerUI.APIMethods
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    string jsonCustomer = JsonConvert.SerializeObject(player);
-                    HttpContent content = new StringContent(jsonCustomer, Encoding.UTF8, "application/json");
+                    string jsonPlayer = JsonConvert.SerializeObject(player);
+                    HttpContent content = new StringContent(jsonPlayer, Encoding.UTF8, "application/json");
 
                     HttpResponseMessage response = await client.PostAsync(apiUrl, content);
 
@@ -126,6 +126,45 @@ namespace GOBTrackerUI.APIMethods
                 return false;
             }
         }
+
+        async public Task<bool> EditPlayerByIdAsync(int playerId, Player updatedPlayer)
+        {
+            string apiUrl = playersApiUrl;
+
+            try
+            {
+                string urlWithId = $"{apiUrl}/{playerId}";
+
+                using (HttpClient client = new HttpClient())
+                {
+                    string jsonPlayer = JsonConvert.SerializeObject(updatedPlayer);
+                    HttpContent content = new StringContent(jsonPlayer, Encoding.UTF8, "application/json");
+                    HttpResponseMessage response = await client.PutAsync(urlWithId, content);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        Debug.WriteLine("Player edited successfully");
+                        return true;
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Failed to edit player. Status code: " + response.StatusCode);
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Error: " + ex.Message);
+                return false;
+            }
+        }
+
+
+
+
+
+
 
         async public Task<List<TeamRoster>> GetTeamRosterByIdAsync(int teamId)
         {

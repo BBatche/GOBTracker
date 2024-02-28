@@ -11,6 +11,7 @@ namespace GOBTrackerUI
     public partial class ManagementPage : ContentPage
     {
         public Team selectedTeam;
+        public Player selectedPlayer;
         public ApiService apiService;
         public ManagementPage()
         {
@@ -40,6 +41,9 @@ namespace GOBTrackerUI
         // Event handler for when the selected team in the picker changes
         private async void TeamPicker_SelectedIndexChanged(object sender, EventArgs e)
         {
+
+            
+
             var picker = (Picker)sender;
             int selectedIndex = picker.SelectedIndex;
             
@@ -51,7 +55,12 @@ namespace GOBTrackerUI
                 //load the players for the team
 
                 LoadTeamRoster(selectedTeam.Id);
+                rosterCollectionView.IsVisible = true;
                 AddPlayerButton.IsEnabled = true;
+                EditTeamButton.IsEnabled = true;
+                DeleteTeamButton.IsEnabled = true;
+                EditPlayerButton.IsEnabled = false;
+                DeletePlayerButton.IsEnabled = false;
             }
 
             
@@ -60,9 +69,12 @@ namespace GOBTrackerUI
 
         private async void Player_SelectionChanged(object sender, EventArgs e)
         {
-            TeamRoster selectedPlayer = (TeamRoster)rosterCollectionView.SelectedItem;
-           
-            Console.WriteLine(selectedPlayer.ToString());
+            TeamRoster selectedRoster = (TeamRoster)rosterCollectionView.SelectedItem;
+            var players = await apiService.GetPlayersAsync();
+            selectedPlayer = players.FirstOrDefault(player => player.LastName == selectedRoster.LastName);
+            Debug.WriteLine(selectedPlayer.FirstName.ToString() + " selected");
+            EditPlayerButton.IsEnabled = true;
+            DeletePlayerButton.IsEnabled = true;
 
         }
 
@@ -145,7 +157,7 @@ namespace GOBTrackerUI
 
                     // Dismiss the popup
                     await Navigation.PopModalAsync();
-                    LoadTeams();
+                    LoadTeamRoster(selectedTeam.Id);
                 }
                 else
                 {
@@ -173,11 +185,90 @@ namespace GOBTrackerUI
             await Navigation.PushModalAsync(contentPage);
         }
 
-        // Event handler for editing an existing player
-        private void EditPlayer_Clicked(object sender, EventArgs e)
+
+
+        private void AddTeam_Clicked(object sender, EventArgs e)
         {
-            // Implement your logic for editing an existing player
+            
         }
+
+        private void EditTeam_Clicked(object sender, EventArgs e)
+        {
+            
+        }
+        private void DeleteTeam_Clicked(object sender, EventArgs e)
+        {
+            
+        }
+
+        // Event handler for editing an existing player
+        private async void EditPlayer_Clicked(object sender, EventArgs e)
+        {
+            rosterCollectionView.IsVisible = false;
+            var firstNameEntry = new Entry { Placeholder = selectedPlayer.FirstName.ToString() };
+            var lastNameEntry = new Entry { Placeholder = selectedPlayer.LastName.ToString() };
+
+            var saveButton = new Button { Text = "Save" };
+            saveButton.Clicked += async (s, args) =>
+            {
+                string firstName = firstNameEntry.Text;
+                string lastName = lastNameEntry.Text;
+
+                // Check if both fields are filled
+                if (!string.IsNullOrWhiteSpace(firstName) && !string.IsNullOrWhiteSpace(lastName))
+                {
+                    // Proceed with adding the player
+                    Player editedPlayer = new Player {Id = selectedPlayer.Id, FirstName = firstName, LastName = lastName };
+                    string playerName = $"{firstName} {lastName}";
+                    // Call the AddPlayerAsync method to attempt to add the customer
+                    bool success = await apiService.EditPlayerByIdAsync(selectedPlayer.Id, editedPlayer);
+
+                    // Check if adding the plyaer was successful
+                    if (success)
+                    {
+                        // Player added successfully, you can show a message or perform any other action here
+                        Debug.WriteLine("Player edited successfully");
+
+
+                    }
+                    else
+                    {
+                        // Failed to add player
+                        Debug.WriteLine("Failed to edit player");
+                    }
+
+
+                    // Dismiss the popup
+                    await Navigation.PopModalAsync();
+                    LoadTeams();
+                }
+                else
+                {
+                    // Display an alert if any field is empty
+                    await DisplayAlert("Error", "Please fill in both first name and last name.", "OK");
+                }
+            };
+
+            var stackLayout = new StackLayout
+            {
+                Children =
+                {
+                    new Label { Text = "Enter Player Details" },
+                    firstNameEntry,
+                    lastNameEntry,
+                    saveButton
+                }
+            };
+
+            var contentPage = new ContentPage
+            {
+                Content = stackLayout
+            };
+
+            await Navigation.PushModalAsync(contentPage);
+            LoadTeamRoster(selectedTeam.Id);
+        }
+    
 
         // Event handler for deleting a player
         private void DeletePlayer_Clicked(object sender, EventArgs e)

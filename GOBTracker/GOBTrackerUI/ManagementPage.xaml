@@ -22,23 +22,41 @@
     </ContentPage.Resources>
     <StackLayout Padding="20">
 
-        <!-- Header -->
-        <Label Text="Players" FontSize="Large" HorizontalOptions="Center" Margin="0,20,0,10" />
+        <HorizontalStackLayout>
+            <!-- Header -->
+            <Label Text="Team Management" FontSize="Large" HorizontalOptions="Start" Margin="10,10,10,10" />
+
+            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Spacing="20" Margin="0,20,0,0">
+                <Button x:Name="AddTeamButton" Text="Add Team" Clicked="AddTeam_Clicked" />
+                <Button x:Name="EditTeamButton" Text="Edit Team Name" Clicked="EditTeam_Clicked" IsEnabled="False" />
+                <Button x:Name="DeleteTeamButton" Text="Delete Team" Clicked="DeleteTeam_Clicked" IsEnabled="False" />
+            </StackLayout>
+
+
+
+        </HorizontalStackLayout>
+
+        <BoxView BackgroundColor="Black" Margin="10,10,10,10" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
 
         <!-- Team Picker -->
         <Picker x:Name="teamPicker"
-                Title="Select Team"
-                ItemsSource="{Binding TeamName}"
-                FontSize="30"
-                FontAttributes="Bold"
-                SelectedIndexChanged="TeamPicker_SelectedIndexChanged">
-            
+                    Title="Select Team"
+                    ItemsSource="{Binding TeamName}"
+                    FontSize="30"
+                    Margin="0,20,50,10"
+                    FontAttributes="Bold"
+                    SelectedIndexChanged="TeamPicker_SelectedIndexChanged">
+
 
         </Picker>
         
         
-<!--Player LIst-->
-        <CollectionView x:Name="rosterCollectionView" SelectionChanged="Player_SelectionChanged" SelectionMode="Single">
+
+        <!-- Header -->
+        <Label Text="Players" FontSize="Large" HorizontalOptions="CenterAndExpand"  />
+
+        <!--Player LIst-->
+        <CollectionView x:Name="rosterCollectionView" HorizontalOptions="CenterAndExpand" SelectionChanged="Player_SelectionChanged" IsVisible="False" SelectionMode="Single">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -72,30 +90,13 @@
         </CollectionView>
 
 
-        <!-- Player List -->
-        <CollectionView x:Name="playerCollectionView"
-                        SelectionMode="Single"
-                        ItemSizingStrategy="MeasureAllItems"
-                        ItemsSource="{Binding Players}">
-            <!--SelectionChanged="PlayerCollectionView_SelectionChanged">-->
-
-            <!-- Define ItemTemplate -->
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <StackLayout Padding="10" BackgroundColor="{Binding IsActive, Converter={StaticResource IsActiveToColorConverter}}">
-                        <Label Text="{Binding Name}" FontSize="Medium"/>
-                        <!-- Add more player details as needed -->
-                    </StackLayout>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-
-        </CollectionView>
+        
 
         <!-- CRUD Operations Buttons -->
         <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Spacing="20" Margin="0,20,0,0">
             <Button x:Name="AddPlayerButton" Text="Add Player" Clicked="AddPlayer_Clicked" IsEnabled="False"/>
-            <Button Text="Edit Player" Clicked="EditPlayer_Clicked" IsEnabled="{Binding IsPlayerSelected}" />
-            <Button Text="Delete Player" Clicked="DeletePlayer_Clicked" IsEnabled="{Binding IsPlayerSelected}" />
+            <Button x:Name="EditPlayerButton" Text="Edit Player" Clicked="EditPlayer_Clicked" IsEnabled="False" />
+            <Button x:Name="DeletePlayerButton" Text="Delete Player" Clicked="DeletePlayer_Clicked" IsEnabled="False" />
         </StackLayout>
 
     </StackLayout>
