@@ -11,4 +11,5 @@ public partial class StatType
 
     public string StatNameAbr { get; set; } = null!;
 
+    public virtual ICollection<Stat> Stats { get; set; } = new List<Stat>();
 }

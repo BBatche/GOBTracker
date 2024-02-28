@@ -11,5 +11,5 @@ public partial class Player
 
     public string LastName { get; set; } = null!;
 
-
+    public virtual ICollection<PlayerTeam> PlayerTeams { get; set; } = new List<PlayerTeam>();
 }
