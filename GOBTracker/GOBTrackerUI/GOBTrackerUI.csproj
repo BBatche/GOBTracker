@@ -67,6 +67,8 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="ManagementPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="GameViewModePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
