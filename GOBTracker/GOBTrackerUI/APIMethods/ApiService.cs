@@ -20,6 +20,10 @@ namespace GOBTrackerUI.APIMethods
         string playerTeamsApiUrl = "https://localhost:7063/api/PlayerTeams";
         string playerGameStatsApiUrl = "https://localhost:7063/api/PlayerGameStats";
 
+        string HomeTeamGameStatsApiUrl = "https://localhost:7063/api/HomeTeamGameStats";
+        string AwayTeamGameStatsApiUrl = "https://localhost:7063/api/AwayTeamGameStats";
+
+
         public ApiService()
         {
             _httpClient = new HttpClient();
@@ -223,10 +227,13 @@ namespace GOBTrackerUI.APIMethods
         }
 
 
-        async public Task<List<PlayerGameStat>> GetGameStatsAsync(String selectedGame)  ///////finish this
+        /*async public Task<List<PlayerGameStat>> GetGameStatsAsync(String selectedGame)  ///////finish this
         {
             string apiUrl = playerGameStatsApiUrl;
-            List<PlayerGameStat> rawStats = null;
+
+            List<PlayerGameStat> rawStatsFirstTeam = null;
+            List<PlayerGameStat> rawStatsSecondTeam = null;
+
 
             using (HttpClient client = new HttpClient())
             {
@@ -237,9 +244,13 @@ namespace GOBTrackerUI.APIMethods
                     if (response.IsSuccessStatusCode)
                     {
                         string jsonString = await response.Content.ReadAsStringAsync();
-                        rawStats = JsonConvert.DeserializeObject<List<PlayerGameStat>>(jsonString);
 
-                        rawStats = rawStats.Where(x => x.GameDateTime.Equals(selectedGame)).ToList();
+                        rawStatsFirstTeam = JsonConvert.DeserializeObject<List<PlayerGameStat>>(jsonString);
+                        rawStatsSecondTeam = JsonConvert.DeserializeObject<List<PlayerGameStat>>(jsonString);
+
+
+                        rawStatsFirstTeam = rawStatsFirstTeam.Where(x => x.GameDateTime.Equals(selectedGame)).ToList(); //add 2nd condition
+                        rawStatsSecondTeam = rawStatsSecondTeam.Where(x => x.GameDateTime.Equals(selectedGame)).ToList(); //add 2nd condition
 
                     }
                     else
@@ -257,12 +268,15 @@ namespace GOBTrackerUI.APIMethods
             }
             return rawStats;
         }
+        */
 
 
         async public Task<List<Game>> GetGamesAsync()
         {
-            string apiUrl = gamesApiUrl;
+            string apiUrl = playerGameStatsApiUrl;
+
             List<Game> games = null;
+
             using (HttpClient client = new HttpClient())
             {
                 try
@@ -290,6 +304,156 @@ namespace GOBTrackerUI.APIMethods
             }
             return games;
         }
+
+
+        /*async public Task<List<List<PlayerGameStat>>> GetSeperateTeamStatsFromGameAsync(String thisGame)
+        {
+            string apiUrl = teamsApiUrl;
+
+            string tempApiUrl = gamesApiUrl;
+
+
+            List<PlayerGameStat> rawStatsFirstTeam = null;
+            List<PlayerGameStat> rawStatsSecondTeam = null;
+
+            List<Game> totalGames = null
+            List<Team> bothTeams = null;
+            
+            //List<PlayerGameStat> rawStatsSecondTeam = null;
+
+            using (HttpClient client = new HttpClient())
+            {
+                try
+                {
+                    HttpResponseMessage response = await client.GetAsync(apiUrl);
+                    HttpResponseMessage tempResponse = await client.GetAsync(tempApiUrl);
+
+                    //totalGames
+
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string jsonString = await response.Content.ReadAsStringAsync();
+
+                        rawStatsFirstTeam = JsonConvert.DeserializeObject<List<PlayerGameStat>>(jsonString);
+                        rawStatsSecondTeam = JsonConvert.DeserializeObject<List<PlayerGameStat>>(jsonString);
+
+
+                        rawStatsFirstTeam = rawStatsFirstTeam.Where(x => x.GameDateTime.Equals(thisGame)).ToList(); 
+                        //rawStatsFirstTeam = rawStatsFirstTeam.Where(x => x..Equals(thisGame)).ToList(); //add conditition 4 team1 only
+
+
+                        rawStatsSecondTeam = rawStatsSecondTeam.Where(x => x.GameDateTime.Equals(thisGame)).ToList();
+                        //rawStatsSecondTeam = rawStatsSecondTeam.Where(x => x.GameDateTime.Equals(thisGame)).ToList(); //add condition 4 team2 only
+
+                    }
+                    else
+                    {
+                        Debug.WriteLine("API request failed with status code: " + response.StatusCode);
+                        return null;
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Error: " + ex.Message);
+                    return null;
+                }
+            }
+            return teams;
+        }
+        
+        */
+
+
+        async public Task<List<OurTeamGameStat>> GetHomeRawTeamStatsFromGameAsync(String gameSearch)
+        {
+            string apiUrl = HomeTeamGameStatsApiUrl;
+            //string apiUrl2 = AwayTeamGameStatsApiUrl; 
+
+
+            //List<HomeTeamGameStats> rawStatsHome = null;
+            List<OurTeamGameStats> rawStatsAway = null;
+
+
+            using (HttpClient client = new HttpClient())
+            {
+                try
+                {
+                    HttpResponseMessage response = await client.GetAsync(apiUrl);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string jsonString = await response.Content.ReadAsStringAsync();
+
+                        rawStatsHome = JsonConvert.DeserializeObject<List<HomeTeamGameStats>>(jsonString);
+                        rawStatsAway = JsonConvert.DeserializeObject<List<AwayTeamGameStats>>(jsonString);
+
+
+                        rawStatsHome = rawStatsHome.Where(x => x.GameDateTime.Equals(gameSearch)).ToList();
+                        rawStatsAway = rawStatsAway.Where(x => x.GameDateTime.Equals(gameSearch)).ToList();
+
+                    }
+                    else
+                    {
+                        Debug.WriteLine("API request failed with status code: " + response.StatusCode);
+                        return null;
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Error: " + ex.Message);
+                    return null;
+                }
+            }
+            return rawStats;
+        }
+
+        async public Task<List<PlayerGameStat>> GetOpponentRawTeamStatsFromGameAsync(String gameSearch)
+        {
+            string apiUrl = HomeTeamGameStatsApiUrl;
+            string apiUrl2 = AwayTeamGameStatsApiUrl;
+
+
+            List<HomeTeamGameStats> rawStatsHome = null;
+            List<AwayTeamGameStats> rawStatsAway = null;
+
+
+            using (HttpClient client = new HttpClient())
+            {
+                try
+                {
+                    HttpResponseMessage response = await client.GetAsync(apiUrl);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string jsonString = await response.Content.ReadAsStringAsync();
+
+                        rawStatsHome = JsonConvert.DeserializeObject<List<HomeTeamGameStats>>(jsonString);
+                        rawStatsAway = JsonConvert.DeserializeObject<List<AwayTeamGameStats>>(jsonString);
+
+
+                        rawStatsHome = rawStatsHome.Where(x => x.GameDateTime.Equals(gameSearch)).ToList();
+                        rawStatsAway = rawStatsAway.Where(x => x.GameDateTime.Equals(gameSearch)).ToList();
+
+                    }
+                    else
+                    {
+                        Debug.WriteLine("API request failed with status code: " + response.StatusCode);
+                        return null;
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Error: " + ex.Message);
+                    return null;
+                }
+            }
+            return rawStats;
+        }
+
 
 
 

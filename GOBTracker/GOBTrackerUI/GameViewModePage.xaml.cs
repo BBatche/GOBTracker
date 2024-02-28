@@ -1,5 +1,6 @@
 using GOBTrackerUI.APIMethods;
 using GOBTrackerUI.Models;
+using Windows.Networking;
 
 namespace GOBTrackerUI;
 
@@ -40,13 +41,15 @@ public partial class GameViewModePage : ContentPage
         {
             var selectedGameName = picker.SelectedItem as String;
 
-            var games = await apiService.GetGamesAsync();
-            selectedGame = games.FirstOrDefault(game => game.GameDateTime.Equals(selectedGameName));
-            
+            //call api method
+            var playerStatsInThisGame = await apiService.GetGameStatsAsync(selectedGameName);
 
-            //load the players for the team
-            //LoadTeamRoster(selectedTeam.Id);
-            //AddPlayerButton.IsEnabled = true;
+
+            MainThread.BeginInvokeOnMainThread(() => { Team1StatCollectionView.ItemsSource = playerStatsInThisGame; });
+            MainThread.BeginInvokeOnMainThread(() => { Team2StatCollectionView.ItemsSource = playerStatsInThisGame; });
+
+
+
         }
     }
 }
