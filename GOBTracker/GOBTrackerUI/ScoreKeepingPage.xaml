@@ -1,0 +1,107 @@
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GOBTrackerUI.ScoreKeepingPage"
+             Title="ScoreKeepingPage">
+    <ContentPage.Resources>
+        <Style TargetType="Picker">
+            <Setter Property="Title" Value="Select Team" />
+            <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+        </Style>
+    </ContentPage.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- First column -->
+        <VerticalStackLayout Grid.Column="0" VerticalOptions="FillAndExpand">
+            <HorizontalStackLayout Padding="50" Spacing="25" HorizontalOptions="CenterAndExpand">
+                <Button Text="2PT Made" HeightRequest="200" WidthRequest="200" FontAttributes="Bold" FontSize="30"/>
+                <Button Text="2PT Miss" HeightRequest="200" WidthRequest="200" FontAttributes="Bold" FontSize="30"/>
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout Padding="50" Spacing="25" HorizontalOptions="CenterAndExpand">
+                <Button Text="3PT Made" HeightRequest="200" WidthRequest="200" FontAttributes="Bold" FontSize="30"/>
+                <Button Text="3PT Miss" HeightRequest="200" WidthRequest="200" FontAttributes="Bold" FontSize="30"/>
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout Padding="50" Spacing="25" HorizontalOptions="CenterAndExpand">
+                <Button Text="Off. Rebound" HeightRequest="200" WidthRequest="200" FontAttributes="Bold" FontSize="25"/>
+                <Button Text="Assist" HeightRequest="200" WidthRequest="200" FontAttributes="Bold" FontSize="30" />
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+
+        <!-- Second column -->
+        <VerticalStackLayout Grid.Column="1" VerticalOptions="FillAndExpand">
+            <HorizontalStackLayout HorizontalOptions="CenterAndExpand">
+                <Picker x:Name="teamPicker"
+                        Title="Select Team"
+                        HorizontalTextAlignment="Center"
+                        ItemsSource="{Binding TeamName}"
+                        FontSize="30"
+                        FontAttributes="Bold"
+                        SelectedIndexChanged="TeamPicker_SelectedIndexChanged"
+                        WidthRequest=" 500">
+                </Picker>
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout HorizontalOptions="CenterAndExpand">
+                <CollectionView x:Name="rosterCollectionView" SelectionChanged="Player_SelectionChanged" SelectionMode="Single" WidthRequest="500">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="250" />
+                                    <ColumnDefinition Width="250" />
+                                </Grid.ColumnDefinitions>
+
+                                <!-- First Name -->
+                                <Frame Grid.Column="0"
+                                       BorderColor="Black"
+                                       CornerRadius="5"
+                                       HasShadow="false"
+                                       Margin="5"
+                                       Padding="5"
+                                       HeightRequest="50"
+                                       >
+                                    <Label Text="{Binding FirstName}" FontSize="Subtitle" FontAttributes="Bold"/>
+                                </Frame>
+
+                                <!-- Last Name -->
+                                <Frame Grid.Column="1"
+                                       BorderColor="Black"
+                                       CornerRadius="5"
+                                       HasShadow="false"
+                                       Margin="5"
+                                       Padding="5"
+                                       HeightRequest="50">
+                                    <Label Text="{Binding LastName}" FontSize="Subtitle" FontAttributes="Bold"/>
+                                </Frame>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+
+        <!-- Third column -->
+        <VerticalStackLayout Grid.Column="2" VerticalOptions="FillAndExpand">
+            <HorizontalStackLayout Padding="50" Spacing="25" HorizontalOptions="CenterAndExpand">
+                <Button Text="Turnover" HeightRequest="200" WidthRequest="200" FontAttributes="Bold" FontSize="30"/>
+                <Button Text="Steal" HeightRequest="200" WidthRequest="200" FontAttributes="Bold" FontSize="30"/>
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout Padding="50" Spacing="25" HorizontalOptions="CenterAndExpand">
+                <Button Text="Def. Rebound" HeightRequest="200" WidthRequest="200" FontAttributes="Bold" FontSize="25" />
+                <Button Text="Block" HeightRequest="200" WidthRequest="200" FontAttributes="Bold" FontSize="30"/>
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout Padding="50" Spacing="25" HorizontalOptions="CenterAndExpand">
+                <Button Text="Foul" HeightRequest="200" WidthRequest="200" FontAttributes="Bold" FontSize="30"/>
+                <Button Text="Undo" HeightRequest="200" WidthRequest="200" FontAttributes="Bold" FontSize="30"/>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>
