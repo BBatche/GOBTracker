@@ -42,11 +42,13 @@ public partial class GameViewModePage : ContentPage
             var selectedGameName = picker.SelectedItem as String;
 
             //call api method
-            var playerStatsInThisGame = await apiService.GetGameStatsAsync(selectedGameName);
+            var homePlayerStatsRawInGame = await apiService.GetHomeRawTeamStatsFromGameAsync(selectedGameName);
+            var awayPlayerStatsRawInGame = await apiService.GetAwayRawTeamStatsFromGameAsync(selectedGameName);
 
 
-            MainThread.BeginInvokeOnMainThread(() => { Team1StatCollectionView.ItemsSource = playerStatsInThisGame; });
-            MainThread.BeginInvokeOnMainThread(() => { Team2StatCollectionView.ItemsSource = playerStatsInThisGame; });
+
+            MainThread.BeginInvokeOnMainThread(() => { Team1StatCollectionView.ItemsSource = homePlayerStatsRawInGame; });
+            //MainThread.BeginInvokeOnMainThread(() => { Team2StatCollectionView.ItemsSource = awayPlayerStatsRawInGame; });
 
 
 

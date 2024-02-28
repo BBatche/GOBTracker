@@ -413,11 +413,11 @@ namespace GOBTrackerUI.APIMethods
         async public Task<List<OurTeamGameStat>> GetHomeRawTeamStatsFromGameAsync(String gameSearch)
         {
             string apiUrl = HomeTeamGameStatsApiUrl;
-            //string apiUrl2 = AwayTeamGameStatsApiUrl; 
+            //string apiUrl2 = AwayTeamGameStatsApiUrl;
 
 
             //List<HomeTeamGameStats> rawStatsHome = null;
-            List<OurTeamGameStats> rawStatsAway = null;
+            List<OurTeamGameStat> rawStatsHome = null;
 
 
             using (HttpClient client = new HttpClient())
@@ -430,12 +430,12 @@ namespace GOBTrackerUI.APIMethods
                     {
                         string jsonString = await response.Content.ReadAsStringAsync();
 
-                        rawStatsHome = JsonConvert.DeserializeObject<List<HomeTeamGameStats>>(jsonString);
-                        rawStatsAway = JsonConvert.DeserializeObject<List<AwayTeamGameStats>>(jsonString);
+                        rawStatsHome = JsonConvert.DeserializeObject<List<OurTeamGameStat>>(jsonString);
+                        //rawStatsAway = JsonConvert.DeserializeObject<List<AwayTeamGameStats>>(jsonString);
 
 
                         rawStatsHome = rawStatsHome.Where(x => x.GameDateTime.Equals(gameSearch)).ToList();
-                        rawStatsAway = rawStatsAway.Where(x => x.GameDateTime.Equals(gameSearch)).ToList();
+                        //rawStatsAway = rawStatsAway.Where(x => x.GameDateTime.Equals(gameSearch)).ToList();
 
                     }
                     else
@@ -451,17 +451,17 @@ namespace GOBTrackerUI.APIMethods
                     return null;
                 }
             }
-            return rawStats;
+            return rawStatsHome;
         }
 
-        async public Task<List<PlayerGameStat>> GetOpponentRawTeamStatsFromGameAsync(String gameSearch)
+        async public Task<List<OpponentTeamGameStat>> GetAwayRawTeamStatsFromGameAsync(String gameSearch)
         {
-            string apiUrl = HomeTeamGameStatsApiUrl;
-            string apiUrl2 = AwayTeamGameStatsApiUrl;
+            string apiUrl = AwayTeamGameStatsApiUrl;
+            //string apiUrl2 = AwayTeamGameStatsApiUrl;
 
 
-            List<HomeTeamGameStats> rawStatsHome = null;
-            List<AwayTeamGameStats> rawStatsAway = null;
+            //List<HomeTeamGameStats> rawStatsHome = null;
+            List<OpponentTeamGameStat> rawStatsAway = null;
 
 
             using (HttpClient client = new HttpClient())
@@ -474,12 +474,12 @@ namespace GOBTrackerUI.APIMethods
                     {
                         string jsonString = await response.Content.ReadAsStringAsync();
 
-                        rawStatsHome = JsonConvert.DeserializeObject<List<HomeTeamGameStats>>(jsonString);
-                        rawStatsAway = JsonConvert.DeserializeObject<List<AwayTeamGameStats>>(jsonString);
+                        rawStatsAway = JsonConvert.DeserializeObject<List<OpponentTeamGameStat>>(jsonString);
+                        //rawStatsAway = JsonConvert.DeserializeObject<List<AwayTeamGameStats>>(jsonString);
 
 
-                        rawStatsHome = rawStatsHome.Where(x => x.GameDateTime.Equals(gameSearch)).ToList();
                         rawStatsAway = rawStatsAway.Where(x => x.GameDateTime.Equals(gameSearch)).ToList();
+                        //rawStatsAway = rawStatsAway.Where(x => x.GameDateTime.Equals(gameSearch)).ToList();
 
                     }
                     else
@@ -495,7 +495,7 @@ namespace GOBTrackerUI.APIMethods
                     return null;
                 }
             }
-            return rawStats;
+            return rawStatsAway;
         }
 
 
