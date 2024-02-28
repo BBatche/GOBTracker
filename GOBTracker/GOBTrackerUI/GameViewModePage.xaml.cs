@@ -42,8 +42,6 @@ public partial class GameViewModePage : ContentPage
         var picker = (Picker)sender;
         int selectedIndex = picker.SelectedIndex;
 
-        Team1StatLabel.IsVisible = true;
-        Team2StatLabel.IsVisible = true;
 
 
         if (selectedIndex != -1)
@@ -59,7 +57,12 @@ public partial class GameViewModePage : ContentPage
 
 
             MainThread.BeginInvokeOnMainThread(() => { Team1StatCollectionView.ItemsSource = homePlayerStatsRawInGame; });
+
+            Team1StatLabel.IsVisible = true;
+            Team2StatLabel.IsVisible = true;
+
             MainThread.BeginInvokeOnMainThread(() => { Team2StatCollectionView.ItemsSource = awayPlayerStatsRawInGame; });
+
 
 
 
