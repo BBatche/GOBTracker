@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
+
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GOBTrackerUI.GameViewModePage"
              Title="GameViewModePage">
+    
     <VerticalStackLayout>
         
         <!-- Header -->
@@ -18,30 +20,34 @@
         </Picker>
 
 
+        <!-- Team2 Stat List -->
+        <Label x:Name="Team1StatLabel" Text="Team 1 Stats" FontSize="Medium" HorizontalOptions="Center" Margin="0,10,0,5" />
+        
+        
         <!--Team1 Stat List-->
         <CollectionView x:Name="Team1StatCollectionView"  HorizontalOptions="FillAndExpand" >
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="70" />
-                            <ColumnDefinition Width="70" />
-                            <ColumnDefinition Width="70" />
-                            <ColumnDefinition Width="70" />
-                            <ColumnDefinition Width="70" />
-                            <ColumnDefinition Width="70" />
-                            <ColumnDefinition Width="70" />
-                            <ColumnDefinition Width="70" />
+                            <ColumnDefinition Width="95" />
+                            <ColumnDefinition Width="95" />
+                            <ColumnDefinition Width="95" />
+                            <ColumnDefinition Width="95" />
+                            <ColumnDefinition Width="95" />
+                            <ColumnDefinition Width="95" />
+                            <ColumnDefinition Width="95" />
+                            <ColumnDefinition Width="95" />
 
-                            <ColumnDefinition Width="70" />
-                            <ColumnDefinition Width="70" />
-                            <ColumnDefinition Width="70" />
-                            <ColumnDefinition Width="70" />
-                            <ColumnDefinition Width="70" />
-                            <ColumnDefinition Width="70" />
-                            <ColumnDefinition Width="70" />
-                            <ColumnDefinition Width="70" />
-                            <ColumnDefinition Width="70" />
+                            <ColumnDefinition Width="95" />
+                            <ColumnDefinition Width="95" />
+                            <ColumnDefinition Width="95" />
+                            <ColumnDefinition Width="95" />
+                            <ColumnDefinition Width="95" />
+                            <ColumnDefinition Width="95" />
+                            <ColumnDefinition Width="95" />
+                            <ColumnDefinition Width="95" />
+                            <ColumnDefinition Width="95" />
                             
                             </Grid.ColumnDefinitions>
                         
@@ -52,7 +58,7 @@
                             HasShadow="false"
                             Margin="5"
                             Padding="5">    
-                            <Label Text="{Binding TeamName}" FontSize="7" />
+                            <Label Text="{Binding TeamName}" FontSize="9" />
                         </Frame>
                         
                         <!-- First Name -->
@@ -62,7 +68,7 @@
                HasShadow="false"
                Margin="5"
                Padding="5">
-                            <Label Text="{Binding FirstName}" FontSize="7" />
+                            <Label Text="{Binding FirstName}" FontSize="9" />
                         </Frame>
 
                         <!-- Last Name -->
@@ -72,7 +78,7 @@
                HasShadow="false"
                Margin="5"
                Padding="5">
-                            <Label Text="{Binding LastName}" FontSize="7" />
+                            <Label Text="{Binding LastName}" FontSize="9" />
 
                         </Frame>
 
@@ -83,7 +89,7 @@
                         HasShadow="false"
                         Margin="5"
                         Padding="5">
-                                <Label Text="{Binding TotalPoints}" FontSize="7" />
+                                <Label Text="{Binding TotalPoints}" FontSize="9" />
                             </Frame>
                             
                             
@@ -95,7 +101,7 @@
                 HasShadow="false"
                 Margin="5"
                 Padding="5">
-                            <Label Text="{Binding TotalTwoPmade}" FontSize="7" />
+                            <Label Text="{Binding TotalTwoPmade}" FontSize="9" />
                         </Frame>
 
                       
@@ -106,7 +112,7 @@
                         HasShadow="false"
                         Margin="5"
                         Padding="5">
-                            <Label Text="{Binding TotalTwoPmiss}" FontSize="7" />
+                            <Label Text="{Binding TotalTwoPmiss}" FontSize="9" />
                         </Frame>
 
 
@@ -117,7 +123,7 @@
                 HasShadow="false"
                 Margin="5"
                 Padding="5">
-                            <Label Text="{Binding TotalThreePmade}" FontSize="7" />
+                            <Label Text="{Binding TotalThreePmade}" FontSize="9" />
 
                         </Frame>
 
@@ -129,7 +135,7 @@
                         HasShadow="false"
                         Margin="5"
                         Padding="5">
-                            <Label Text="{Binding TotalThreePmiss}" FontSize="7" />
+                            <Label Text="{Binding TotalThreePmiss}" FontSize="9" />
 
                         </Frame>
 
@@ -140,7 +146,7 @@
                         HasShadow="false"
                         Margin="5"
                         Padding="5">
-                            <Label Text="{Binding TotalSteals}" FontSize="7" />
+                            <Label Text="{Binding TotalSteals}" FontSize="9" />
                         </Frame>
 
 
@@ -151,7 +157,7 @@
                         HasShadow="false"
                         Margin="5"
                         Padding="5">
-                            <Label Text="{Binding TotalTurnovers}" FontSize="7" />
+                            <Label Text="{Binding TotalTurnovers}" FontSize="9" />
                         </Frame>
 
 
@@ -162,7 +168,7 @@
                         HasShadow="false"
                         Margin="5"
                         Padding="5">
-                            <Label Text="{Binding TotalAssists}" FontSize="7" />
+                            <Label Text="{Binding TotalAssists}" FontSize="9" />
                         </Frame>
 
 
@@ -173,7 +179,7 @@
                         HasShadow="false"
                         Margin="5"
                         Padding="5">
-                            <Label Text="{Binding TotalBlocks}" FontSize="7" />
+                            <Label Text="{Binding TotalBlocks}" FontSize="9" />
                         </Frame>
 
 
@@ -184,7 +190,7 @@
                         HasShadow="false"
                         Margin="5"
                         Padding="5">
-                            <Label Text="{Binding TotalFouls}" FontSize="7" />
+                            <Label Text="{Binding TotalFouls}" FontSize="9" />
                         </Frame>
 
 
@@ -195,7 +201,7 @@
                         HasShadow="false"
                         Margin="5"
                         Padding="5">
-                            <Label Text="{Binding TotalOffRebounds}" FontSize="7" />
+                            <Label Text="{Binding TotalOffRebounds}" FontSize="9" />
                         </Frame>
 
 
@@ -206,7 +212,7 @@
                         HasShadow="false"
                         Margin="5"
                         Padding="5">
-                            <Label Text="{Binding TotalDefRebounds}" FontSize="7" />
+                            <Label Text="{Binding TotalDefRebounds}" FontSize="9" />
                         </Frame>
 
                         <!-- GameDateTime -->
@@ -216,7 +222,7 @@
                          HasShadow="false"
                          Margin="5"
                          Padding="5">
-                            <Label Text="{Binding GameDateTime}" FontSize="7" />
+                            <Label Text="{Binding GameDateTime}" FontSize="9" />
                         </Frame>
 
 
@@ -228,7 +234,7 @@
                         HasShadow="false"
                         Margin="5"
                         Padding="5">
-                         <Label Text="{Binding GameId}" FontSize="7" />
+                         <Label Text="{Binding GameId}" FontSize="9" />
 
                         </Frame>
 
@@ -240,91 +246,222 @@
 
 
 
+        <!-- Team2 Stat List -->
+        <Label x:Name="Team2StatLabel" Text="Team 2 Stats" FontSize="Medium" HorizontalOptions="Center" Margin="0,10,0,5" />
+        
+
         <!--Team2 Stat List-->
         <CollectionView x:Name="Team2StatCollectionView"  HorizontalOptions="FillAndExpand" >
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="200" />
-                            <ColumnDefinition Width="200" />
-                            <ColumnDefinition Width="200" />
-                            <ColumnDefinition Width="200" />
-                            <ColumnDefinition Width="200" />
-                            <ColumnDefinition Width="200" />
-                            <ColumnDefinition Width="200" />
-                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="95" />
+                            <ColumnDefinition Width="95" />
+                            <ColumnDefinition Width="95" />
+                            <ColumnDefinition Width="95" />
+                            <ColumnDefinition Width="95" />
+                            <ColumnDefinition Width="95" />
+                            <ColumnDefinition Width="95" />
+                            <ColumnDefinition Width="95" />
+
+                            <ColumnDefinition Width="95" />
+                            <ColumnDefinition Width="95" />
+                            <ColumnDefinition Width="95" />
+                            <ColumnDefinition Width="95" />
+                            <ColumnDefinition Width="95" />
+                            <ColumnDefinition Width="95" />
+                            <ColumnDefinition Width="95" />
+                            <ColumnDefinition Width="95" />
+                            <ColumnDefinition Width="95" />
+
                         </Grid.ColumnDefinitions>
 
-                        <!-- First Name -->
+                        <!-- Team Name -->
                         <Frame Grid.Column="0"
-       BorderColor="Black"
-       CornerRadius="5"
-       HasShadow="false"
-       Margin="5"
-       Padding="5">
-                            <Label Text="{Binding FirstName}" FontSize="Subtitle" />
+                    BorderColor="Black"
+                    CornerRadius="5"
+                    HasShadow="false"
+                    Margin="5"
+                    Padding="5">
+                            <Label Text="{Binding TeamName}" FontSize="9" />
                         </Frame>
 
-                        <!-- Last Name -->
+                        <!-- First Name -->
                         <Frame Grid.Column="1"
        BorderColor="Black"
        CornerRadius="5"
        HasShadow="false"
        Margin="5"
        Padding="5">
-                            <Label Text="{Binding LastName}" FontSize="Subtitle" />
+                            <Label Text="{Binding FirstName}" FontSize="9" />
                         </Frame>
-                        <!-- Total2ptsMade -->
+
+                        <!-- Last Name -->
                         <Frame Grid.Column="2"
-        BorderColor="Black"
-        CornerRadius="5"
-        HasShadow="false"
-        Margin="5"
-        Padding="5">
-                            <Label Text="{Binding Total2ptsMade}" FontSize="Subtitle" />
+       BorderColor="Black"
+       CornerRadius="5"
+       HasShadow="false"
+       Margin="5"
+       Padding="5">
+                            <Label Text="{Binding LastName}" FontSize="9" />
+
                         </Frame>
 
-                        <!-- Total3ptsMade -->
+                        <!-- Total Pts -->
                         <Frame Grid.Column="3"
-        BorderColor="Black"
-        CornerRadius="5"
-        HasShadow="false"
-        Margin="5"
-        Padding="5">
-                            <Label Text="{Binding Total3ptsMade}" FontSize="Subtitle" />
-
+                BorderColor="Black"
+                CornerRadius="5"
+                HasShadow="false"
+                Margin="5"
+                Padding="5">
+                            <Label Text="{Binding TotalPoints}" FontSize="9" />
                         </Frame>
 
-                        <!-- TotalPoints -->
+
+
+                        <!-- Total2ptsMade -->
                         <Frame Grid.Column="4"
         BorderColor="Black"
         CornerRadius="5"
         HasShadow="false"
         Margin="5"
         Padding="5">
-                            <Label Text="{Binding TotalPoints}" FontSize="Subtitle" />
+                            <Label Text="{Binding TotalTwoPmade}" FontSize="9" />
                         </Frame>
 
-                        <!-- GameId -->
+
+                        <!-- Total2ptsMade -->
                         <Frame Grid.Column="5"
-        BorderColor="Black"
-        CornerRadius="5"
-        HasShadow="false"
-        Margin="5"
-        Padding="5">
-                            <Label Text="{Binding GameId}" FontSize="Subtitle" />
-
+                BorderColor="Black"
+                CornerRadius="5"
+                HasShadow="false"
+                Margin="5"
+                Padding="5">
+                            <Label Text="{Binding TotalTwoPmiss}" FontSize="9" />
                         </Frame>
 
-                        <!-- GameDateTime -->
+
+                        <!-- Total3ptsMade -->
                         <Frame Grid.Column="6"
         BorderColor="Black"
         CornerRadius="5"
         HasShadow="false"
         Margin="5"
         Padding="5">
-                            <Label Text="{Binding GameDateTime}" FontSize="Subtitle" />
+                            <Label Text="{Binding TotalThreePmade}" FontSize="9" />
+
+                        </Frame>
+
+
+                        <!-- Total3ptsMiss -->
+                        <Frame Grid.Column="7"
+                BorderColor="Black"
+                CornerRadius="5"
+                HasShadow="false"
+                Margin="5"
+                Padding="5">
+                            <Label Text="{Binding TotalThreePmiss}" FontSize="9" />
+
+                        </Frame>
+
+                        <!-- Total Steals -->
+                        <Frame Grid.Column="8"
+                BorderColor="Black"
+                CornerRadius="5"
+                HasShadow="false"
+                Margin="5"
+                Padding="5">
+                            <Label Text="{Binding TotalSteals}" FontSize="9" />
+                        </Frame>
+
+
+                        <!-- Total Turnovers -->
+                        <Frame Grid.Column="9"
+                BorderColor="Black"
+                CornerRadius="5"
+                HasShadow="false"
+                Margin="5"
+                Padding="5">
+                            <Label Text="{Binding TotalTurnovers}" FontSize="9" />
+                        </Frame>
+
+
+                        <!-- Total Assists -->
+                        <Frame Grid.Column="10"
+                BorderColor="Black"
+                CornerRadius="5"
+                HasShadow="false"
+                Margin="5"
+                Padding="5">
+                            <Label Text="{Binding TotalAssists}" FontSize="9" />
+                        </Frame>
+
+
+                        <!-- Total Blocks -->
+                        <Frame Grid.Column="11"
+                BorderColor="Black"
+                CornerRadius="5"
+                HasShadow="false"
+                Margin="5"
+                Padding="5">
+                            <Label Text="{Binding TotalBlocks}" FontSize="9" />
+                        </Frame>
+
+
+                        <!-- Total Fouls -->
+                        <Frame Grid.Column="12"
+                BorderColor="Black"
+                CornerRadius="5"
+                HasShadow="false"
+                Margin="5"
+                Padding="5">
+                            <Label Text="{Binding TotalFouls}" FontSize="9" />
+                        </Frame>
+
+
+                        <!-- Total Offensive Rebounds -->
+                        <Frame Grid.Column="13"
+                BorderColor="Black"
+                CornerRadius="5"
+                HasShadow="false"
+                Margin="5"
+                Padding="5">
+                            <Label Text="{Binding TotalOffRebounds}" FontSize="9" />
+                        </Frame>
+
+
+                        <!-- Total Deffensive Rebounds -->
+                        <Frame Grid.Column="14"
+                BorderColor="Black"
+                CornerRadius="5"
+                HasShadow="false"
+                Margin="5"
+                Padding="5">
+                            <Label Text="{Binding TotalDefRebounds}" FontSize="9" />
+                        </Frame>
+
+                        <!-- GameDateTime -->
+                        <Frame Grid.Column="15"
+                 BorderColor="Black"
+                 CornerRadius="5"
+                 HasShadow="false"
+                 Margin="5"
+                 Padding="5">
+                            <Label Text="{Binding GameDateTime}" FontSize="9" />
+                        </Frame>
+
+
+
+                        <!-- GameId -->
+                        <Frame Grid.Column="16"
+                 BorderColor="Black"
+                CornerRadius="5"
+                HasShadow="false"
+                Margin="5"
+                Padding="5">
+                            <Label Text="{Binding GameId}" FontSize="9" />
+
                         </Frame>
 
 
@@ -332,6 +469,7 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
+
 
 
     </VerticalStackLayout>

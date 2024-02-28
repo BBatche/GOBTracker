@@ -15,6 +15,10 @@ public partial class GameViewModePage : ContentPage
 		InitializeComponent();
         apiService = new ApiService();
         LoadGames();
+
+        Team1StatLabel.IsVisible = false;
+        Team2StatLabel.IsVisible = false;
+
     }
 
     async private void LoadGames()
@@ -37,6 +41,10 @@ public partial class GameViewModePage : ContentPage
     {
         var picker = (Picker)sender;
         int selectedIndex = picker.SelectedIndex;
+
+        Team1StatLabel.IsVisible = true;
+        Team2StatLabel.IsVisible = true;
+
 
         if (selectedIndex != -1)
         {
