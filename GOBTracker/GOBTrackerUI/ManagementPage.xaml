@@ -20,6 +20,7 @@
             </Setter>
         </Style>
     </ContentPage.Resources>
+    <ScrollView>
     <StackLayout Padding="20">
 
         <HorizontalStackLayout>
@@ -100,5 +101,5 @@
         </StackLayout>
 
     </StackLayout>
-
+    </ScrollView>
 </ContentPage>

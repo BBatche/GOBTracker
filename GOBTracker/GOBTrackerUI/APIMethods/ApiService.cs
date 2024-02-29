@@ -63,6 +63,72 @@ namespace GOBTrackerUI.APIMethods
             return teams;
         }
 
+        async public Task<bool> AddTeamAsync(Team newTeam)
+        {
+            string apiUrl = teamsApiUrl;
+
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    string jsonTeam = JsonConvert.SerializeObject(newTeam);
+                    HttpContent content = new StringContent(jsonTeam, Encoding.UTF8, "application/json");
+
+                    HttpResponseMessage response = await client.PostAsync(apiUrl, content);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        Debug.WriteLine("Team added successfully");
+                        return true;
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Failed to add team. Status code: " + response.StatusCode);
+                        return false;
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                Debug.WriteLine("Error: " + ex.Message);
+                return false;
+            }
+        }
+
+        async public Task<bool> EditTeamByIdAsync(int teamId, Team editedTeam)
+        {
+            string apiUrl = teamsApiUrl;
+
+            try
+            {
+                string urlWithId = $"{apiUrl}/{teamId}";
+
+                using (HttpClient client = new HttpClient())
+                {
+                    string jsonTeam = JsonConvert.SerializeObject(editedTeam);
+                    HttpContent content = new StringContent(jsonTeam, Encoding.UTF8, "application/json");
+                    HttpResponseMessage response = await client.PutAsync(urlWithId, content);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        Debug.WriteLine("Team edited successfully");
+                        return true;
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Failed to edit team. Status code: " + response.StatusCode);
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Error: " + ex.Message);
+                return false;
+            }
+        }
+
+
         async public Task<List<Player>> GetPlayersAsync()
         {
             string apiUrl = playersApiUrl;

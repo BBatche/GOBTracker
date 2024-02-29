@@ -90,9 +90,6 @@ namespace GOBTrackerUI
 
         
 
-        private void PlayerCollectionView_SelectionChanged()
-        { }
-
         // Event handler for adding a new player
         private async void AddPlayer_Clicked(object sender, EventArgs e)
         {
@@ -100,6 +97,7 @@ namespace GOBTrackerUI
             var lastNameEntry = new Entry { Placeholder = "Last Name" };
 
             var saveButton = new Button { Text = "Save" };
+            var exitButton = new Button { Text = "Exit Without Saving" };
             saveButton.Clicked += async (s, args) =>
             {
                 string firstName = firstNameEntry.Text;
@@ -166,6 +164,11 @@ namespace GOBTrackerUI
                 }
             };
 
+            exitButton.Clicked += async (s, args) =>
+            {
+                await Navigation.PopModalAsync();
+            };
+
             var stackLayout = new StackLayout
             {
                 Children =
@@ -173,7 +176,8 @@ namespace GOBTrackerUI
                     new Label { Text = "Enter Player Details" },
                     firstNameEntry,
                     lastNameEntry,
-                    saveButton
+                    saveButton,
+                    exitButton
                 }
             };
 
@@ -187,15 +191,151 @@ namespace GOBTrackerUI
 
 
 
-        private void AddTeam_Clicked(object sender, EventArgs e)
+        private async void AddTeam_Clicked(object sender, EventArgs e)
         {
-            
+            Debug.WriteLine("AddTeam_Clicked");
+
+            var teamNameEntry = new Entry { Placeholder = "Team Name" };
+
+            var saveButton = new Button { Text = "Save" };
+            var exitButton = new Button { Text = "Exit Without Saving" };
+            saveButton.Clicked += async (s, args) =>
+            {
+                string newTeamName = teamNameEntry.Text;
+
+                // Check if fields are filled
+                if (!string.IsNullOrWhiteSpace(newTeamName))
+                {
+                    // Proceed with adding the team
+                    Team newTeam = new Team { TeamName = newTeamName };
+
+                    // Call the AddTeamAsync method to attempt to add the team
+                    bool success = await apiService.AddTeamAsync(newTeam);
+
+                    // Check if adding the plyaer was successful
+                    if (success)
+                    {
+                        // Player added successfully, you can show a message or perform any other action here
+                        Debug.WriteLine("Team added successfully");
+                        await DisplayAlert("Team Added", $"Team '{newTeamName}' added successfully!", "OK");
+
+                    }
+                    else
+                    {
+                        // Failed to add player
+                        Debug.WriteLine("Failed to add team");
+                    }
+
+
+                    // Dismiss the popup
+                    await Navigation.PopModalAsync();
+                    LoadTeams();
+                }
+                else
+                {
+                    // Display an alert if any field is empty
+                    await DisplayAlert("Error", "Please fill in team name.", "OK");
+                }
+            };
+
+            exitButton.Clicked += async (s, args) =>
+            {
+                await Navigation.PopModalAsync();
+            };
+
+            var stackLayout = new StackLayout
+            {
+                Children =
+                {
+                    new Label { Text = "Enter Team Name" },
+                    teamNameEntry,
+                    saveButton,
+                    exitButton
+                }
+            };
+
+            var contentPage = new ContentPage
+            {
+                Content = stackLayout
+            };
+
+            await Navigation.PushModalAsync(contentPage);
+
         }
 
-        private void EditTeam_Clicked(object sender, EventArgs e)
+        private async void EditTeam_Clicked(object sender, EventArgs e)
         {
-            
+            Debug.WriteLine("EditTeam_Clicked");
+
+            var editedTeamNameEntry = new Entry { Placeholder = selectedTeam.TeamName.ToString() };
+
+            var saveButton = new Button { Text = "Save" };
+            var exitButton = new Button { Text = "Exit Without Saving" };
+            saveButton.Clicked += async (s, args) =>
+            {
+                string editedTeamName = editedTeamNameEntry.Text;
+
+                // Check if both fields are filled
+                if (!string.IsNullOrWhiteSpace(editedTeamName))
+                {
+                    // Proceed with adding the player
+                    Team editedTeam = new Team { Id = selectedTeam.Id, TeamName = editedTeamName };
+
+                    // Call the AddPlayerAsync method to attempt to add the customer
+                    bool success = await apiService.EditTeamByIdAsync(selectedTeam.Id, editedTeam);
+
+                    // Check if adding the plyaer was successful
+                    if (success)
+                    {
+                        // Player added successfully, you can show a message or perform any other action here
+                        Debug.WriteLine("Team edited successfully");
+                        await DisplayAlert("Team Edited", $"Team '{editedTeamName}' updated successfully!", "OK");
+
+                    }
+                    else
+                    {
+                        // Failed to add player
+                        Debug.WriteLine("Failed to edit team");
+                    }
+
+
+                    // Dismiss the popup
+                    await Navigation.PopModalAsync();
+                    LoadTeams();
+                }
+                else
+                {
+                    // Display an alert if any field is empty
+                    await DisplayAlert("Error", "Please fill in team name.", "OK");
+                }
+            };
+
+            exitButton.Clicked += async (s, args) =>
+            {
+                await Navigation.PopModalAsync();
+            };
+
+            var stackLayout = new StackLayout
+            {
+                Children =
+                {
+                    new Label { Text = "Edit Team Name" },
+                    editedTeamNameEntry,
+                    saveButton,
+                    exitButton
+                }
+            };
+
+            var contentPage = new ContentPage
+            {
+                Content = stackLayout
+            };
+
+            await Navigation.PushModalAsync(contentPage);
+            LoadTeamRoster(selectedTeam.Id);
         }
+
+
         private void DeleteTeam_Clicked(object sender, EventArgs e)
         {
             
@@ -209,6 +349,7 @@ namespace GOBTrackerUI
             var lastNameEntry = new Entry { Placeholder = selectedPlayer.LastName.ToString() };
 
             var saveButton = new Button { Text = "Save" };
+            var exitButton = new Button { Text = "Exit Without Saving" };
             saveButton.Clicked += async (s, args) =>
             {
                 string firstName = firstNameEntry.Text;
@@ -228,7 +369,7 @@ namespace GOBTrackerUI
                     {
                         // Player added successfully, you can show a message or perform any other action here
                         Debug.WriteLine("Player edited successfully");
-
+                        await DisplayAlert("Player Edited", $"Player '{playerName}' updated successfully!", "OK");
 
                     }
                     else
@@ -249,14 +390,20 @@ namespace GOBTrackerUI
                 }
             };
 
+            exitButton.Clicked += async (s, args) =>
+            {
+                await Navigation.PopModalAsync();
+            };
+
             var stackLayout = new StackLayout
             {
                 Children =
                 {
-                    new Label { Text = "Enter Player Details" },
+                    new Label { Text = "Edit Player Details" },
                     firstNameEntry,
                     lastNameEntry,
-                    saveButton
+                    saveButton,
+                    exitButton
                 }
             };
 
