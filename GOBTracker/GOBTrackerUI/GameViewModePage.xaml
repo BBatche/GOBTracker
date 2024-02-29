@@ -47,8 +47,7 @@
         </Picker>
 
 
-        <!-- Team2 Stat List -->
-        <Label x:Name="Team1StatLabel" Text="Team 1 Stats" FontSize="Medium" HorizontalOptions="Center" Margin="0,10,0,5" />
+        
 
         <HorizontalStackLayout HorizontalOptions="CenterAndExpand" Margin="0,30,0,0">
             
@@ -62,9 +61,12 @@
 
         </HorizontalStackLayout>
 
-           
 
+            <!-- Team1 Stat Label -->
+            <Label x:Name="Team1StatLabel" Text="Team 1 Stats" FontSize="Medium" HorizontalOptions="Center" Margin="0,10,0,5" />
 
+            <!-- Team2 Stat Label -->
+            <Label x:Name="Team2StatLabel" Text="Team 2 Stats" FontSize="Medium" HorizontalOptions="Center" Margin="0,10,0,5" />
 
             <!--Team1 Stat List-->
             <CollectionView x:Name="Team1StatCollectionView"  HorizontalOptions="FillAndExpand" GroupHeaderTemplate="{StaticResource TeamHeaderTemplate}">
@@ -288,8 +290,7 @@
 
 
 
-        <!-- Team2 Stat List -->
-        <Label x:Name="Team2StatLabel" Text="Team 2 Stats" FontSize="Medium" HorizontalOptions="Center" Margin="0,10,0,5" />
+        
         
 
         <!--Team2 Stat List-->
