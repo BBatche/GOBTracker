@@ -29,6 +29,11 @@ namespace GOBTrackerUI
         {
             await Navigation.PushAsync(new StatsModePage());
         }
+
+        private async void ViewSchedule_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new TeamSchedulePage());
+        }
     }
 
 }

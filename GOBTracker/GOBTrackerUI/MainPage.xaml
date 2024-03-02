@@ -29,25 +29,31 @@
                 Text="Management"
                 Clicked="Management_Clicked"
                 HorizontalOptions="Center"
-                WidthRequest="200"/>
+                WidthRequest="300"/>
             <Button
                 x:Name="ScoreKeeping"
                 Text="ScoreKeeping Mode"
                 Clicked="ScoreKeeping_Clicked"
                 HorizontalOptions="Center"
-                WidthRequest="200"/>   
+                WidthRequest="300"/>   
             <Button
                 x:Name="GameView"
                 Text="GameView Mode"
                 Clicked="GameView_Clicked"
                 HorizontalOptions="Center"
-                WidthRequest="200"/>
+                WidthRequest="300"/>
             <Button
                 x:Name="Statistics"
                 Text="Statistics Mode"
                 Clicked="Statistics_Clicked"
                 HorizontalOptions="Center"
-                WidthRequest="200"/>
+                WidthRequest="300"/>
+            <Button
+                x:Name="ViewSchedule"
+                Text="View Team Schedule"
+                Clicked="ViewSchedule_Clicked"
+                HorizontalOptions="Center"
+                WidthRequest="300"/>
             
         </VerticalStackLayout>
     </ScrollView>

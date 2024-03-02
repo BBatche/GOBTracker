@@ -333,6 +333,39 @@ namespace GOBTrackerUI.APIMethods
         }
 
 
+        //async public Task<List<Schedule>> GetTeamScheduleByIdAsync(int teamId)
+        //{
+        //    string apiUrl = teamRosterApiUrl;
+        //    List<TeamRoster> roster = null;
+        //    using (HttpClient client = new HttpClient())
+        //    {
+        //        try
+        //        {
+        //            string urlWithId = $"{apiUrl}/{teamId}";
+        //            HttpResponseMessage response = await client.GetAsync(urlWithId);
+
+        //            if (response.IsSuccessStatusCode)
+        //            {
+        //                string jsonString = await response.Content.ReadAsStringAsync();
+        //                roster = JsonConvert.DeserializeObject<List<TeamRoster>>(jsonString);
+
+        //            }
+        //            else
+        //            {
+        //                Debug.WriteLine("API request failed with status code: " + response.StatusCode);
+        //                return null;
+
+        //            }
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            Debug.WriteLine("Error: " + ex.Message);
+        //            return null;
+        //        }
+        //    }
+        //    return roster;
+        //}
+
 
     }
 }

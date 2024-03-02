@@ -19,6 +19,10 @@ public partial class GobtrackerDbContext : DbContext
 
     public virtual DbSet<Game> Games { get; set; }
 
+    public virtual DbSet<OpponentTeamGameStat> OpponentTeamGameStats { get; set; }
+
+    public virtual DbSet<OurTeamGameStat> OurTeamGameStats { get; set; }
+
     public virtual DbSet<Player> Players { get; set; }
 
     public virtual DbSet<PlayerGameStat> PlayerGameStats { get; set; }
@@ -65,6 +69,81 @@ public partial class GobtrackerDbContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false);
 
+            
+        });
+
+        modelBuilder.Entity<OpponentTeamGameStat>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("OpponentTeamGameStats");
+
+            entity.Property(e => e.FirstName)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.LastName)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.TeamName)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.TotalAssists).HasColumnType("decimal(38, 4)");
+            entity.Property(e => e.TotalBlocks).HasColumnType("decimal(38, 4)");
+            entity.Property(e => e.TotalDefRebounds).HasColumnType("decimal(38, 4)");
+            entity.Property(e => e.TotalFouls).HasColumnType("decimal(38, 4)");
+            entity.Property(e => e.TotalOffRebounds).HasColumnType("decimal(38, 4)");
+            entity.Property(e => e.TotalPoints).HasColumnType("decimal(38, 4)");
+            entity.Property(e => e.TotalSteals).HasColumnType("decimal(38, 4)");
+            entity.Property(e => e.TotalThreePmade)
+                .HasColumnType("decimal(38, 4)")
+                .HasColumnName("TotalThreePMade");
+            entity.Property(e => e.TotalThreePmiss)
+                .HasColumnType("decimal(38, 4)")
+                .HasColumnName("TotalThreePMiss");
+            entity.Property(e => e.TotalTurnovers).HasColumnType("decimal(38, 4)");
+            entity.Property(e => e.TotalTwoPmade)
+                .HasColumnType("decimal(38, 4)")
+                .HasColumnName("TotalTwoPMade");
+            entity.Property(e => e.TotalTwoPmiss)
+                .HasColumnType("decimal(38, 4)")
+                .HasColumnName("TotalTwoPMiss");
+        });
+
+        modelBuilder.Entity<OurTeamGameStat>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("OurTeamGameStats");
+
+            entity.Property(e => e.FirstName)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.LastName)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.TeamName)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.TotalAssists).HasColumnType("decimal(38, 4)");
+            entity.Property(e => e.TotalBlocks).HasColumnType("decimal(38, 4)");
+            entity.Property(e => e.TotalDefRebounds).HasColumnType("decimal(38, 4)");
+            entity.Property(e => e.TotalFouls).HasColumnType("decimal(38, 4)");
+            entity.Property(e => e.TotalOffRebounds).HasColumnType("decimal(38, 4)");
+            entity.Property(e => e.TotalPoints).HasColumnType("decimal(38, 4)");
+            entity.Property(e => e.TotalSteals).HasColumnType("decimal(38, 4)");
+            entity.Property(e => e.TotalThreePmade)
+                .HasColumnType("decimal(38, 4)")
+                .HasColumnName("TotalThreePMade");
+            entity.Property(e => e.TotalThreePmiss)
+                .HasColumnType("decimal(38, 4)")
+                .HasColumnName("TotalThreePMiss");
+            entity.Property(e => e.TotalTurnovers).HasColumnType("decimal(38, 4)");
+            entity.Property(e => e.TotalTwoPmade)
+                .HasColumnType("decimal(38, 4)")
+                .HasColumnName("TotalTwoPMade");
+            entity.Property(e => e.TotalTwoPmiss)
+                .HasColumnType("decimal(38, 4)")
+                .HasColumnName("TotalTwoPMiss");
         });
 
         modelBuilder.Entity<Player>(entity =>
@@ -104,7 +183,6 @@ public partial class GobtrackerDbContext : DbContext
         modelBuilder.Entity<PlayerTeam>(entity =>
         {
             entity.HasIndex(e => new { e.PlayerId, e.TeamId }, "IX_PlayerTeamUnique").IsUnique();
-
 
         });
 

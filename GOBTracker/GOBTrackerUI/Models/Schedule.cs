@@ -12,4 +12,10 @@ public partial class Schedule
     public DateTimeOffset GameDateTime { get; set; }
 
     public string? Location { get; set; }
+
+    public int OurTeamId { get; set; }
+
+    public int OpponentTeamId { get; set; }
+
+    public int GameId { get; set; }
 }
