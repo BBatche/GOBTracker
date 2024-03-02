@@ -33,23 +33,30 @@
     <ScrollView>
 
         <VerticalStackLayout>
-        
-        <!-- Header -->
+
+
+            <StackLayout HorizontalOptions="CenterAndExpand">
+                <!-- Team Picker -->
+                <Picker x:Name="gamePicker"
+                    Title="Select Game"
+                    ItemsSource="{Binding Game}"
+                    FontSize="15"
+                    FontAttributes="Bold"
+                    SelectedIndexChanged="gamePicker_SelectedIndexChanged"
+                    HeightRequest="60"
+                    WidthRequest="230">
+                </Picker>
+            </StackLayout>
+
+
+
+            <!-- Header -->
         <Label Text="Score" FontSize="Large" HorizontalOptions="Center" Margin="0,20,0,10" />
 
-        <!-- Team Picker -->
-        <Picker x:Name="gamePicker"
-         Title="Select Game"
-         ItemsSource="{Binding Game}"
-         FontSize="10"
-         FontAttributes="Bold"
-         SelectedIndexChanged="gamePicker_SelectedIndexChanged">
-        </Picker>
+        <BoxView HeightRequest="100" Color="Transparent" />
 
 
-        
-
-        <HorizontalStackLayout HorizontalOptions="CenterAndExpand" Margin="0,30,0,0">
+            <HorizontalStackLayout HorizontalOptions="CenterAndExpand" Margin="0,30,0,0">
             
         <!-- Button to toggle Team 2 stats visibility -->
             <Button x:Name="Team1StatButton" Text="Team 1 Stats" Clicked="ToggleTeam1StatsVisibility_Clicked" WidthRequest="150"/>
