@@ -1,5 +1,3 @@
-
-
 using GOBTracker.Models;
 
 var builder = WebApplication.CreateBuilder(args);
