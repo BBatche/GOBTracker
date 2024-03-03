@@ -19,6 +19,8 @@ namespace GOBTrackerUI.APIMethods
         string playersApiUrl = "https://localhost:7063/api/Players";
         string playerTeamsApiUrl = "https://localhost:7063/api/PlayerTeams";
         string playerGameStatsApiUrl = "https://localhost:7063/api/PlayerGameStats";
+        string schedulesApiUrl = "https://localhost:7063/api/Schedules";
+        string gamesApiUrl = "https://localhost:7063/api/Games";
         //string teamsApiUrl = "http://localhost:5123/api/Teams";
         //string teamRosterApiUrl = "http://localhost:5123/api/TeamRoster";
         //string playersApiUrl = "http://localhost:5123/api/Players";
@@ -63,6 +65,72 @@ namespace GOBTrackerUI.APIMethods
             }
             return teams;
         }
+
+        async public Task<bool> AddTeamAsync(Team newTeam)
+        {
+            string apiUrl = teamsApiUrl;
+
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    string jsonTeam = JsonConvert.SerializeObject(newTeam);
+                    HttpContent content = new StringContent(jsonTeam, Encoding.UTF8, "application/json");
+
+                    HttpResponseMessage response = await client.PostAsync(apiUrl, content);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        Debug.WriteLine("Team added successfully");
+                        return true;
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Failed to add team. Status code: " + response.StatusCode);
+                        return false;
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                Debug.WriteLine("Error: " + ex.Message);
+                return false;
+            }
+        }
+
+        async public Task<bool> EditTeamByIdAsync(int teamId, Team editedTeam)
+        {
+            string apiUrl = teamsApiUrl;
+
+            try
+            {
+                string urlWithId = $"{apiUrl}/{teamId}";
+
+                using (HttpClient client = new HttpClient())
+                {
+                    string jsonTeam = JsonConvert.SerializeObject(editedTeam);
+                    HttpContent content = new StringContent(jsonTeam, Encoding.UTF8, "application/json");
+                    HttpResponseMessage response = await client.PutAsync(urlWithId, content);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        Debug.WriteLine("Team edited successfully");
+                        return true;
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Failed to edit team. Status code: " + response.StatusCode);
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Error: " + ex.Message);
+                return false;
+            }
+        }
+
 
         async public Task<List<Player>> GetPlayersAsync()
         {
@@ -272,18 +340,18 @@ namespace GOBTrackerUI.APIMethods
             string apiUrl = playerGameStatsApiUrl;
             List<PlayerGameStat> rawStats = null;
 
-            using (HttpClient client = new HttpClient())
-            {
-                try
+                using(HttpClient client = new HttpClient())
                 {
-                    HttpResponseMessage response = await client.GetAsync(apiUrl);
+
+                try{
+
+                    string urlWithId = $"{apiUrl}/{teamId}";
+                    HttpResponseMessage response = await client.GetAsync(urlWithId);
 
                     if (response.IsSuccessStatusCode)
                     {
                         string jsonString = await response.Content.ReadAsStringAsync();
-                        rawStats = JsonConvert.DeserializeObject<List<PlayerGameStat>>(jsonString);
-
-                        rawStats = rawStats.Where(x => x.GameDateTime.Equals(selectedGame)).ToList();
+                        schedule = JsonConvert.DeserializeObject<List<Schedule>>(jsonString);
 
                     }
                     else
@@ -299,9 +367,8 @@ namespace GOBTrackerUI.APIMethods
                     return null;
                 }
             }
-            return rawStats;
+            return schedule;
         }
-
 
         async public Task<List<Game>> GetGamesAsync()
         {
@@ -335,7 +402,70 @@ namespace GOBTrackerUI.APIMethods
             return games;
         }
 
+         async public Task<List<Schedule>> GetTeamScheduleByIdAsync(int teamId)
+        {
+            string apiUrl = schedulesApiUrl;
+            List<Schedule> schedule = null;
+            using (HttpClient client = new HttpClient())
+            {
+                try
+                {
+                    HttpResponseMessage response = await client.GetAsync(apiUrl);
 
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string jsonString = await response.Content.ReadAsStringAsync();
+                        rawStats = JsonConvert.DeserializeObject<List<PlayerGameStat>>(jsonString);
 
+                        rawStats = rawStats.Where(x => x.GameDateTime.Equals(selectedGame)).ToList();
+
+                    }
+                    else
+                    {
+                        Debug.WriteLine("API request failed with status code: " + response.StatusCode);
+                        return null;
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Error: " + ex.Message);
+                    return null;
+                }
+            }
+            return rawStats;
+        }
+
+        async public Task<List<Game>> GetGamesAsync()
+        {
+            string apiUrl = gamesApiUrl;
+            List<Game> games = null;
+            using (HttpClient client = new HttpClient())
+            {
+                try
+                {
+                    HttpResponseMessage response = await client.GetAsync(apiUrl);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string jsonString = await response.Content.ReadAsStringAsync();
+                        games = JsonConvert.DeserializeObject<List<Game>>(jsonString);
+
+                    }
+                    else
+                    {
+                        Debug.WriteLine("API request failed with status code: " + response.StatusCode);
+                        return null;
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Error: " + ex.Message);
+                    return null;
+                }
+            }
+            return games;
+        }
     }
 }
