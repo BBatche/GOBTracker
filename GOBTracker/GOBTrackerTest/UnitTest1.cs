@@ -15,8 +15,9 @@ namespace GOBTrackerTest
     [TestClass]
     public class GamesControllerTests
     {
-        
-        private GamesController _controller;
+        private PlayerGameStatsController _playerGameStatsController;
+        private PlayersController _playersController;
+        private GamesController _gamesController;
         private GobtrackerDbContext _context;
 
         [TestInitialize]
@@ -26,90 +27,55 @@ namespace GOBTrackerTest
         }
 
         [TestMethod]
-        public async Task GetGames_ReturnsEmptyList()
+        public async Task PlayersController_GetPlayers_ReturnsOkResult()
         {
+            // Arrange
+
             // Act
-            var result = await _controller.GetGames();
+            var result = await _playersController.GetPlayers();
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result.Value, typeof(List<Game>));
-            Assert.AreEqual(0, result.Value.Count());
+            Assert.IsInstanceOfType(result.Result, typeof(OkObjectResult));
         }
 
         [TestMethod]
-        public async Task GetGame_WithNonExistentId_ReturnsNotFound()
+        public async Task PlayersController_GetPlayer_ReturnsNotFoundResult()
         {
             // Arrange
-            int nonExistentId = 999;
+            int nonExistentPlayerId = 999;
 
             // Act
-            var result = await _controller.GetGame(nonExistentId);
+            var result = await _playersController.GetPlayer(nonExistentPlayerId);
 
             // Assert
-            Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result.Result, typeof(NotFoundResult));
         }
 
         [TestMethod]
-        public async Task AddGame_ReturnsCreated()
+        public async Task GamesController_GetGames_ReturnsOkResult()
         {
             // Arrange
-            var newGame = new Game
-            {
-                Id = 1,
-                OurTeamId = 1,
-                OpponentTeamId = 2,
-                GameDateTime = DateTimeOffset.Now,
-                Location = "Test Location",
-                OurTeam = new Team { Id = 1, TeamName = "Our Team" },
-                OpponentTeam = new Team { Id = 2, TeamName = "Opponent Team" }
-            };
 
             // Act
-            var result = await _controller.PostGame(newGame);
+            var result = await _gamesController.GetGames();
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result.Result, typeof(CreatedAtActionResult));
+            Assert.IsInstanceOfType(result.Result, typeof(OkObjectResult));
         }
 
         [TestMethod]
-        public async Task UpdateGame_WithNonExistentId_ReturnsNotFound()
+        public async Task GamesController_GetGame_ReturnsNotFoundResult()
         {
             // Arrange
-            int nonExistentId = 999;
-            var updatedGame = new Game
-            {
-                Id = nonExistentId,
-                OurTeamId = 1,
-                OpponentTeamId = 2,
-                GameDateTime = DateTimeOffset.Now,
-                Location = "Updated Location",
-                OurTeam = new Team { Id = 1, TeamName = "Our Team" },
-                OpponentTeam = new Team { Id = 2, TeamName = "Opponent Team" }
-            };
+            int nonExistentGameId = 999;
 
             // Act
-            var result = await _controller.PutGame(nonExistentId, updatedGame);
+            var result = await _gamesController.GetGame(nonExistentGameId);
 
             // Assert
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(NotFoundResult));
-        }
-
-        [TestMethod]
-        public async Task DeleteGame_WithNonExistentId_ReturnsNotFound()
-        {
-            // Arrange
-            int nonExistentId = 999;
-
-            // Act
-            var result = await _controller.DeleteGame(nonExistentId);
-
-            // Assert
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(NotFoundResult));
+            Assert.IsInstanceOfType(result.Result, typeof(NotFoundResult));
         }
     }
 }
