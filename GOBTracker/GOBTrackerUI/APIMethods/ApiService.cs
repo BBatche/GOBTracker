@@ -21,11 +21,16 @@ namespace GOBTrackerUI.APIMethods
         string playerGameStatsApiUrl = "https://localhost:7063/api/PlayerGameStats";
         string schedulesApiUrl = "https://localhost:7063/api/Schedules";
         string gamesApiUrl = "https://localhost:7063/api/Games";
+        string HomeTeamGameStatsApiUrl = "https://localhost:7063/api/OurTeamGameStats";
+        string AwayTeamGameStatsApiUrl = "https://localhost:7063/api/OpponentTeamGameStats";
+
         //string teamsApiUrl = "http://localhost:5123/api/Teams";
         //string teamRosterApiUrl = "http://localhost:5123/api/TeamRoster";
         //string playersApiUrl = "http://localhost:5123/api/Players";
         //string playerTeamsApiUrl = "http://localhost:5123/api/PlayerTeams";
         //string playerGameStatsApiUrl = "http://localhost:5123/api/PlayerGameStats";
+
+       
 
         public ApiService()
         {
@@ -373,7 +378,9 @@ namespace GOBTrackerUI.APIMethods
         async public Task<List<Game>> GetGamesAsync()
         {
             string apiUrl = gamesApiUrl;
+
             List<Game> games = null;
+
             using (HttpClient client = new HttpClient())
             {
                 try
@@ -440,16 +447,34 @@ namespace GOBTrackerUI.APIMethods
         {
             string apiUrl = gamesApiUrl;
             List<Game> games = null;
+
+        async public Task<List<OurTeamGameStat>> GetHomeRawTeamStatsFromGameAsync(int gameId)
+        {
+            string apiUrl = HomeTeamGameStatsApiUrl;
+
+
+        
+            List<OurTeamGameStat> rawStatsHome = null;
+
+
             using (HttpClient client = new HttpClient())
             {
                 try
                 {
                     HttpResponseMessage response = await client.GetAsync(apiUrl);
+                    string urlWithId = $"{apiUrl}/{gameId}";
+                    HttpResponseMessage response = await client.GetAsync(urlWithId);
+                    
 
                     if (response.IsSuccessStatusCode)
                     {
                         string jsonString = await response.Content.ReadAsStringAsync();
                         games = JsonConvert.DeserializeObject<List<Game>>(jsonString);
+
+                        rawStatsHome = JsonConvert.DeserializeObject<List<OurTeamGameStat>>(jsonString);
+
+
+                        rawStatsHome = rawStatsHome.Where(x => x.GameId == gameId).ToList();
 
                     }
                     else
@@ -467,5 +492,54 @@ namespace GOBTrackerUI.APIMethods
             }
             return games;
         }
+            return rawStatsHome;
+        }
+
+        async public Task<List<OpponentTeamGameStat>> GetAwayRawTeamStatsFromGameAsync(int gameId)
+        {
+            string apiUrl = AwayTeamGameStatsApiUrl;
+            
+
+            List<OpponentTeamGameStat> rawStatsAway = null;
+
+
+            using (HttpClient client = new HttpClient())
+            {
+                try
+                {
+                    string urlWithId = $"{apiUrl}/{gameId}";
+                    HttpResponseMessage response = await client.GetAsync(urlWithId);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string jsonString = await response.Content.ReadAsStringAsync();
+
+                        rawStatsAway = JsonConvert.DeserializeObject<List<OpponentTeamGameStat>>(jsonString);
+                        
+
+
+                        rawStatsAway = rawStatsAway.Where(x => x.GameId == gameId).ToList();
+                        
+
+                    }
+                    else
+                    {
+                        Debug.WriteLine("API request failed with status code: " + response.StatusCode);
+                        return null;
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Error: " + ex.Message);
+                    return null;
+                }
+            }
+            return rawStatsAway;
+        }
+
+
+
+
     }
 }
