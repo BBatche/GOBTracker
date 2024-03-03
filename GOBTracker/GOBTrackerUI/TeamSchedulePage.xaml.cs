@@ -85,9 +85,12 @@ namespace GOBTrackerUI
             });
         }
 
-        
+        private async void ScoreGame_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new ScoreKeepingPage(selectedSchedule));
+        }
 
-        
+
     }
 }
     
