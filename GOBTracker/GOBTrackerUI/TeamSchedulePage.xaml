@@ -132,10 +132,9 @@
         
 
         <!-- CRUD Operations Buttons -->
-        <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Spacing="20" Margin="0,20,0,0">
-            <Button x:Name="AddPlayerButton" Text="Add Player"  IsEnabled="False"/>
-            <Button x:Name="EditPlayerButton" Text="Edit Player" IsEnabled="False" />
-            <Button x:Name="DeletePlayerButton" Text="Delete Player"  IsEnabled="False" />
+            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Spacing="20" Margin="0,20,0,0">
+                <Button x:Name="EnterScoreKeeperModeButton" Text="Score This Game" Clicked="ScoreGame_Clicked" IsEnabled="False" />
+                <Button x:Name="EnterGameViewModeButton" Text="View Game Live Score"  IsEnabled="False" />
         </StackLayout>
 
     </StackLayout>
