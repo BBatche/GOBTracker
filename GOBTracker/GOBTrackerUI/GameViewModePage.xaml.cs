@@ -1,6 +1,5 @@
 using GOBTrackerUI.APIMethods;
 using GOBTrackerUI.Models;
-using Windows.Networking;
 
 namespace GOBTrackerUI;
 
