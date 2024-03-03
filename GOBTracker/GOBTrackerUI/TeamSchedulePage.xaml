@@ -72,8 +72,8 @@
             </Grid>
 
             <!--Schedule-->
-            <CollectionView x:Name="scheduleCollectionView" HorizontalOptions="CenterAndExpand"><!--SelectionChanged="Player_SelectionChanged" IsVisible="False" SelectionMode="Single">-->
-            <CollectionView.ItemTemplate>
+            <CollectionView x:Name="scheduleCollectionView" HorizontalOptions="CenterAndExpand" SelectionChanged="Game_SelectionChanged" IsVisible="False" SelectionMode="Single">
+                <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>

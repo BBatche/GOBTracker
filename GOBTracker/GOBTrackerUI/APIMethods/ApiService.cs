@@ -19,6 +19,7 @@ namespace GOBTrackerUI.APIMethods
         string playerTeamsApiUrl = "https://localhost:7063/api/PlayerTeams";
         string playerGameStatsApiUrl = "https://localhost:7063/api/PlayerGameStats";
         string schedulesApiUrl = "https://localhost:7063/api/Schedules";
+        string gamesApiUrl = "https://localhost:7063/api/Games";
         //string teamsApiUrl = "http://localhost:5123/api/Teams";
         //string teamRosterApiUrl = "http://localhost:5123/api/TeamRoster";
         //string playersApiUrl = "http://localhost:5123/api/Players";
@@ -367,6 +368,36 @@ namespace GOBTrackerUI.APIMethods
             return schedule;
         }
 
+        async public Task<List<Game>> GetGamesAsync()
+        {
+            string apiUrl = gamesApiUrl;
+            List<Game> games = null;
+            using (HttpClient client = new HttpClient())
+            {
+                try
+                {
+                    HttpResponseMessage response = await client.GetAsync(apiUrl);
 
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string jsonString = await response.Content.ReadAsStringAsync();
+                        games = JsonConvert.DeserializeObject<List<Game>>(jsonString);
+
+                    }
+                    else
+                    {
+                        Debug.WriteLine("API request failed with status code: " + response.StatusCode);
+                        return null;
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Error: " + ex.Message);
+                    return null;
+                }
+            }
+            return games;
+        }
     }
 }

@@ -13,6 +13,7 @@ namespace GOBTrackerUI
         public Team selectedTeam;
         public Player selectedPlayer;
         public ApiService apiService;
+        public Schedule selectedGame;
         public ManagementPage()
         {
             InitializeComponent();
@@ -61,10 +62,30 @@ namespace GOBTrackerUI
                 DeleteTeamButton.IsEnabled = true;
                 EditPlayerButton.IsEnabled = false;
                 DeletePlayerButton.IsEnabled = false;
+
+
+
+                //load the schedule
+                LoadTeamSchedule(selectedTeam.Id);
+                scheduleCollectionView.IsVisible = true;
+                AddGameButton.IsEnabled = true;
+                DeleteGameButton.IsEnabled = false;
+
+
+
             }
 
             
             
+        }
+
+        private void Game_SelectionChanged(object sender, EventArgs e)
+        {
+            selectedGame = (Schedule)scheduleCollectionView.SelectedItem;
+            Debug.WriteLine(selectedGame.OurTeam.ToString() + " vs " + selectedGame.Opponent + " selected");
+            
+            DeleteGameButton.IsEnabled = true;
+
         }
 
         private async void Player_SelectionChanged(object sender, EventArgs e)
@@ -88,7 +109,17 @@ namespace GOBTrackerUI
             });
         }
 
-        
+        async private void LoadTeamSchedule(int teamId)
+        {
+            var schedule = await apiService.GetTeamScheduleByIdAsync(teamId);
+
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                scheduleCollectionView.ItemsSource = schedule;
+            });
+        }
+
+
 
         // Event handler for adding a new player
         private async void AddPlayer_Clicked(object sender, EventArgs e)

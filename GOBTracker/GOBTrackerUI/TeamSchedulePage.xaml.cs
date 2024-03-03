@@ -11,7 +11,7 @@ namespace GOBTrackerUI
     public partial class TeamSchedulePage : ContentPage
     {
         public Team selectedTeam;
-        public Player selectedGame;
+        public Schedule selectedGame;
         public ApiService apiService;
         public TeamSchedulePage()
         {
@@ -67,16 +67,14 @@ namespace GOBTrackerUI
             
         }
 
-        //private async void Player_SelectionChanged(object sender, EventArgs e)
-        //{
-        //    Schedule selectedSchedule = (Schedule)scheduleCollectionView.SelectedItem;
-        //    var games = await apiService.GetGamesAsync();
-        //    selectedGame =  games.FirstOrDefault(game => game == selectedGame.LastName);
-        //    Debug.WriteLine(selectedPlayer.FirstName.ToString() + " selected");
-        //    EditPlayerButton.IsEnabled = true;
-        //    DeletePlayerButton.IsEnabled = true;
+        private void Game_SelectionChanged(object sender, EventArgs e)
+        {
+            selectedGame = (Schedule)scheduleCollectionView.SelectedItem;
+            Debug.WriteLine(selectedGame.OurTeam.ToString() + " vs " + selectedGame.Opponent + " selected");
+            EditPlayerButton.IsEnabled = true;
+            DeletePlayerButton.IsEnabled = true;
 
-        //}
+        }
 
         async private void LoadTeamSchedule(int teamId)
         {
