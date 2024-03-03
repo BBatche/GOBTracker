@@ -18,6 +18,7 @@ namespace GOBTrackerUI.APIMethods
         string playersApiUrl = "https://localhost:7063/api/Players";
         string playerTeamsApiUrl = "https://localhost:7063/api/PlayerTeams";
         string playerGameStatsApiUrl = "https://localhost:7063/api/PlayerGameStats";
+        string schedulesApiUrl = "https://localhost:7063/api/Schedules";
         //string teamsApiUrl = "http://localhost:5123/api/Teams";
         //string teamRosterApiUrl = "http://localhost:5123/api/TeamRoster";
         //string playersApiUrl = "http://localhost:5123/api/Players";
@@ -333,38 +334,38 @@ namespace GOBTrackerUI.APIMethods
         }
 
 
-        //async public Task<List<Schedule>> GetTeamScheduleByIdAsync(int teamId)
-        //{
-        //    string apiUrl = teamRosterApiUrl;
-        //    List<TeamRoster> roster = null;
-        //    using (HttpClient client = new HttpClient())
-        //    {
-        //        try
-        //        {
-        //            string urlWithId = $"{apiUrl}/{teamId}";
-        //            HttpResponseMessage response = await client.GetAsync(urlWithId);
+        async public Task<List<Schedule>> GetTeamScheduleByIdAsync(int teamId)
+        {
+            string apiUrl = schedulesApiUrl;
+            List<Schedule> schedule = null;
+            using (HttpClient client = new HttpClient())
+            {
+                try
+                {
+                    string urlWithId = $"{apiUrl}/{teamId}";
+                    HttpResponseMessage response = await client.GetAsync(urlWithId);
 
-        //            if (response.IsSuccessStatusCode)
-        //            {
-        //                string jsonString = await response.Content.ReadAsStringAsync();
-        //                roster = JsonConvert.DeserializeObject<List<TeamRoster>>(jsonString);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string jsonString = await response.Content.ReadAsStringAsync();
+                        schedule = JsonConvert.DeserializeObject<List<Schedule>>(jsonString);
 
-        //            }
-        //            else
-        //            {
-        //                Debug.WriteLine("API request failed with status code: " + response.StatusCode);
-        //                return null;
+                    }
+                    else
+                    {
+                        Debug.WriteLine("API request failed with status code: " + response.StatusCode);
+                        return null;
 
-        //            }
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            Debug.WriteLine("Error: " + ex.Message);
-        //            return null;
-        //        }
-        //    }
-        //    return roster;
-        //}
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Error: " + ex.Message);
+                    return null;
+                }
+            }
+            return schedule;
+        }
 
 
     }

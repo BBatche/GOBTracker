@@ -52,9 +52,10 @@ namespace GOBTrackerUI
                 var selectedTeamName = picker.SelectedItem as String;
                 var teams = await apiService.GetTeamsAsync();
                 selectedTeam = teams.FirstOrDefault(team => team.TeamName == selectedTeamName);
-                //load the players for the team
 
-                LoadTeamRoster(selectedTeam.Id);
+                //load the schedule for the team
+
+                LoadTeamSchedule(selectedTeam.Id);
                 scheduleCollectionView.IsVisible = true;
                 AddPlayerButton.IsEnabled = true;
                 

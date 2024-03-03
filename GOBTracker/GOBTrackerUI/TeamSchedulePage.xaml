@@ -55,8 +55,23 @@
 
         <!-- Header -->
         <Label Text="Schedule" FontSize="Large" HorizontalOptions="CenterAndExpand"  />
+        
+        <!--Column Headers-->
+            <Grid HorizontalOptions="CenterAndExpand" Margin="10" Padding="10" BackgroundColor="LightGray"  >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="250" />
+                    <ColumnDefinition Width="150" />
+                </Grid.ColumnDefinitions>
 
-        <!--Schedule-->
+                <Label Grid.Column="0" Text="Home" FontSize="Subtitle" HorizontalTextAlignment="Center" />
+                <Label Grid.Column="1" Text="Away" FontSize="Subtitle" HorizontalTextAlignment="Center"/>
+                <Label Grid.Column="2" Text="Date/Time" FontSize="Subtitle" HorizontalTextAlignment="Center"/>
+                <Label Grid.Column="3" Text="Location" FontSize="Subtitle" HorizontalTextAlignment="Center"/>
+            </Grid>
+
+            <!--Schedule-->
             <CollectionView x:Name="scheduleCollectionView" HorizontalOptions="CenterAndExpand"><!--SelectionChanged="Player_SelectionChanged" IsVisible="False" SelectionMode="Single">-->
             <CollectionView.ItemTemplate>
                 <DataTemplate>
@@ -64,9 +79,12 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="150" />
                             <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="250" />
+                            <ColumnDefinition Width="150" />
+                            
                         </Grid.ColumnDefinitions>
 
-                        <!-- First Name -->
+                        <!-- Home/Our Team Name -->
                         <Frame Grid.Column="0"
                        BorderColor="Black"
                        CornerRadius="5"
@@ -76,7 +94,7 @@
                             <Label Text="{Binding OurTeam}" FontSize="Subtitle" />
                         </Frame>
 
-                        <!-- Last Name -->
+                        <!-- Away/Opponent Team Name -->
                         <Frame Grid.Column="1"
                        BorderColor="Black"
                        CornerRadius="5"
@@ -85,7 +103,27 @@
                        Padding="5">
                             <Label Text="{Binding Opponent}" FontSize="Subtitle" />
                         </Frame>
-                    </Grid>
+
+                        <!-- Date and Time -->
+                        <Frame Grid.Column="2"
+                           BorderColor="Black"
+                           CornerRadius="5"
+                           HasShadow="false"
+                           Margin="5"
+                           Padding="5">
+                                <Label Text="{Binding GameDateTime, StringFormat='{0:MM/dd/yyyy hh:mm tt}'}" FontSize="20" />
+                        </Frame>
+
+                            <!-- Location -->
+                        <Frame Grid.Column="3"
+                        BorderColor="Black"
+                        CornerRadius="5"
+                        HasShadow="false"
+                        Margin="5"
+                        Padding="5">
+                            <Label Text="{Binding Location}" FontSize="20" />
+                        </Frame>
+                        </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

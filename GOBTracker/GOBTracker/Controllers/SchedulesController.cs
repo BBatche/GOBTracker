@@ -29,7 +29,7 @@ namespace GOBTracker.Controllers
 
         // GET: 
         [HttpGet("{teamID}")]
-        public async Task<ActionResult<IEnumerable<Schedule>>> GetTeamRosters(int teamID)
+        public async Task<ActionResult<IEnumerable<Schedule>>> GetTeamSchedules(int teamID)
         {
             if (_context.Schedules == null)
             {
