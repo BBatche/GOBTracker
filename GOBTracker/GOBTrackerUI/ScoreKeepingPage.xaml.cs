@@ -12,6 +12,7 @@ namespace GOBTrackerUI
     {
         public Team selectedTeam;
         public ApiService apiService;
+        private Schedule selectedSchedule;
         public ScoreKeepingPage()
         {
             InitializeComponent();
@@ -19,6 +20,14 @@ namespace GOBTrackerUI
             LoadTeams();
         }
 
+        public ScoreKeepingPage(Schedule _selectedSchedule)
+        {
+            InitializeComponent();
+            apiService= new ApiService();
+            LoadTeams();
+            selectedSchedule = _selectedSchedule;
+
+        }
        async private void LoadTeams()
         {
             var teams = await apiService.GetTeamsAsync();
