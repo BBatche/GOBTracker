@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GOBTracker.Models;
+using System.Linq;
 
 namespace GOBTracker.Controllers
 {
@@ -32,8 +33,8 @@ namespace GOBTracker.Controllers
         }
 
         // GET: api/PlayerTeams/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<PlayerTeam>> GetPlayerTeam(int id)
+        [HttpGet("id/{id}")]
+        public async Task<ActionResult<PlayerTeam>> GetPlayerTeamByID(int id)
         {
           if (_context.PlayerTeams == null)
           {
@@ -48,6 +49,25 @@ namespace GOBTracker.Controllers
 
             return playerTeam;
         }
+
+        [HttpGet("player/{playerID}")]
+        public async Task<ActionResult<IEnumerable<PlayerTeam>>> GetPlayerTeamByPlayerID(int playerID)
+        {
+            if (_context.PlayerTeams == null)
+            {
+                return NotFound();
+            }
+            var playerTeam = await _context.PlayerTeams.ToListAsync();
+
+            if (playerTeam == null)
+            {
+                return NotFound();
+            }
+            playerTeam = playerTeam.Where(x => x.PlayerId == playerID).ToList();
+
+            return playerTeam;
+        }
+
 
         // PUT: api/PlayerTeams/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754

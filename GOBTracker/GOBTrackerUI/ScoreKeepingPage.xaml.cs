@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using Microsoft.Maui.Controls;
+using System.Linq;
 
 
 namespace GOBTrackerUI
@@ -13,6 +14,8 @@ namespace GOBTrackerUI
         public Team selectedTeam;
         public ApiService apiService;
         private Schedule selectedSchedule;
+        public TeamRoster selectedPlayer;
+        public PlayerTeam selectedPlayerTeam;
         public ScoreKeepingPage()
         {
             InitializeComponent();
@@ -31,6 +34,7 @@ namespace GOBTrackerUI
        async private void LoadTeams()
         {
             var teams = await apiService.GetTeamsAsync();
+            teams = teams.Where(t => t.Id == selectedSchedule.OurTeamId ||  t.Id == selectedSchedule.OpponentTeamId).ToList();
 
             MainThread.BeginInvokeOnMainThread(() =>
             {
@@ -63,8 +67,12 @@ namespace GOBTrackerUI
 
         private async void Player_SelectionChanged(object sender, EventArgs e)
         {
-            TeamRoster selectedPlayer = (TeamRoster)rosterCollectionView.SelectedItem;
-           
+            selectedPlayer = (TeamRoster)rosterCollectionView.SelectedItem;
+
+            var playerTeams = await apiService.GetPlayerTeamsByPlayerID(selectedPlayer.PlayerId);
+
+            selectedPlayerTeam = playerTeams.FirstOrDefault(team => team.PlayerId == selectedPlayer.PlayerId);
+
             Console.WriteLine(selectedPlayer.ToString());
 
         }
@@ -79,59 +87,153 @@ namespace GOBTrackerUI
             });
         }
 
-        private void PlayerCollectionView_SelectionChanged()
-        { 
-            
+        private async void Made2PTButton_Clicked(object sender, EventArgs e)
+        {
+            Stat stat = new Stat { GameId = selectedSchedule.GameId, PlayerTeamId = selectedPlayerTeam.Id , StatTypeId = 1, StatValue = 1};
+            bool success = await apiService.AddStats(stat);
+            if(success)
+            {
+                Debug.WriteLine("2PT Made added successfully");
+            }
+            else
+            {
+                Debug.WriteLine("Add Failed");
+            }
         }
 
-        private void Made2PTButton_Clicked(object sender, EventArgs e)
+        private async void Miss2PTButton_Clicked(object sender, EventArgs e)
         {
-
+            Stat stat = new Stat { GameId = selectedSchedule.GameId, PlayerTeamId = selectedPlayerTeam.Id, StatTypeId = 2, StatValue = 1 };
+            bool success = await apiService.AddStats(stat);
+            if (success)
+            {
+                Debug.WriteLine("2PT Miss added successfully");
+            }
+            else
+            {
+                Debug.WriteLine("Add Failed");
+            }
         }
-
-        private void Miss2PTButton_Clicked(object sender, EventArgs e)
+        private async void Made3PTButton_Clicked(object sender, EventArgs e)
         {
-
+            Stat stat = new Stat { GameId = selectedSchedule.GameId, PlayerTeamId = selectedPlayerTeam.Id, StatTypeId = 3, StatValue = 1 };
+            bool success = await apiService.AddStats(stat);
+            if (success)
+            {
+                Debug.WriteLine("3PT Made added successfully");
+            }
+            else
+            {
+                Debug.WriteLine("Add Failed");
+            }
         }
-        private void Made3PTButton_Clicked(object sender, EventArgs e)
+        private async void Miss3PTButton_Clicked(object sender, EventArgs e)
         {
-
+            Stat stat = new Stat { GameId = selectedSchedule.GameId, PlayerTeamId = selectedPlayerTeam.Id, StatTypeId = 4, StatValue = 1 };
+            bool success = await apiService.AddStats(stat);
+            if (success)
+            {
+                Debug.WriteLine("3PT Miss added successfully");
+            }
+            else
+            {
+                Debug.WriteLine("Add Failed");
+            }
         }
-        private void Miss3PTButton_Clicked(object sender, EventArgs e)
+        private async void OffRebButton_Clicked(object sender, EventArgs e)
         {
-
+            Stat stat = new Stat { GameId = selectedSchedule.GameId, PlayerTeamId = selectedPlayerTeam.Id, StatTypeId = 12, StatValue = 1 };
+            bool success = await apiService.AddStats(stat);
+            if (success)
+            {
+                Debug.WriteLine("OffReb added successfully");
+            }
+            else
+            {
+                Debug.WriteLine("Add Failed");
+            }
         }
-        private void OffRebButton_Clicked(object sender, EventArgs e)
+        private async void AssistButton_Clicked(object sender, EventArgs e)
         {
-
+            Stat stat = new Stat { GameId = selectedSchedule.GameId, PlayerTeamId = selectedPlayerTeam.Id, StatTypeId = 9, StatValue = 1 };
+            bool success = await apiService.AddStats(stat);
+            if (success)
+            {
+                Debug.WriteLine("Assist added successfully");
+            }
+            else
+            {
+                Debug.WriteLine("Add Failed");
+            }
         }
-        private void AssistButton_Clicked(object sender, EventArgs e)
+        private async void TurnoverButton_Clicked(object sender, EventArgs e)
         {
-
+            Stat stat = new Stat { GameId = selectedSchedule.GameId, PlayerTeamId = selectedPlayerTeam.Id, StatTypeId = 8, StatValue = 1 };
+            bool success = await apiService.AddStats(stat);
+            if (success)
+            {
+                Debug.WriteLine("Turnover added successfully");
+            }
+            else
+            {
+                Debug.WriteLine("Add Failed");
+            }
         }
-        private void TurnoverButton_Clicked(object sender, EventArgs e)
+        private async void StealButton_Clicked(object sender, EventArgs e)
         {
-
+            Stat stat = new Stat { GameId = selectedSchedule.GameId, PlayerTeamId = selectedPlayerTeam.Id, StatTypeId = 6, StatValue = 1 };
+            bool success = await apiService.AddStats(stat);
+            if (success)
+            {
+                Debug.WriteLine("Steal added successfully");
+            }
+            else
+            {
+                Debug.WriteLine("Add Failed");
+            }
         }
-        private void StealButton_Clicked(object sender, EventArgs e)
+        private async void DefRebButton_Clicked(object sender, EventArgs e)
         {
-
+            Stat stat = new Stat { GameId = selectedSchedule.GameId, PlayerTeamId = selectedPlayerTeam.Id, StatTypeId = 13, StatValue = 1 };
+            bool success = await apiService.AddStats(stat);
+            if (success)
+            {
+                Debug.WriteLine("DefReb added successfully");
+            }
+            else
+            {
+                Debug.WriteLine("Add Failed");
+            }
         }
-        private void DefRebButton_Clicked(object sender, EventArgs e)
+        private async void BlockButton_Clicked(object sender, EventArgs e)
         {
-
+            Stat stat = new Stat { GameId = selectedSchedule.GameId, PlayerTeamId = selectedPlayerTeam.Id, StatTypeId = 10, StatValue = 1 };
+            bool success = await apiService.AddStats(stat);
+            if (success)
+            {
+                Debug.WriteLine("Block added successfully");
+            }
+            else
+            {
+                Debug.WriteLine("Add Failed");
+            }
         }
-        private void BlockButton_Clicked(object sender, EventArgs e)
+        private async void FoulButton_Clicked(object sender, EventArgs e)
         {
-
-        }
-        private void FoulButton_Clicked(object sender, EventArgs e)
-        {
-
+            Stat stat = new Stat { GameId = selectedSchedule.GameId, PlayerTeamId = selectedPlayerTeam.Id, StatTypeId = 11, StatValue = 1 };
+            bool success = await apiService.AddStats(stat);
+            if (success)
+            {
+                Debug.WriteLine("Foul added successfully");
+            }
+            else
+            {
+                Debug.WriteLine("Add Failed");
+            }
         }
         private void UndoButton_Clicked(object sender, EventArgs e)
         {
-
+            
         }
     }
 

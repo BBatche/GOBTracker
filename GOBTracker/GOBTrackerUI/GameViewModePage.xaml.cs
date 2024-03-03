@@ -27,14 +27,25 @@ public partial class GameViewModePage : ContentPage
 
     async private void LoadGames()
     {
-        var games = await apiService.GetGamesAsync();
-
-        MainThread.BeginInvokeOnMainThread(() =>
+        try
         {
-            gamePicker.ItemsSource = games.Select(game => game.Id).ToList();
+            var games = await apiService.GetGamesAsync();
+            if (games != null)
+            {
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    gamePicker.ItemsSource = games.Select(game => game.Id).ToList();
+
+
+                });
+            }
             
-            
-        });
+        }
+        catch (Exception ex)
+        {
+
+        }
+        
     }
 
     private async void gamePicker_SelectedIndexChanged(object sender, EventArgs e)

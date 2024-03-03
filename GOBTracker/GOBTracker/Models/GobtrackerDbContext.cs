@@ -224,20 +224,7 @@ public partial class GobtrackerDbContext : DbContext
         {
             entity.Property(e => e.StatValue).HasColumnType("decimal(8, 4)");
 
-            entity.HasOne(d => d.Game).WithMany(p => p.Stats)
-                .HasForeignKey(d => d.GameId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Stats_Games");
-
-            entity.HasOne(d => d.PlayerTeam).WithMany(p => p.Stats)
-                .HasForeignKey(d => d.PlayerTeamId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Stats_PlayerTeams");
-
-            entity.HasOne(d => d.StatType).WithMany(p => p.Stats)
-                .HasForeignKey(d => d.StatTypeId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Stats_StatTypes");
+            
         });
 
         modelBuilder.Entity<StatType>(entity =>

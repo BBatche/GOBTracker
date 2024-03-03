@@ -28,10 +28,11 @@ namespace GOBTrackerUI.APIMethods
         string playersApiUrl = "http://localhost:5123/api/Players";
         string playerTeamsApiUrl = "http://localhost:5123/api/PlayerTeams";
         string playerGameStatsApiUrl = "http://localhost:5123/api/PlayerGameStats";
-        string gamesApiUrl = "https://localhost:5123/api/Games";
+        string gamesApiUrl = "http://localhost:5123/api/Games";
         string schedulesApiUrl = "http://localhost:5123/api/Schedules";
-        string HomeTeamGameStatsApiUrl = "https://localhost:5123/api/OurTeamGameStats";
-        string AwayTeamGameStatsApiUrl = "https://localhost:5123/api/OpponentTeamGameStats";
+        string HomeTeamGameStatsApiUrl = "http://localhost:5123/api/OurTeamGameStats";
+        string AwayTeamGameStatsApiUrl = "http://localhost:5123/api/OpponentTeamGameStats";
+        string statsUrl = "http://localhost:5123/api/Stats";
 
 
         public ApiService()
@@ -202,7 +203,38 @@ namespace GOBTrackerUI.APIMethods
                 return false;
             }
         }
+        async public Task<bool> AddStats(Stat stat)
+        {
+            string apiUrl = statsUrl;
+            
+            try
+            {
 
+                using (HttpClient client = new HttpClient())
+                {
+                    string jsonStat = JsonConvert.SerializeObject(stat);
+                    HttpContent content = new StringContent(jsonStat, Encoding.UTF8, "application/json");
+
+                    HttpResponseMessage response = await client.PostAsync(apiUrl, content);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        Debug.WriteLine("Stat added successfully");
+                        return true;
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Failed to add stat. Status code: " + response.StatusCode);
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Error: " + ex.Message);
+                return false;
+            }
+        }
         async public Task<bool> EditPlayerByIdAsync(int playerId, Player updatedPlayer)
         {
             string apiUrl = playersApiUrl;
@@ -540,5 +572,49 @@ namespace GOBTrackerUI.APIMethods
             }
             return rawStatsAway;
         }
+
+        async public Task<List<PlayerTeam>> GetPlayerTeamsByPlayerID(int playerID)
+        {
+            string apiUrl = playerTeamsApiUrl;
+
+
+            List<PlayerTeam> playerTeams = null;
+
+
+            using (HttpClient client = new HttpClient())
+            {
+                try
+                {
+                    string urlWithId = $"{apiUrl}/player/{playerID}";
+                    HttpResponseMessage response = await client.GetAsync(urlWithId);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string jsonString = await response.Content.ReadAsStringAsync();
+
+                        playerTeams = JsonConvert.DeserializeObject<List<PlayerTeam>>(jsonString);
+
+
+
+                        playerTeams = playerTeams.Where(x => x.PlayerId == playerID).ToList();
+
+
+                    }
+                    else
+                    {
+                        Debug.WriteLine("API request failed with status code: " + response.StatusCode);
+                        return null;
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Error: " + ex.Message);
+                    return null;
+                }
+            }
+            return playerTeams;
+        }
+
     }
 }

@@ -14,10 +14,4 @@ public partial class Stat
     public int StatTypeId { get; set; }
 
     public decimal StatValue { get; set; }
-
-    public virtual Game Game { get; set; } = null!;
-
-    public virtual PlayerTeam PlayerTeam { get; set; } = null!;
-
-    public virtual StatType StatType { get; set; } = null!;
 }
