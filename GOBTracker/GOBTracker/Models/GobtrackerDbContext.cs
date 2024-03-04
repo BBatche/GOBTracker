@@ -69,15 +69,7 @@ public partial class GobtrackerDbContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false);
 
-            entity.HasOne(d => d.OpponentTeam).WithMany(p => p.GameOpponentTeams)
-                .HasForeignKey(d => d.OpponentTeamId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_OpponenetTeamID_TeamID");
-
-            entity.HasOne(d => d.OurTeam).WithMany(p => p.GameOurTeams)
-                .HasForeignKey(d => d.OurTeamId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_OurTeamID_TeamID");
+            
         });
 
         modelBuilder.Entity<OpponentTeamGameStat>(entity =>
