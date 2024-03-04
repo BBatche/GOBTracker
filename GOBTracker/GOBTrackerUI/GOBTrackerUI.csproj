@@ -54,6 +54,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="TeamSchedulePage.xaml.cs">
+	    <DependentUpon>TeamSchedulePage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="ScoreKeepingPage.xaml.cs">
 	    <DependentUpon>ScoreKeepingPage.xaml</DependentUpon>
 	  </Compile>
@@ -63,6 +66,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="TeamSchedulePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="ScoreKeepingPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

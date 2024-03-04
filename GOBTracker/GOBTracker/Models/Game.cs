@@ -14,10 +14,4 @@ public partial class Game
     public string? Location { get; set; }
 
     public DateTimeOffset GameDateTime { get; set; }
-
-    public virtual Team OpponentTeam { get; set; } = null!;
-
-    public virtual Team OurTeam { get; set; } = null!;
-
-    public virtual ICollection<Stat> Stats { get; set; } = new List<Stat>();
 }

@@ -10,6 +10,4 @@ public partial class StatType
     public string StatName { get; set; } = null!;
 
     public string StatNameAbr { get; set; } = null!;
-
-    public virtual ICollection<Stat> Stats { get; set; } = new List<Stat>();
 }
