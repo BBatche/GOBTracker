@@ -53,7 +53,75 @@
             <!-- Header -->
         <Label Text="Score" FontSize="Large" HorizontalOptions="Center" Margin="0,20,0,10" />
 
-        <BoxView HeightRequest="100" Color="Transparent" />
+
+
+
+
+            <HorizontalStackLayout HorizontalOptions="CenterAndExpand">
+
+                <!--Score List-->
+                <CollectionView x:Name="ScoreCollectionView"  HorizontalOptions="FillAndExpand">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="200" />
+                                    <ColumnDefinition Width="175" />
+                                    <ColumnDefinition Width="175" />
+                                    <ColumnDefinition Width="200" />
+                                </Grid.ColumnDefinitions>
+                                
+                                <!-- Team Name -->
+                                <Frame Grid.Column="0"
+                                   BorderColor="Black"
+                                   CornerRadius="5"
+                                   HasShadow="false"
+                                   Margin="10, 50"
+                                   Padding="25">
+                                    <Label Text="{Binding OurTeamName}" FontSize="30" />
+                                </Frame>
+
+                                <!-- Our Score -->
+                                <Frame Grid.Column="1"
+                               BorderColor="Black"
+                               CornerRadius="5"
+                               HasShadow="false"
+                               Margin="10, 50"
+                               Padding="25">
+                                    <Label Text="{Binding OurTeamPoints, StringFormat='{0:F0}'}" FontSize="50" />
+                                </Frame>
+
+                                <!-- Opp Score -->
+                                <Frame Grid.Column="2"
+                               BorderColor="Black"
+                               CornerRadius="5"
+                               HasShadow="false"
+                               Margin="10, 50"
+                               Padding="25">
+                                    <Label Text="{Binding OpponentTeamPoints, StringFormat='{0:F0}'}" FontSize="50" />
+
+                                </Frame>
+
+                                <!-- Team Name -->
+                                <Frame Grid.Column="3"
+                                   BorderColor="Black"
+                                   CornerRadius="5"
+                                   HasShadow="false"
+                                   Margin="10, 50"
+                                   Padding="25">
+                                    <Label Text="{Binding OpponentTeamName}" FontSize="30" />
+                                </Frame>
+
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+
+            </HorizontalStackLayout>
+
+
+
 
 
             <HorizontalStackLayout HorizontalOptions="CenterAndExpand" Margin="0,30,0,0">

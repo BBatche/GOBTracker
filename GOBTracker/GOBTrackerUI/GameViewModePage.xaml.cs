@@ -85,6 +85,11 @@ public partial class GameViewModePage : ContentPage
         var homePlayerStatsRawInGame = await apiService.GetHomeRawTeamStatsFromGameAsync(selectedGameId);
         var awayPlayerStatsRawInGame = await apiService.GetAwayRawTeamStatsFromGameAsync(selectedGameId);
 
+        var teamsScoreInThisGame = await apiService.GetTeamGameScore(1); //add gameId argument here
+
+        //var ourTeamNameInThisGame = await apiService.GetTeamGameScore(1); //add gameId argument here
+        //var opponentTeamnameInThisGame = await apiService.GetTeamGameScore(1); //add gameId argument here
+
 
         bool view1Status = Team1StatCollectionView.IsVisible;
         bool view2Status = Team2StatCollectionView.IsVisible;
@@ -92,6 +97,10 @@ public partial class GameViewModePage : ContentPage
 
         MainThread.BeginInvokeOnMainThread(() => { Team1StatCollectionView.ItemsSource = homePlayerStatsRawInGame; });
         MainThread.BeginInvokeOnMainThread(() => { Team2StatCollectionView.ItemsSource = awayPlayerStatsRawInGame; });
+
+        MainThread.BeginInvokeOnMainThread(() => { ScoreCollectionView.ItemsSource = teamsScoreInThisGame; });
+
+        
 
 
         UpdateCollectionViewStatus(true, false);
@@ -116,6 +125,8 @@ public partial class GameViewModePage : ContentPage
         var homePlayerStatsRawInGame = await apiService.GetHomeRawTeamStatsFromGameAsync(selectedGameId);
         var awayPlayerStatsRawInGame = await apiService.GetAwayRawTeamStatsFromGameAsync(selectedGameId);
 
+        var teamsScoreInThisGame = await apiService.GetTeamGameScore(1); //add gameId argument here
+
 
         bool view1Status = Team1StatCollectionView.IsVisible;
         bool view2Status = Team2StatCollectionView.IsVisible;
@@ -123,6 +134,9 @@ public partial class GameViewModePage : ContentPage
 
         MainThread.BeginInvokeOnMainThread(() => { Team1StatCollectionView.ItemsSource = homePlayerStatsRawInGame; });
         MainThread.BeginInvokeOnMainThread(() => { Team2StatCollectionView.ItemsSource = awayPlayerStatsRawInGame; });
+
+        MainThread.BeginInvokeOnMainThread(() => { ScoreCollectionView.ItemsSource = teamsScoreInThisGame; });
+
 
 
         UpdateCollectionViewStatus(view1Status, view2Status);

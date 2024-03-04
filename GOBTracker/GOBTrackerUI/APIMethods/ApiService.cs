@@ -23,6 +23,7 @@ namespace GOBTrackerUI.APIMethods
         string HomeTeamGameStatsApiUrl = "https://localhost:7063/api/OurTeamGameStats";
         string AwayTeamGameStatsApiUrl = "https://localhost:7063/api/OpponentTeamGameStats";
         string statsUrl = "https://localhost:7063/api/Stats";
+        string teamGameScoreApiUrl = "https://localhost:7063/api/TeamGameScore";
 
         //string teamsApiUrl = "http://localhost:5123/api/Teams";
         //string teamRosterApiUrl = "http://localhost:5123/api/TeamRoster";
@@ -678,6 +679,51 @@ namespace GOBTrackerUI.APIMethods
                 Debug.WriteLine("Error: " + ex.Message);
                 return false;
             }
+        }
+
+
+        
+        async public Task<List<TeamGameScore>> GetTeamGameScore(int gameID)
+        {
+            string apiUrl = teamGameScoreApiUrl;
+
+
+            List<TeamGameScore> gameScores = null;
+
+
+            using (HttpClient client = new HttpClient())
+            {
+                try
+                {
+                    string urlWithId = $"{apiUrl}/game/{gameID}";
+                    HttpResponseMessage response = await client.GetAsync(urlWithId);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string jsonString = await response.Content.ReadAsStringAsync();
+
+                        gameScores = JsonConvert.DeserializeObject<List<TeamGameScore>>(jsonString);
+
+
+
+                        gameScores = gameScores.Where(x => x.GameId == gameID).ToList();
+
+
+                    }
+                    else
+                    {
+                        Debug.WriteLine("API request failed with status code: " + response.StatusCode);
+                        return null;
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Error: " + ex.Message);
+                    return null;
+                }
+            }
+            return gameScores;
         }
     }
 }
