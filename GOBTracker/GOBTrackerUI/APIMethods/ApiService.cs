@@ -616,5 +616,37 @@ namespace GOBTrackerUI.APIMethods
             return playerTeams;
         }
 
+        async public Task<bool> AddGameAsync(Game newGame)
+        {
+            string apiUrl = gamesApiUrl;
+
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    string jsonGame = JsonConvert.SerializeObject(newGame);
+                    HttpContent content = new StringContent(jsonGame, Encoding.UTF8, "application/json");
+
+                    HttpResponseMessage response = await client.PostAsync(apiUrl, content);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        Debug.WriteLine("Game added successfully");
+                        return true;
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Failed to add game. Status code: " + response.StatusCode);
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Error: " + ex.Message);
+                return false;
+            }
+        }
+
     }
 }
