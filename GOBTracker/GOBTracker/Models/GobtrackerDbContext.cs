@@ -184,15 +184,6 @@ public partial class GobtrackerDbContext : DbContext
         {
             entity.HasIndex(e => new { e.PlayerId, e.TeamId }, "IX_PlayerTeamUnique").IsUnique();
 
-            entity.HasOne(d => d.Player).WithMany(p => p.PlayerTeams)
-                .HasForeignKey(d => d.PlayerId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_PlayerTeams_Players");
-
-            entity.HasOne(d => d.Team).WithMany(p => p.PlayerTeams)
-                .HasForeignKey(d => d.TeamId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_PlayerTeams_Teams");
         });
 
         modelBuilder.Entity<Schedule>(entity =>
