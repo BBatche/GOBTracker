@@ -617,5 +617,67 @@ namespace GOBTrackerUI.APIMethods
             return playerTeams;
         }
 
+        async public Task<bool> AddGameAsync(Game newGame)
+        {
+            string apiUrl = gamesApiUrl;
+
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    string jsonGame = JsonConvert.SerializeObject(newGame);
+                    HttpContent content = new StringContent(jsonGame, Encoding.UTF8, "application/json");
+
+                    HttpResponseMessage response = await client.PostAsync(apiUrl, content);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        Debug.WriteLine("Game added successfully");
+                        return true;
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Failed to add game. Status code: " + response.StatusCode);
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Error: " + ex.Message);
+                return false;
+            }
+        }
+        public async Task<bool> DeleteGameByIdAsync(int gameId)
+        {
+            string apiUrl = gamesApiUrl;
+
+            try
+            {
+                // Construct the URL with the game ID as part of the endpoint
+                string urlWithId = $"{apiUrl}/{gameId}";
+
+                using (HttpClient client = new HttpClient())
+                {
+                    HttpResponseMessage response = await client.DeleteAsync(urlWithId);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        Debug.WriteLine("Game deleted successfully");
+                        return true;
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Failed to delete game. Status code: " + response.StatusCode);
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Error: " + ex.Message);
+                return false;
+            }
+        }
     }
 }

@@ -83,7 +83,6 @@ namespace GOBTrackerUI
         {
             selectedGame = (Schedule)scheduleCollectionView.SelectedItem;
             Debug.WriteLine(selectedGame.OurTeam.ToString() + " vs " + selectedGame.Opponent + " selected");
-            
             DeleteGameButton.IsEnabled = true;
 
         }
@@ -124,6 +123,7 @@ namespace GOBTrackerUI
         // Event handler for adding a new player
         private async void AddPlayer_Clicked(object sender, EventArgs e)
         {
+            rosterCollectionView.IsVisible = false;
             var firstNameEntry = new Entry { Placeholder = "First Name" };
             var lastNameEntry = new Entry { Placeholder = "Last Name" };
 
@@ -453,6 +453,168 @@ namespace GOBTrackerUI
         {
             // Implement your logic for deleting a player
         }
+
+
+        private async void AddGame_Clicked(object sender, EventArgs e)
+        {
+            Debug.WriteLine("AddGame_Clicked");
+
+
+
+            var locationEntry = new Entry { Placeholder = "Location", Margin = 20};
+
+            var allTeams = await apiService.GetTeamsAsync();
+
+            var homeTeamPicker = new Picker { ItemsSource = allTeams.Select(team => team.TeamName).ToList(), Margin =20 };
+
+            var awayTeamPicker = new Picker { ItemsSource = allTeams.Select(team => team.TeamName).ToList(), Margin=20 };
+
+            var datePicker = new DatePicker();
+            datePicker.Margin=20;
+            var timePicker = new TimePicker();
+            timePicker.Margin=20;
+
+            var saveButton = new Button { Text = "Save" };
+            var exitButton = new Button { Text = "Exit Without Saving" };
+            
+            saveButton.Clicked += async (s, args) =>
+            {
+                String selectedHomeTeamName = homeTeamPicker.SelectedItem as String;
+                Team selectedHomeTeamFromPicker = selectedTeam = allTeams.FirstOrDefault(team => team.TeamName == selectedHomeTeamName);
+
+                String selectedAwayTeamName = awayTeamPicker.SelectedItem as String;
+                Team selectedAwayTeamFromPicker = selectedTeam = allTeams.FirstOrDefault(team => team.TeamName == selectedAwayTeamName);
+
+                DateTime selectedDate = datePicker.Date;
+                TimeSpan selectedTime = timePicker.Time;
+
+                DateTime selectedDateTime = selectedDate + selectedTime;
+
+                string newLocation = locationEntry.Text;
+                
+                // Check if fields are filled
+                if (!string.IsNullOrWhiteSpace(newLocation) || selectedHomeTeamName != null || selectedAwayTeamName != null)
+                {
+                    // Proceed with adding the game
+                    
+                    Game newGame = new Game { OurTeamId=selectedHomeTeamFromPicker.Id, OpponentTeamId=selectedAwayTeamFromPicker.Id, GameDateTime=selectedDateTime, Location=newLocation };
+
+                    // Call the AddTeamAsync method to attempt to add the game
+                    bool success = await apiService.AddGameAsync(newGame);
+
+                    // Check if adding the game was successful
+                    if (success)
+                    {
+                        // Player added successfully, you can show a message or perform any other action here
+                        Debug.WriteLine("Game added successfully");
+                        await DisplayAlert("Game Added", $"Game '{selectedHomeTeamName}' vs '{selectedAwayTeamName}' added successfully!", "OK");
+
+                    }
+                    else
+                    {
+                        // Failed to add player
+                        Debug.WriteLine("Failed to add game");
+                    }
+
+
+                    // Dismiss the popup
+                    await Navigation.PopModalAsync();
+                    LoadTeams();
+                }
+                else
+                {
+                    // Display an alert if any field is empty
+                    await DisplayAlert("Error", "Please fill in all fields.", "OK");
+                }
+            };
+
+            exitButton.Clicked += async (s, args) =>
+            {
+                await Navigation.PopModalAsync();
+            };
+
+            var stackLayout = new StackLayout
+            {
+                
+                Children =
+                {
+                    new Label { Text = "Enter Game Information", FontSize=40, Margin = 20, VerticalOptions=LayoutOptions.Center },
+
+                    new HorizontalStackLayout
+                    {
+                        Children =
+                        {
+                            new Label {Text = "Select Home Team:", FontAttributes=FontAttributes.Bold, Margin=20, VerticalOptions=LayoutOptions.Center},
+                            homeTeamPicker,
+
+                            new Label {Text = "Select Away Team:", FontAttributes=FontAttributes.Bold, Margin=20, VerticalOptions = LayoutOptions.Center},
+                            awayTeamPicker,
+                        }
+                    },
+
+                    
+
+                    new HorizontalStackLayout
+                    {
+                        
+                        Children =
+                        {
+                            new Label {Text = "Select Date and Time:", FontAttributes=FontAttributes.Bold, Margin=20, VerticalOptions=LayoutOptions.Center },
+                            datePicker,
+                            timePicker,
+                        }
+                    },
+                    
+                    locationEntry,
+                    saveButton,
+                    exitButton,
+
+                    
+                }
+
+                
+            };
+
+            var contentPage = new ContentPage
+            {
+                Content = stackLayout
+            };
+
+            await Navigation.PushModalAsync(contentPage);
+
+        }
+
+        private async void DeleteGame_Clicked(object sender, EventArgs e)
+        {
+            Debug.WriteLine("DeleteGame_Clicked");
+
+            if (selectedGame != null)
+            {
+                bool success = await apiService.DeleteGameByIdAsync(selectedGame.GameId);
+
+                if (success)
+                {
+                    Debug.WriteLine("Game deleted successfully");
+                    // Remove the deleted customer from the ListView
+                    (scheduleCollectionView.ItemsSource as List<Schedule>).Remove(selectedGame);
+                    await DisplayAlert("Game Deleted", $"Game '{selectedGame.OurTeam}' vs '{selectedGame.Opponent}' deleted successfully!", "OK");
+                }
+                else
+                {
+                    Debug.WriteLine("Failed to delete game");
+                }
+            }
+            else
+            {
+                Debug.WriteLine("Please select a game to delete");
+            }
+
+            LoadTeamSchedule(selectedTeam.Id);
+
+        }
+
+
+
     }
 }
     
