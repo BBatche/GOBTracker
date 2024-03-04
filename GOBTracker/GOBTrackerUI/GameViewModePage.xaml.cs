@@ -91,10 +91,10 @@ public partial class GameViewModePage : ContentPage
     private async Task UpdateData()
     {
         //call api method
-        var homePlayerStatsRawInGame = await apiService.GetHomeRawTeamStatsFromGameAsync(selectedGameId);
-        var awayPlayerStatsRawInGame = await apiService.GetAwayRawTeamStatsFromGameAsync(selectedGameId);
+        var homePlayerStatsRawInGame = await apiService.GetHomeRawTeamStatsFromGameAsync(thisSchedule.GameId);
+        var awayPlayerStatsRawInGame = await apiService.GetAwayRawTeamStatsFromGameAsync(thisSchedule.GameId);
 
-        var teamsScoreInThisGame = await apiService.GetTeamGameScore(1); //add gameId argument here
+        var teamsScoreInThisGame = await apiService.GetTeamGameScore(thisSchedule.GameId);
 
 
         bool view1Status = Team1StatCollectionView.IsVisible;

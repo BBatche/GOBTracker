@@ -5,39 +5,11 @@
              x:Class="GOBTrackerUI.GameViewModePage"
              Title="GameViewModePage">
 
-    <ContentPage.Resources>
-        <DataTemplate x:Key="TeamHeaderTemplate">
-            <Grid BackgroundColor="#ECECEC" Padding="10,5">
-
-                <Label Text="TeamName" FontSize="11" />
-                <Label Text="First Name" FontSize="12" />
-                <Label Text="Last Name" FontSize="12" />
-                <Label Text="Total Pts" FontSize="12" />
-                <Label Text="Total2ptsMade" FontSize="12" />
-                <Label Text="Total2ptsMiss" FontSize="12" />
-                <Label Text="Total3ptsMade" FontSize="12" />
-                <Label Text="Total3ptsMiss" FontSize="12" />
-                <Label Text="Total Steals" FontSize="12" />
-                <Label Text="Total Turnovers" FontSize="12" />
-                <Label Text="Total Assists" FontSize="12" />
-                <Label Text="Total Blocks" FontSize="12" />
-                <Label Text="Total Fouls" FontSize="12" />
-                <Label Text="Total Offensive Rebounds" FontSize="12" />
-                <Label Text="Total Defensive Rebounds" FontSize="12" />
-                <Label Text="GameDateTime" FontSize="12" />
-                <Label Text="GameId" FontSize="12" />
-            </Grid>
-        </DataTemplate>
-    </ContentPage.Resources>
+    
 
     <ScrollView>
 
         <VerticalStackLayout>
-
-
-            <StackLayout HorizontalOptions="CenterAndExpand">
-               
-            </StackLayout>
 
 
 
@@ -51,7 +23,7 @@
             <HorizontalStackLayout HorizontalOptions="CenterAndExpand">
 
                 <!--Score List-->
-                <CollectionView x:Name="ScoreCollectionView"  HorizontalOptions="FillAndExpand">
+                <CollectionView x:Name="ScoreCollectionView"  HorizontalOptions="CenterAndExpand">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <Grid>
@@ -142,20 +114,20 @@
             <!--Column Headers-->
             <Grid HorizontalOptions="CenterAndExpand" Margin = "-20, 0, 0, 0" Padding="0" BackgroundColor="Black"  >
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="110" />
-                    <ColumnDefinition Width="110" />
-                    <ColumnDefinition Width="110" />
-                    <ColumnDefinition Width="110" />
-                    <ColumnDefinition Width="110" />
-                    <ColumnDefinition Width="110" />
-                    <ColumnDefinition Width="110" />
-                    <ColumnDefinition Width="110" />
-                    <ColumnDefinition Width="110" />
-                    <ColumnDefinition Width="110" />
-                    <ColumnDefinition Width="110" />
-                    <ColumnDefinition Width="110" />
-                    <ColumnDefinition Width="110" />
-                    <ColumnDefinition Width="110" />
+                    <ColumnDefinition Width="120" />
+                    <ColumnDefinition Width="120" />
+                    <ColumnDefinition Width="90" />
+                    <ColumnDefinition Width="90" />
+                    <ColumnDefinition Width="90" />
+                    <ColumnDefinition Width="90" />
+                    <ColumnDefinition Width="90" />
+                    <ColumnDefinition Width="90" />
+                    <ColumnDefinition Width="90" />
+                    <ColumnDefinition Width="90" />
+                    <ColumnDefinition Width="90" />
+                    <ColumnDefinition Width="90" />
+                    <ColumnDefinition Width="90" />
+                    <ColumnDefinition Width="90" />
                 </Grid.ColumnDefinitions>
 
                 
@@ -184,27 +156,27 @@
 
 
             <!--Team1 Stat List-->
-            <CollectionView x:Name="Team1StatCollectionView"  HorizontalOptions="FillAndExpand" Margin = "30, 0, 0, 0">
+            <CollectionView x:Name="Team1StatCollectionView"  HorizontalOptions="CenterAndExpand" Margin = "30, 0, 0, 0">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
                             
-                            <ColumnDefinition Width="110" />
-                            <ColumnDefinition Width="110" />
-                            <ColumnDefinition Width="110" />
-                            <ColumnDefinition Width="110" />
-                            <ColumnDefinition Width="110" />
-                            <ColumnDefinition Width="110" />
-                            <ColumnDefinition Width="110" />
+                            <ColumnDefinition Width="120" />
+                            <ColumnDefinition Width="120" />
+                            <ColumnDefinition Width="90" />
+                            <ColumnDefinition Width="90" />
+                            <ColumnDefinition Width="90" />
+                            <ColumnDefinition Width="90" />
+                            <ColumnDefinition Width="90" />
 
-                            <ColumnDefinition Width="110" />
-                            <ColumnDefinition Width="110" />
-                            <ColumnDefinition Width="110" />
-                            <ColumnDefinition Width="110" />
-                            <ColumnDefinition Width="110" />
-                            <ColumnDefinition Width="110" />
-                            <ColumnDefinition Width="110" />
+                            <ColumnDefinition Width="90" />
+                            <ColumnDefinition Width="90" />
+                            <ColumnDefinition Width="90" />
+                            <ColumnDefinition Width="90" />
+                            <ColumnDefinition Width="90" />
+                            <ColumnDefinition Width="90" />
+                            <ColumnDefinition Width="90" />
                             <!--<ColumnDefinition Width="104" />-->
                             
                             
@@ -376,27 +348,27 @@
 
 
             <!--Team2 Stat List-->
-            <CollectionView x:Name="Team2StatCollectionView"  HorizontalOptions="FillAndExpand" Margin = "30, 0, 0, 0">
+            <CollectionView x:Name="Team2StatCollectionView"  HorizontalOptions="CenterAndExpand" Margin = "30, 0, 0, 0">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid>
                             <Grid.ColumnDefinitions>
 
-                                <ColumnDefinition Width="110" />
-                                <ColumnDefinition Width="110" />
-                                <ColumnDefinition Width="110" />
-                                <ColumnDefinition Width="110" />
-                                <ColumnDefinition Width="110" />
-                                <ColumnDefinition Width="110" />
-                                <ColumnDefinition Width="110" />
+                                <ColumnDefinition Width="120" />
+                                <ColumnDefinition Width="120" />
+                                <ColumnDefinition Width="90" />
+                                <ColumnDefinition Width="90" />
+                                <ColumnDefinition Width="90" />
+                                <ColumnDefinition Width="90" />
+                                <ColumnDefinition Width="90" />
 
-                                <ColumnDefinition Width="110" />
-                                <ColumnDefinition Width="110" />
-                                <ColumnDefinition Width="110" />
-                                <ColumnDefinition Width="110" />
-                                <ColumnDefinition Width="110" />
-                                <ColumnDefinition Width="110" />
-                                <ColumnDefinition Width="110" />
+                                <ColumnDefinition Width="90" />
+                                <ColumnDefinition Width="90" />
+                                <ColumnDefinition Width="90" />
+                                <ColumnDefinition Width="90" />
+                                <ColumnDefinition Width="90" />
+                                <ColumnDefinition Width="90" />
+                                <ColumnDefinition Width="90" />
                                 <!--<ColumnDefinition Width="104" />-->
 
 
