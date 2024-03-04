@@ -21,8 +21,6 @@ public partial class GameViewModePage : ContentPage
         Team1StatLabel.IsVisible = false;
         Team2StatLabel.IsVisible = false;
 
-
-
     }
 
     async private void LoadGames()
