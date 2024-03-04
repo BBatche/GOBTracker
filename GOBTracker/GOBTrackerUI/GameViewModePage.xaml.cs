@@ -8,91 +8,60 @@ public partial class GameViewModePage : ContentPage
 
     public int selectedGameId;
     public ApiService apiService;
+    public Schedule thisSchedule;
 
-    //public var homePlayerStatsRawInGame;
-    //public var awayPlayerStatsRawInGame;
 
-    public GameViewModePage()
-	{
-		InitializeComponent();
+    public GameViewModePage(Schedule _schedule)
+    {
+        InitializeComponent();
         apiService = new ApiService();
-        LoadGames();
+        //LoadGames();
 
         Team1StatLabel.IsVisible = false;
         Team2StatLabel.IsVisible = false;
 
-    }
-
-    async private void LoadGames()
-    {
-        try
-        {
-            var games = await apiService.GetGamesAsync();
-            if (games != null)
-            {
-                MainThread.BeginInvokeOnMainThread(() =>
-                {
-                    gamePicker.ItemsSource = games.Select(game => game.Id).ToList();
-
-
-                });
-            }
-            
-        }
-        catch (Exception ex)
-        {
-
-        }
-        
-    }
-
-    private async void gamePicker_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        var picker = (Picker)sender;
-        int selectedIndex = picker.SelectedIndex;
+        thisSchedule = _schedule;
 
         InitializeData();
 
+        StartUpdateTimer();
 
-        if (selectedIndex != -1)
+
+
+    }
+
+    private void StartUpdateTimer()
+    {
+        // Start a timer to refresh data every, for example, 30 seconds
+        Device.StartTimer(TimeSpan.FromSeconds(10), () =>
         {
-
-            selectedGameId = (int)picker.SelectedItem;
-
-
-            await UpdateData();
-
-            // Start a timer to refresh data every, for example, 30 seconds
-            Device.StartTimer(TimeSpan.FromSeconds(10), () =>
+            // Update data periodically
+            MainThread.BeginInvokeOnMainThread(async () =>
             {
-                // Update data periodically
-                MainThread.BeginInvokeOnMainThread(async () =>
-                {
-                    await UpdateData();
-                });
-
-                // Continue the timer
-                return true;
+                await UpdateData();
             });
 
-
-        }
+            // Continue the timer
+            return true;
+        });
     }
 
     private async Task InitializeData()
     {
         //call api method
-        var homePlayerStatsRawInGame = await apiService.GetHomeRawTeamStatsFromGameAsync(selectedGameId);
-        var awayPlayerStatsRawInGame = await apiService.GetAwayRawTeamStatsFromGameAsync(selectedGameId);
+        var homePlayerStatsRawInGame = await apiService.GetHomeRawTeamStatsFromGameAsync(thisSchedule.GameId);
+        var awayPlayerStatsRawInGame = await apiService.GetAwayRawTeamStatsFromGameAsync(thisSchedule.GameId);
 
-        var teamsScoreInThisGame = await apiService.GetTeamGameScore(1); //add gameId argument here
-
-        //var ourTeamNameInThisGame = await apiService.GetTeamGameScore(1); //add gameId argument here
-        //var opponentTeamnameInThisGame = await apiService.GetTeamGameScore(1); //add gameId argument here
-
+        var teamsScoreInThisGame = await apiService.GetTeamGameScore(thisSchedule.GameId);
 
         bool view1Status = Team1StatCollectionView.IsVisible;
         bool view2Status = Team2StatCollectionView.IsVisible;
+
+        Team1StatButton.Text = thisSchedule.OurTeam;
+        Team2StatButton.Text = thisSchedule.Opponent;
+
+        Team1StatLabel.Text = thisSchedule.OurTeam;
+        Team2StatLabel.Text = thisSchedule.Opponent;
 
 
         MainThread.BeginInvokeOnMainThread(() => { Team1StatCollectionView.ItemsSource = homePlayerStatsRawInGame; });
@@ -148,11 +117,9 @@ public partial class GameViewModePage : ContentPage
 
     private void UpdateCollectionViewStatus(bool view1Status, bool view2Status)
     {
-        Team1StatCollectionView.IsVisible = view1Status;  //not the issue
-        Team2StatCollectionView.IsVisible = view2Status;    //not the issue
-
-        //Team1StatLabel.IsVisible = view1Status;
-        //Team2StatLabel.IsVisible = view2Status;  
+        Team1StatCollectionView.IsVisible = view1Status;  
+        Team2StatCollectionView.IsVisible = view2Status;    
+ 
     }
 
     private void ToggleTeam1StatsVisibility_Clicked(object sender, EventArgs e)
