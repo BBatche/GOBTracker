@@ -83,7 +83,6 @@ namespace GOBTrackerUI
         {
             selectedGame = (Schedule)scheduleCollectionView.SelectedItem;
             Debug.WriteLine(selectedGame.OurTeam.ToString() + " vs " + selectedGame.Opponent + " selected");
-            
             DeleteGameButton.IsEnabled = true;
 
         }
@@ -584,6 +583,37 @@ namespace GOBTrackerUI
             await Navigation.PushModalAsync(contentPage);
 
         }
+
+        private async void DeleteGame_Clicked(object sender, EventArgs e)
+        {
+            Debug.WriteLine("DeleteGame_Clicked");
+
+            if (selectedGame != null)
+            {
+                bool success = await apiService.DeleteGameByIdAsync(selectedGame.GameId);
+
+                if (success)
+                {
+                    Debug.WriteLine("Game deleted successfully");
+                    // Remove the deleted customer from the ListView
+                    (scheduleCollectionView.ItemsSource as List<Schedule>).Remove(selectedGame);
+                    await DisplayAlert("Game Deleted", $"Game '{selectedGame.OurTeam}' vs '{selectedGame.Opponent}' deleted successfully!", "OK");
+                }
+                else
+                {
+                    Debug.WriteLine("Failed to delete game");
+                }
+            }
+            else
+            {
+                Debug.WriteLine("Please select a game to delete");
+            }
+
+            LoadTeamSchedule(selectedTeam.Id);
+
+        }
+
+
 
     }
 }

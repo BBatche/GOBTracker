@@ -647,6 +647,36 @@ namespace GOBTrackerUI.APIMethods
                 return false;
             }
         }
+        public async Task<bool> DeleteGameByIdAsync(int gameId)
+        {
+            string apiUrl = gamesApiUrl;
 
+            try
+            {
+                // Construct the URL with the game ID as part of the endpoint
+                string urlWithId = $"{apiUrl}/{gameId}";
+
+                using (HttpClient client = new HttpClient())
+                {
+                    HttpResponseMessage response = await client.DeleteAsync(urlWithId);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        Debug.WriteLine("Game deleted successfully");
+                        return true;
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Failed to delete game. Status code: " + response.StatusCode);
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Error: " + ex.Message);
+                return false;
+            }
+        }
     }
 }
