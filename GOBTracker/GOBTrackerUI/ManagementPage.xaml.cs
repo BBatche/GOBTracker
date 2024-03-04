@@ -29,8 +29,15 @@ namespace GOBTrackerUI
 
             MainThread.BeginInvokeOnMainThread(() =>
             {
+                try
+                {
+                    teamPicker.ItemsSource = teams.Select(team => team.TeamName).ToList();
+                }
+                catch (Exception ex)
+                {
+
+                }
                 
-                teamPicker.ItemsSource = teams.Select(team => team.TeamName).ToList();
                 //foreach (var team in teams)
                 //{
                 //    teamPicker.Items.Add(team.TeamName);

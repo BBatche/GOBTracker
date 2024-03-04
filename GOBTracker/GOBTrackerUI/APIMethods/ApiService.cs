@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using GOBTrackerUI.Models;
 using System.Diagnostics;
+using static System.Net.WebRequestMethods;
 
 namespace GOBTrackerUI.APIMethods
 {
@@ -22,6 +23,7 @@ namespace GOBTrackerUI.APIMethods
         //string schedulesApiUrl = "https://localhost:7063/api/Schedules";
         //string HomeTeamGameStatsApiUrl = "https://localhost:7063/api/OurTeamGameStats";
         //string AwayTeamGameStatsApiUrl = "https://localhost:7063/api/OpponentTeamGameStats";
+        //string statsUrl = "https://localhost:5123/api/Stats";
 
         string teamsApiUrl = "http://localhost:5123/api/Teams";
         string teamRosterApiUrl = "http://localhost:5123/api/TeamRoster";
