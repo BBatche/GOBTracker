@@ -13,29 +13,29 @@ namespace GOBTrackerUI.APIMethods
     public class ApiService
     {
         private readonly HttpClient _httpClient;
-        string teamsApiUrl = "https://localhost:7063/api/Teams";
-        string gamesApiUrl = "https://localhost:7063/api/Games";
-        string teamRosterApiUrl = "https://localhost:7063/api/TeamRoster";
-        string playersApiUrl = "https://localhost:7063/api/Players";
-        string playerTeamsApiUrl = "https://localhost:7063/api/PlayerTeams";
-        string playerGameStatsApiUrl = "https://localhost:7063/api/PlayerGameStats";
-        string schedulesApiUrl = "https://localhost:7063/api/Schedules";
-        string HomeTeamGameStatsApiUrl = "https://localhost:7063/api/OurTeamGameStats";
-        string AwayTeamGameStatsApiUrl = "https://localhost:7063/api/OpponentTeamGameStats";
-        string statsUrl = "https://localhost:7063/api/Stats";
-        string teamGameScoreApiUrl = "https://localhost:7063/api/TeamGameScore";
+        //string teamsApiUrl = "https://localhost:7063/api/Teams";
+        //string gamesApiUrl = "https://localhost:7063/api/Games";
+        //string teamRosterApiUrl = "https://localhost:7063/api/TeamRoster";
+        //string playersApiUrl = "https://localhost:7063/api/Players";
+        //string playerTeamsApiUrl = "https://localhost:7063/api/PlayerTeams";
+        //string playerGameStatsApiUrl = "https://localhost:7063/api/PlayerGameStats";
+        //string schedulesApiUrl = "https://localhost:7063/api/Schedules";
+        //string HomeTeamGameStatsApiUrl = "https://localhost:7063/api/OurTeamGameStats";
+        //string AwayTeamGameStatsApiUrl = "https://localhost:7063/api/OpponentTeamGameStats";
+        //string statsUrl = "https://localhost:7063/api/Stats";
+        //string teamGameScoreApiUrl = "https://localhost:7063/api/TeamGameScore";
 
-        //string teamsApiUrl = "http://localhost:5123/api/Teams";
-        //string teamRosterApiUrl = "http://localhost:5123/api/TeamRoster";
-        //string playersApiUrl = "http://localhost:5123/api/Players";
-        //string playerTeamsApiUrl = "http://localhost:5123/api/PlayerTeams";
-        //string playerGameStatsApiUrl = "http://localhost:5123/api/PlayerGameStats";
-        //string gamesApiUrl = "http://localhost:5123/api/Games";
-        //string schedulesApiUrl = "http://localhost:5123/api/Schedules";
-        //string HomeTeamGameStatsApiUrl = "http://localhost:5123/api/OurTeamGameStats";
-        //string AwayTeamGameStatsApiUrl = "http://localhost:5123/api/OpponentTeamGameStats";
-        //string statsUrl = "http://localhost:5123/api/Stats";
-
+        string teamsApiUrl = "http://localhost:5123/api/Teams";
+        string teamRosterApiUrl = "http://localhost:5123/api/TeamRoster";
+        string playersApiUrl = "http://localhost:5123/api/Players";
+        string playerTeamsApiUrl = "http://localhost:5123/api/PlayerTeams";
+        string playerGameStatsApiUrl = "http://localhost:5123/api/PlayerGameStats";
+        string gamesApiUrl = "http://localhost:5123/api/Games";
+        string schedulesApiUrl = "http://localhost:5123/api/Schedules";
+        string HomeTeamGameStatsApiUrl = "http://localhost:5123/api/OurTeamGameStats";
+        string AwayTeamGameStatsApiUrl = "http://localhost:5123/api/OpponentTeamGameStats";
+        string statsUrl = "http://localhost:5123/api/Stats";
+        string teamGameScoreApiUrl = "http://localhost:5123/api/TeamGameScore";
 
         public ApiService()
         {

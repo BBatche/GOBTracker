@@ -231,6 +231,19 @@ namespace GOBTrackerUI
                 Debug.WriteLine("Add Failed");
             }
         }
+        private async void FreeThrowButton_Clicked(object sender, EventArgs e)
+        {
+            Stat stat = new Stat { GameId = selectedSchedule.GameId, PlayerTeamId = selectedPlayerTeam.Id, StatTypeId = 14, StatValue = 1 };
+            bool success = await apiService.AddStats(stat);
+            if (success)
+            {
+                Debug.WriteLine("Foul added successfully");
+            }
+            else
+            {
+                Debug.WriteLine("Add Failed");
+            }
+        }
         private void UndoButton_Clicked(object sender, EventArgs e)
         {
             

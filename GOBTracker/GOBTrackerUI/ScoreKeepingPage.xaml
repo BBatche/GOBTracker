@@ -99,9 +99,11 @@
             </HorizontalStackLayout>
 
             <HorizontalStackLayout Padding="50" Spacing="25" HorizontalOptions="CenterAndExpand">
-                <Button Text="Foul" HeightRequest="200" WidthRequest="200" FontAttributes="Bold" FontSize="30" Clicked="FoulButton_Clicked"/>
-                <Button Text="Undo" HeightRequest="200" WidthRequest="200" FontAttributes="Bold" FontSize="30" Clicked="UndoButton_Clicked"/>
+                <Button Text="Foul" HeightRequest="200" WidthRequest="150" FontAttributes="Bold" FontSize="30" Clicked="FoulButton_Clicked"/>
+                <Button Text="FreeThrow" HeightRequest="200" WidthRequest="200" FontAttributes="Bold" FontSize="30" Clicked="FreeThrowButton_Clicked"/>
+                <Button Text="Undo" HeightRequest="200" WidthRequest="150" FontAttributes="Bold" FontSize="30" Clicked="UndoButton_Clicked"/>
             </HorizontalStackLayout>
+            
         </VerticalStackLayout>
     </Grid>
 </ContentPage>
