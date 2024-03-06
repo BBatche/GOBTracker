@@ -36,12 +36,7 @@
                 Clicked="ScoreKeeping_Clicked"
                 HorizontalOptions="Center"
                 WidthRequest="300"/>   
-            <Button
-                x:Name="GameView"
-                Text="GameView Mode"
-                Clicked="GameView_Clicked"
-                HorizontalOptions="Center"
-                WidthRequest="300"/>
+            
             <Button
                 x:Name="Statistics"
                 Text="Statistics Mode"

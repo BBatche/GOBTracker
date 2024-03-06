@@ -24,23 +24,32 @@ namespace GOBTrackerUI
 
         async private void LoadTeams()
         {
-            var teams = await apiService.GetTeamsAsync();
-
-            MainThread.BeginInvokeOnMainThread(() =>
+            if (Connectivity.Current.NetworkAccess == NetworkAccess.Internet)
             {
-                try
-                {
-                    teamPicker.ItemsSource = teams.Select(team => team.TeamName).ToList();
-                }catch (Exception ex)
-                {
+                var teams = await apiService.GetTeamsAsync();
 
-                }
-                
-                //foreach (var team in teams)
-                //{
-                //    teamPicker.Items.Add(team.TeamName);
-                //}
-            });
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    try
+                    {
+                        teamPicker.ItemsSource = teams.Select(team => team.TeamName).ToList();
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+
+                    //foreach (var team in teams)
+                    //{
+                    //    teamPicker.Items.Add(team.TeamName);
+                    //}
+                });
+            }
+            else
+            {
+                await Shell.Current.DisplayAlert("Uh Oh!", "No Internet", "OK");
+                return;
+            }
         }
 
         
@@ -48,32 +57,39 @@ namespace GOBTrackerUI
         private async void TeamPicker_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            
-
-            var picker = (Picker)sender;
-            int selectedIndex = picker.SelectedIndex;
-            
-            if (selectedIndex != -1)
+            if (Connectivity.Current.NetworkAccess == NetworkAccess.Internet)
             {
-                var selectedTeamName = picker.SelectedItem as String;
-                var teams = await apiService.GetTeamsAsync();
-                selectedTeam = teams.FirstOrDefault(team => team.TeamName == selectedTeamName);
 
-                //load the schedule for the team
+                var picker = (Picker)sender;
+                int selectedIndex = picker.SelectedIndex;
 
-                LoadTeamSchedule(selectedTeam.Id);
-                scheduleCollectionView.IsVisible = true;
-                
-                EnterScoreKeeperModeButton.IsEnabled = false;
-                EnterGameViewModeButton.IsEnabled = false;
+                if (selectedIndex != -1)
+                {
+                    var selectedTeamName = picker.SelectedItem as String;
+                    var teams = await apiService.GetTeamsAsync();
+                    selectedTeam = teams.FirstOrDefault(team => team.TeamName == selectedTeamName);
+
+                    //load the schedule for the team
+
+                    LoadTeamSchedule(selectedTeam.Id);
+                    scheduleCollectionView.IsVisible = true;
+
+                    EnterScoreKeeperModeButton.IsEnabled = false;
+                    EnterGameViewModeButton.IsEnabled = false;
+                }
+
+            }
+            else
+            {
+                await Shell.Current.DisplayAlert("Uh Oh!", "No Internet", "OK");
+                return;
             }
 
-            
-            
         }
 
         private void Game_SelectionChanged(object sender, EventArgs e)
         {
+
             selectedGame = (Schedule)scheduleCollectionView.SelectedItem;
             Debug.WriteLine(selectedGame.OurTeam.ToString() + " vs " + selectedGame.Opponent + " selected");
             EnterScoreKeeperModeButton.IsEnabled = true;
@@ -83,17 +99,30 @@ namespace GOBTrackerUI
 
         async private void LoadTeamSchedule(int teamId)
         {
-            var schedule = await apiService.GetTeamScheduleByIdAsync(teamId);
-
-            MainThread.BeginInvokeOnMainThread(() =>
+            if (Connectivity.Current.NetworkAccess == NetworkAccess.Internet)
             {
-                scheduleCollectionView.ItemsSource = schedule;
-            });
+                var schedule = await apiService.GetTeamScheduleByIdAsync(teamId);
+
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    scheduleCollectionView.ItemsSource = schedule;
+                });
+            }
+            else
+            {
+                await Shell.Current.DisplayAlert("Uh Oh!", "No Internet", "OK");
+                return;
+            }
         }
 
         private async void ScoreGame_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new ScoreKeepingPage(selectedGame));
+        }
+
+        private async void GameView_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new GameViewModePage(selectedGame));
         }
 
 

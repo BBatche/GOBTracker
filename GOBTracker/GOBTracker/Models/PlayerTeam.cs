@@ -10,4 +10,6 @@ public partial class PlayerTeam
     public int PlayerId { get; set; }
 
     public int TeamId { get; set; }
+
+    
 }

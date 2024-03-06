@@ -134,7 +134,7 @@
         <!-- CRUD Operations Buttons -->
             <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Spacing="20" Margin="0,20,0,0">
                 <Button x:Name="EnterScoreKeeperModeButton" Text="Score This Game" Clicked="ScoreGame_Clicked" IsEnabled="False" />
-                <Button x:Name="EnterGameViewModeButton" Text="View Game Live Score"  IsEnabled="False" />
+                <Button x:Name="EnterGameViewModeButton" Text="View Game Live Score" Clicked="GameView_Clicked"  IsEnabled="False" />
         </StackLayout>
 
     </StackLayout>

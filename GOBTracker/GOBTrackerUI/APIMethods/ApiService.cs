@@ -23,7 +23,8 @@ namespace GOBTrackerUI.APIMethods
         //string schedulesApiUrl = "https://localhost:7063/api/Schedules";
         //string HomeTeamGameStatsApiUrl = "https://localhost:7063/api/OurTeamGameStats";
         //string AwayTeamGameStatsApiUrl = "https://localhost:7063/api/OpponentTeamGameStats";
-        //string statsUrl = "https://localhost:5123/api/Stats";
+        //string statsUrl = "https://localhost:7063/api/Stats";
+        //string teamGameScoreApiUrl = "https://localhost:7063/api/TeamGameScore";
 
         string teamsApiUrl = "http://localhost:5123/api/Teams";
         string teamRosterApiUrl = "http://localhost:5123/api/TeamRoster";
@@ -35,7 +36,7 @@ namespace GOBTrackerUI.APIMethods
         string HomeTeamGameStatsApiUrl = "http://localhost:5123/api/OurTeamGameStats";
         string AwayTeamGameStatsApiUrl = "http://localhost:5123/api/OpponentTeamGameStats";
         string statsUrl = "http://localhost:5123/api/Stats";
-
+        string teamGameScoreApiUrl = "http://localhost:5123/api/TeamGameScore";
 
         public ApiService()
         {
@@ -618,5 +619,180 @@ namespace GOBTrackerUI.APIMethods
             return playerTeams;
         }
 
+        async public Task<bool> AddGameAsync(Game newGame)
+        {
+            string apiUrl = gamesApiUrl;
+
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    string jsonGame = JsonConvert.SerializeObject(newGame);
+                    HttpContent content = new StringContent(jsonGame, Encoding.UTF8, "application/json");
+
+                    HttpResponseMessage response = await client.PostAsync(apiUrl, content);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        Debug.WriteLine("Game added successfully");
+                        return true;
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Failed to add game. Status code: " + response.StatusCode);
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Error: " + ex.Message);
+                return false;
+            }
+        }
+        public async Task<bool> DeleteGameByIdAsync(int gameId)
+        {
+            string apiUrl = gamesApiUrl;
+
+            try
+            {
+                // Construct the URL with the game ID as part of the endpoint
+                string urlWithId = $"{apiUrl}/{gameId}";
+
+                using (HttpClient client = new HttpClient())
+                {
+                    HttpResponseMessage response = await client.DeleteAsync(urlWithId);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        Debug.WriteLine("Game deleted successfully");
+                        return true;
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Failed to delete game. Status code: " + response.StatusCode);
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Error: " + ex.Message);
+                return false;
+            }
+        }
+
+
+        
+        async public Task<List<TeamGameScore>> GetTeamGameScore(int gameID)
+        {
+            string apiUrl = teamGameScoreApiUrl;
+
+
+            List<TeamGameScore> gameScores = null;
+
+
+            using (HttpClient client = new HttpClient())
+            {
+                try
+                {
+                    string urlWithId = $"{apiUrl}/game/{gameID}";
+                    HttpResponseMessage response = await client.GetAsync(urlWithId);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string jsonString = await response.Content.ReadAsStringAsync();
+
+                        gameScores = JsonConvert.DeserializeObject<List<TeamGameScore>>(jsonString);
+
+
+
+                        gameScores = gameScores.Where(x => x.GameId == gameID).ToList();
+
+
+                    }
+                    else
+                    {
+                        Debug.WriteLine("API request failed with status code: " + response.StatusCode);
+                        return null;
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Error: " + ex.Message);
+                    return null;
+                }
+            }
+            return gameScores;
+        }
+
+        async public Task<bool> DeleteStatByIDasync(int statID)
+        {
+            string apiUrl = statsUrl;
+
+            try
+            {
+                // Construct the URL with the game ID as part of the endpoint
+                string urlWithId = $"{apiUrl}/{statID}";
+
+                using (HttpClient client = new HttpClient())
+                {
+                    HttpResponseMessage response = await client.DeleteAsync(urlWithId);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        Debug.WriteLine("Stat deleted successfully");
+                        return true;
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Failed to stat game. Status code: " + response.StatusCode);
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Error: " + ex.Message);
+                return false;
+            }
+        }
+
+            public async Task<List<Stat>> GetStats()
+            {
+                string apiUrl = statsUrl;
+
+                List<Stat> stats = null;
+
+                using (HttpClient client = new HttpClient())
+                {
+                    try
+                    {
+                        HttpResponseMessage response = await client.GetAsync(apiUrl);
+
+                        if (response.IsSuccessStatusCode)
+                        {
+                            string jsonString = await response.Content.ReadAsStringAsync();
+                            stats = JsonConvert.DeserializeObject<List<Stat>>(jsonString);
+
+                        }
+                        else
+                        {
+                            Debug.WriteLine("API request failed with status code: " + response.StatusCode);
+                            return null;
+
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine("Error: " + ex.Message);
+                        return null;
+                    }
+                }
+                return stats;
+            }
+
+        
     }
 }

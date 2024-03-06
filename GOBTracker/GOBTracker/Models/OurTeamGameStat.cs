@@ -21,6 +21,10 @@ public partial class OurTeamGameStat
 
     public decimal? TotalThreePmiss { get; set; }
 
+    public decimal? TotalFreeThrowsMade { get; set; }
+
+    public decimal? TotalFreeThrowsMissed { get; set; }
+
     public decimal? TotalSteals { get; set; }
 
     public decimal? TotalTurnovers { get; set; }
