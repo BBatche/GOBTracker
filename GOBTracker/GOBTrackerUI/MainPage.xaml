@@ -30,12 +30,6 @@
                 Clicked="Management_Clicked"
                 HorizontalOptions="Center"
                 WidthRequest="300"/>
-            <Button
-                x:Name="ScoreKeeping"
-                Text="ScoreKeeping Mode"
-                Clicked="ScoreKeeping_Clicked"
-                HorizontalOptions="Center"
-                WidthRequest="300"/>   
             
             <Button
                 x:Name="Statistics"
