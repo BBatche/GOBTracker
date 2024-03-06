@@ -248,6 +248,8 @@ public partial class GobtrackerDbContext : DbContext
             entity.Property(e => e.StatValue).HasColumnType("decimal(8, 4)");
 
             
+
+            
         });
 
         modelBuilder.Entity<StatType>(entity =>

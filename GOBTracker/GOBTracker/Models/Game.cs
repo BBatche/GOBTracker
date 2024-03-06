@@ -14,4 +14,6 @@ public partial class Game
     public string? Location { get; set; }
 
     public DateTimeOffset GameDateTime { get; set; }
+
+    
 }
