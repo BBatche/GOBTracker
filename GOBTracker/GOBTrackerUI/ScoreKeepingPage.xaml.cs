@@ -281,7 +281,7 @@ namespace GOBTrackerUI
             if (mostRecentStat != null)
             {
                 var allStats = await apiService.GetStats();
-                Stat stat = allStats.FirstOrDefault(allStats => allStats.PlayerTeamId == mostRecentStat.PlayerTeamId && allStats.GameId == mostRecentStat.GameId && allStats.StatTypeId == mostRecentStat.StatTypeId);
+                Stat stat = allStats.LastOrDefault(allStats => allStats.PlayerTeamId == mostRecentStat.PlayerTeamId && allStats.GameId == mostRecentStat.GameId && allStats.StatTypeId == mostRecentStat.StatTypeId);
 
                 bool success = await apiService.DeleteStatByIDasync(stat.Id);
                 if(success)
