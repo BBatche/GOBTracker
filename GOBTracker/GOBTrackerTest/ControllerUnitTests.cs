@@ -23,10 +23,13 @@ namespace GOBTrackerTest
         // the Controller code is tested.  It will also not touch data in your live db.
         // We use dependency injection libraries like FakeItEasy or Moq to achieve this.
 
+        // ---------------- add schedules, stats, StatTypes, TeamRosters ------------------------------
         //controllers!
         private PlayerGameStatsController playerGameStatsController;
         private PlayersController playersController;
-
+        private GamesController gamesController;
+        private TeamsController teamController;
+        private PlayerTeamsController playerTeamsController;
         //Our mock db!
         private GobtrackerDbContext fakeDbContext;
 
@@ -36,6 +39,11 @@ namespace GOBTrackerTest
         //lists!
         private List<PlayerGameStat> fakePlayerGameStateList;
         private List<Player> fakePlayerList;
+        private List<Game> fakeGameList;
+        private List<OpponentTeamGameStat> fakeOpponentTeamGameStatsList;
+        private List<Team> fakeTeamList;
+        private List<PlayerTeam> fakePlayerTeamList;
+
         [TestInitialize]
         public void Setup()
         {
@@ -83,7 +91,11 @@ namespace GOBTrackerTest
             // A call to PlayerGameStats will return the mockStats
             A.CallTo(() => fakeDbContext.PlayerGameStats).Returns(mockStats);
 
-            //////////////////// Setup Data for other controller B
+
+
+
+
+            //////////////////// ------------------- Setup Data for other controller B ----------------------
             fakePlayerList = new List<Player>();
             fakePlayerList.Add(new Player
             {
@@ -97,17 +109,97 @@ namespace GOBTrackerTest
                 FirstName = "Salmon",
                 LastName = "Fish"
             });
-
+            fakePlayerList.Add(new Player
+            {
+                Id = 101,
+                FirstName = "Dyldog",
+                LastName = "Concat"
+            });
             var mockStatsPlayer = fakePlayerList.AsQueryable().BuildMockDbSet();
 
             A.CallTo(() => fakeDbContext.Players).Returns(mockStatsPlayer);
-            //////////////////// Setup Data for other controller C
+            //////////////////// ------------------------ Setup Data for other controller C ---------------------------
+
+            fakeGameList = new List<Game>();
+            fakeGameList.Add(new Game
+            {
+                Id = 11,
+                OurTeamId = 11,
+                OpponentTeamId = 12,
+                Location = "University of Pittsburgh - Batch//e",
+                GameDateTime = DateTimeOffset.UtcNow
+            });
+            fakeGameList.Add(new Game
+            {
+                Id = 6,
+                OurTeamId = 11,
+                OpponentTeamId = 19,
+                Location = "University of Bofa",
+                GameDateTime = DateTimeOffset.UtcNow
+            });
+            fakeGameList.Add(new Game
+            {
+                Id = 68,
+                OurTeamId = 11,
+                OpponentTeamId = 12,
+                Location = "University of Yippee",
+                GameDateTime = DateTimeOffset.UtcNow
+            });
+            var mockStatsGame = fakeGameList.AsQueryable().BuildMockDbSet();
+
+            A.CallTo(() => fakeDbContext.Games).Returns(mockStatsGame);
+
+            ////////////////////---------------------------- Setup Data for other controller D ----------------------------
 
 
-            //////////////////// Setup Data for other controller D
+            fakeTeamList = new List<Team>();
+            fakeTeamList.Add(new Team
+            {
+                Id = 11,
+                TeamName = "Tests",
+            });
+
+            fakeTeamList.Add(new Team
+            {
+                Id = 12,
+                TeamName = "Bobbies",
+            });
+            fakeTeamList.Add(new Team
+            {
+                Id = 19,
+                TeamName = "Blakies",
+            });
+            var mockTeam = fakeTeamList.AsQueryable().BuildMockDbSet();
+
+            A.CallTo(() => fakeDbContext.Teams).Returns(mockTeam);
+
 
 
             //////////////////// Setup Data for other controller E
+
+            fakePlayerTeamList = new List<PlayerTeam>();
+            fakePlayerTeamList.Add(new PlayerTeam
+            {
+                Id = 4,
+                PlayerId = 69,
+                TeamId = 19
+            });
+            fakePlayerTeamList.Add(new PlayerTeam
+            {
+                Id = 5,
+                PlayerId = 21,
+                TeamId = 12
+            });
+            fakePlayerTeamList.Add(new PlayerTeam
+            {
+                Id = 0,
+                PlayerId = 101,
+                TeamId = 11
+            });
+            var mockPlayerTeam = fakePlayerTeamList.AsQueryable().BuildMockDbSet();
+
+            A.CallTo(() => fakeDbContext.PlayerTeams).Returns(mockPlayerTeam);
+
 
         }
 
@@ -122,7 +214,7 @@ namespace GOBTrackerTest
                 Assert.IsNotNull(result);
                 //Assert.IsInstanceOfType(result.Result, typeof(OkObjectResult));
                 Assert.IsTrue(result.Value.ToList().Count == fakePlayerGameStateList.Count);  // sort of ensures that none are filtered
-                
+
                 // on more advanced controllers, you can ensure filtering is correct
             }
             catch (Exception ex)
@@ -154,10 +246,70 @@ namespace GOBTrackerTest
 
         }
         // Controller C Test 
+        [TestMethod]
+        public async Task GetGames_ReturnsOkResult()
+        {
+            // not much you can do here except ensure ok is returned, not null, and correct number of items, and no exceptions
+            try
+            {
+                gamesController = new GamesController(fakeDbContext);
+                var result = await gamesController.GetGames();
+                Assert.IsNotNull(result);
+                //Assert.IsInstanceOfType(result.Result, typeof(OkObjectResult));
+                Assert.IsTrue(result.Value.ToList().Count == fakeGameList.Count);  // sort of ensures that none are filtered
 
+                // on more advanced controllers, you can ensure filtering is correct
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail($"Exception occurred: {ex.Message}");
+            }
+
+        }
         // Controller D Test 
 
-        // Controller D Test 
 
+        [TestMethod]
+        public async Task GetTeams_ReturnsOkResult()
+        {
+            // not much you can do here except ensure ok is returned, not null, and correct number of items, and no exceptions
+            try
+            {
+                teamController = new TeamsController(fakeDbContext);
+                var result = await teamController.GetTeams();
+                Assert.IsNotNull(result);
+                //Assert.IsInstanceOfType(result.Result, typeof(OkObjectResult));
+                Assert.IsTrue(result.Value.ToList().Count == fakeTeamList.Count);  // sort of ensures that none are filtered
+
+                // on more advanced controllers, you can ensure filtering is correct
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail($"Exception occurred: {ex.Message}");
+            }
+
+        }
+        // Controller D Test 
+        [TestMethod]
+        public async Task GetPlayerTeams_ReturnsOkResult()
+        {
+            // not much you can do here except ensure ok is returned, not null, and correct number of items, and no exceptions
+            try
+            {
+                playerTeamsController = new PlayerTeamsController(fakeDbContext);
+                var result = await playerTeamsController.GetPlayerTeams();
+                Assert.IsNotNull(result);
+                //Assert.IsInstanceOfType(result.Result, typeof(OkObjectResult));
+                Assert.IsTrue(result.Value.ToList().Count == fakePlayerTeamList.Count);  // sort of ensures that none are filtered
+
+
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail($"Exception occurred: {ex.Message}");
+            }
+
+        }
     }
 }
+
