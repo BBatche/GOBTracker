@@ -726,5 +726,73 @@ namespace GOBTrackerUI.APIMethods
             }
             return gameScores;
         }
+
+        async public Task<bool> DeleteStatByIDasync(int statID)
+        {
+            string apiUrl = statsUrl;
+
+            try
+            {
+                // Construct the URL with the game ID as part of the endpoint
+                string urlWithId = $"{apiUrl}/{statID}";
+
+                using (HttpClient client = new HttpClient())
+                {
+                    HttpResponseMessage response = await client.DeleteAsync(urlWithId);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        Debug.WriteLine("Stat deleted successfully");
+                        return true;
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Failed to stat game. Status code: " + response.StatusCode);
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Error: " + ex.Message);
+                return false;
+            }
+        }
+
+            public async Task<List<Stat>> GetStats()
+            {
+                string apiUrl = statsUrl;
+
+                List<Stat> stats = null;
+
+                using (HttpClient client = new HttpClient())
+                {
+                    try
+                    {
+                        HttpResponseMessage response = await client.GetAsync(apiUrl);
+
+                        if (response.IsSuccessStatusCode)
+                        {
+                            string jsonString = await response.Content.ReadAsStringAsync();
+                            stats = JsonConvert.DeserializeObject<List<Stat>>(jsonString);
+
+                        }
+                        else
+                        {
+                            Debug.WriteLine("API request failed with status code: " + response.StatusCode);
+                            return null;
+
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine("Error: " + ex.Message);
+                        return null;
+                    }
+                }
+                return stats;
+            }
+
+        
     }
 }
