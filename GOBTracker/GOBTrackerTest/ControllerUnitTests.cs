@@ -30,6 +30,8 @@ namespace GOBTrackerTest
         private GamesController gamesController;
         private TeamsController teamController;
         private PlayerTeamsController playerTeamsController;
+        private SchedulesController schedulesController;
+
         //Our mock db!
         private GobtrackerDbContext fakeDbContext;
 
@@ -43,6 +45,8 @@ namespace GOBTrackerTest
         private List<OpponentTeamGameStat> fakeOpponentTeamGameStatsList;
         private List<Team> fakeTeamList;
         private List<PlayerTeam> fakePlayerTeamList;
+        private List<Schedule> fakeScheduleList;
+
 
         [TestInitialize]
         public void Setup()
@@ -124,7 +128,7 @@ namespace GOBTrackerTest
             fakeGameList.Add(new Game
             {
                 Id = 11,
-                OurTeamId = 11,
+                OurTeamId = 19,
                 OpponentTeamId = 12,
                 Location = "University of Pittsburgh - Batch//e",
                 GameDateTime = DateTimeOffset.UtcNow
@@ -132,15 +136,15 @@ namespace GOBTrackerTest
             fakeGameList.Add(new Game
             {
                 Id = 6,
-                OurTeamId = 11,
-                OpponentTeamId = 19,
+                OurTeamId = 19,
+                OpponentTeamId = 11,
                 Location = "University of Bofa",
                 GameDateTime = DateTimeOffset.UtcNow
             });
             fakeGameList.Add(new Game
             {
                 Id = 68,
-                OurTeamId = 11,
+                OurTeamId = 19,
                 OpponentTeamId = 12,
                 Location = "University of Yippee",
                 GameDateTime = DateTimeOffset.UtcNow
@@ -175,7 +179,7 @@ namespace GOBTrackerTest
 
 
 
-            //////////////////// Setup Data for other controller E
+            //////////////////// --------------- Setup Data for other controller E ------------------------------
 
             fakePlayerTeamList = new List<PlayerTeam>();
             fakePlayerTeamList.Add(new PlayerTeam
@@ -200,7 +204,54 @@ namespace GOBTrackerTest
 
             A.CallTo(() => fakeDbContext.PlayerTeams).Returns(mockPlayerTeam);
 
+            // --------------------------------- Set up FOR CONTROLLER F ------------------------------
 
+            fakeScheduleList = new List<Schedule>();
+            fakeScheduleList.Add(new Schedule
+            {
+                OurTeam = "Blakies",
+                Opponent = "Bobbies",
+                GameDateTime = DateTimeOffset.UtcNow,
+                Location = "Maui, Hawaii",
+                OurTeamId = 19,
+                OpponentTeamId = 12,
+                GameId = 11
+            });
+            fakeScheduleList.Add(new Schedule
+            {
+                OurTeam = "Blakies",
+                Opponent = "Bobbies",
+                GameDateTime = DateTimeOffset.UtcNow,
+                Location = "Honolulu, Hawaii",
+                OurTeamId = 19,
+                OpponentTeamId = 12,
+                GameId = 0
+            });
+            fakeScheduleList.Add(new Schedule
+            {
+                OurTeam = "Blakies",
+                Opponent = "Tests",
+                GameDateTime = DateTimeOffset.UtcNow,
+                Location = "Saudi Arabia",
+                OurTeamId = 19,
+                OpponentTeamId = 11,
+                GameId = 6
+            });
+            var mockSchedule = fakeScheduleList.AsQueryable().BuildMockDbSet();
+
+            A.CallTo(() => fakeDbContext.Schedules).Returns(mockSchedule);
+
+
+            // --------------------------------- Set up FOR CONTROLLER G ------------------------------
+
+
+
+
+            // --------------------------------- Set up FOR CONTROLLER H ------------------------------
+
+
+
+            // --------------------------------- Set up FOR CONTROLLER I ------------------------------
         }
 
         [TestMethod]
@@ -310,6 +361,42 @@ namespace GOBTrackerTest
             }
 
         }
+
+        // --------------------------------- Set up FOR UNIT TEST F ------------------------------
+
+        [TestMethod]
+        public async Task GetSchedules_ReturnsOkResult()
+        {
+            // not much you can do here except ensure ok is returned, not null, and correct number of items, and no exceptions
+            try
+            {
+                schedulesController = new SchedulesController(fakeDbContext);
+                var result = await schedulesController.GetTeamSchedules();
+                Assert.IsNotNull(result);
+                //Assert.IsInstanceOfType(result.Result, typeof(OkObjectResult));
+                Assert.IsTrue(result.Value.ToList().Count == fakeScheduleList.Count);  // sort of ensures that none are filtered
+
+
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail($"Exception occurred: {ex.Message}");
+            }
+
+
+            // --------------------------------- Set up FOR UNIT TEST G ------------------------------
+
+
+
+
+            // --------------------------------- Set up FOR UNIT TEST H ------------------------------
+
+
+
+            // --------------------------------- Set up FOR UNIT TEST I ------------------------------
+
+        }
     }
 }
+
 
