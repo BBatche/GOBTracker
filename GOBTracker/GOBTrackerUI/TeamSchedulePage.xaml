@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GOBTrackerUI.TeamSchedulePage"
+             Title="Team Schedule">
+    <ContentPage.Resources>
+        <Style TargetType="Grid">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                    Value="Gray" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
+    <ScrollView>
+    <StackLayout Padding="20">
+
+        <!--<HorizontalStackLayout>
+            --><!-- Header --><!--
+            <Label Text="Team Management" FontSize="Large" HorizontalOptions="Start" Margin="10,10,10,10" />
+
+            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Spacing="20" Margin="0,20,0,0">
+                <Button x:Name="AddTeamButton" Text="Add Team" Clicked="AddTeam_Clicked" />
+                <Button x:Name="EditTeamButton" Text="Edit Team Name" Clicked="EditTeam_Clicked" IsEnabled="False" />
+                <Button x:Name="DeleteTeamButton" Text="Delete Team" Clicked="DeleteTeam_Clicked" IsEnabled="False" />
+            </StackLayout>
+
+
+
+        </HorizontalStackLayout>
+
+        <BoxView BackgroundColor="Black" Margin="10,10,10,10" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>-->
+
+        <!-- Team Picker -->
+        <Picker x:Name="teamPicker"
+                    Title="Select Team"
+                    ItemsSource="{Binding TeamName}"
+                    FontSize="30"
+                    Margin="0,20,50,10"
+                    FontAttributes="Bold"
+                    SelectedIndexChanged="TeamPicker_SelectedIndexChanged">
+
+
+        </Picker>
+        
+        
+
+        <!-- Header -->
+        <Label Text="Schedule" FontSize="Large" HorizontalOptions="CenterAndExpand"  />
+        
+        <!--Column Headers-->
+            <Grid HorizontalOptions="CenterAndExpand" Margin="10" Padding="10" BackgroundColor="LightGray"  >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="250" />
+                    <ColumnDefinition Width="150" />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0" Text="Home" FontSize="Subtitle" HorizontalTextAlignment="Center" />
+                <Label Grid.Column="1" Text="Away" FontSize="Subtitle" HorizontalTextAlignment="Center"/>
+                <Label Grid.Column="2" Text="Date/Time" FontSize="Subtitle" HorizontalTextAlignment="Center"/>
+                <Label Grid.Column="3" Text="Location" FontSize="Subtitle" HorizontalTextAlignment="Center"/>
+            </Grid>
+
+            <!--Schedule-->
+            <CollectionView x:Name="scheduleCollectionView" HorizontalOptions="CenterAndExpand" SelectionChanged="Game_SelectionChanged" IsVisible="False" SelectionMode="Single">
+                <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="250" />
+                            <ColumnDefinition Width="150" />
+                            
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Home/Our Team Name -->
+                        <Frame Grid.Column="0"
+                       BorderColor="Black"
+                       CornerRadius="5"
+                       HasShadow="false"
+                       Margin="5"
+                       Padding="5">
+                            <Label Text="{Binding OurTeam}" FontSize="Subtitle" />
+                        </Frame>
+
+                        <!-- Away/Opponent Team Name -->
+                        <Frame Grid.Column="1"
+                       BorderColor="Black"
+                       CornerRadius="5"
+                       HasShadow="false"
+                       Margin="5"
+                       Padding="5">
+                            <Label Text="{Binding Opponent}" FontSize="Subtitle" />
+                        </Frame>
+
+                        <!-- Date and Time -->
+                        <Frame Grid.Column="2"
+                           BorderColor="Black"
+                           CornerRadius="5"
+                           HasShadow="false"
+                           Margin="5"
+                           Padding="5">
+                                <Label Text="{Binding GameDateTime, StringFormat='{0:MM/dd/yyyy hh:mm tt}'}" FontSize="20" />
+                        </Frame>
+
+                            <!-- Location -->
+                        <Frame Grid.Column="3"
+                        BorderColor="Black"
+                        CornerRadius="5"
+                        HasShadow="false"
+                        Margin="5"
+                        Padding="5">
+                            <Label Text="{Binding Location}" FontSize="20" />
+                        </Frame>
+                        </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+
+        
+
+        <!-- CRUD Operations Buttons -->
+            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Spacing="20" Margin="0,20,0,0">
+                <Button x:Name="EnterScoreKeeperModeButton" Text="Score This Game" Clicked="ScoreGame_Clicked" IsEnabled="False" />
+                <Button x:Name="EnterGameViewModeButton" Text="View Game Live Score" Clicked="GameView_Clicked"  IsEnabled="False" />
+        </StackLayout>
+
+    </StackLayout>
+    </ScrollView>
+</ContentPage>
