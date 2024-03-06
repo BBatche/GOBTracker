@@ -7,35 +7,36 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using GOBTrackerUI.Models;
 using System.Diagnostics;
+using static System.Net.WebRequestMethods;
 
 namespace GOBTrackerUI.APIMethods
 {
     public class ApiService
     {
         private readonly HttpClient _httpClient;
-        string teamsApiUrl = "https://localhost:7063/api/Teams";
-        string gamesApiUrl = "https://localhost:7063/api/Games";
-        string teamRosterApiUrl = "https://localhost:7063/api/TeamRoster";
-        string playersApiUrl = "https://localhost:7063/api/Players";
-        string playerTeamsApiUrl = "https://localhost:7063/api/PlayerTeams";
-        string playerGameStatsApiUrl = "https://localhost:7063/api/PlayerGameStats";
-        string schedulesApiUrl = "https://localhost:7063/api/Schedules";
-        string HomeTeamGameStatsApiUrl = "https://localhost:7063/api/OurTeamGameStats";
-        string AwayTeamGameStatsApiUrl = "https://localhost:7063/api/OpponentTeamGameStats";
-        string statsUrl = "https://localhost:7063/api/Stats";
-        string teamGameScoreApiUrl = "https://localhost:7063/api/TeamGameScore";
+        //string teamsApiUrl = "https://localhost:7063/api/Teams";
+        //string gamesApiUrl = "https://localhost:7063/api/Games";
+        //string teamRosterApiUrl = "https://localhost:7063/api/TeamRoster";
+        //string playersApiUrl = "https://localhost:7063/api/Players";
+        //string playerTeamsApiUrl = "https://localhost:7063/api/PlayerTeams";
+        //string playerGameStatsApiUrl = "https://localhost:7063/api/PlayerGameStats";
+        //string schedulesApiUrl = "https://localhost:7063/api/Schedules";
+        //string HomeTeamGameStatsApiUrl = "https://localhost:7063/api/OurTeamGameStats";
+        //string AwayTeamGameStatsApiUrl = "https://localhost:7063/api/OpponentTeamGameStats";
+        //string statsUrl = "https://localhost:7063/api/Stats";
+        //string teamGameScoreApiUrl = "https://localhost:7063/api/TeamGameScore";
 
-        //string teamsApiUrl = "http://localhost:5123/api/Teams";
-        //string teamRosterApiUrl = "http://localhost:5123/api/TeamRoster";
-        //string playersApiUrl = "http://localhost:5123/api/Players";
-        //string playerTeamsApiUrl = "http://localhost:5123/api/PlayerTeams";
-        //string playerGameStatsApiUrl = "http://localhost:5123/api/PlayerGameStats";
-        //string gamesApiUrl = "http://localhost:5123/api/Games";
-        //string schedulesApiUrl = "http://localhost:5123/api/Schedules";
-        //string HomeTeamGameStatsApiUrl = "http://localhost:5123/api/OurTeamGameStats";
-        //string AwayTeamGameStatsApiUrl = "http://localhost:5123/api/OpponentTeamGameStats";
-        //string statsUrl = "http://localhost:5123/api/Stats";
-
+        string teamsApiUrl = "http://localhost:5123/api/Teams";
+        string teamRosterApiUrl = "http://localhost:5123/api/TeamRoster";
+        string playersApiUrl = "http://localhost:5123/api/Players";
+        string playerTeamsApiUrl = "http://localhost:5123/api/PlayerTeams";
+        string playerGameStatsApiUrl = "http://localhost:5123/api/PlayerGameStats";
+        string gamesApiUrl = "http://localhost:5123/api/Games";
+        string schedulesApiUrl = "http://localhost:5123/api/Schedules";
+        string HomeTeamGameStatsApiUrl = "http://localhost:5123/api/OurTeamGameStats";
+        string AwayTeamGameStatsApiUrl = "http://localhost:5123/api/OpponentTeamGameStats";
+        string statsUrl = "http://localhost:5123/api/Stats";
+        string teamGameScoreApiUrl = "http://localhost:5123/api/TeamGameScore";
 
         public ApiService()
         {
@@ -725,5 +726,73 @@ namespace GOBTrackerUI.APIMethods
             }
             return gameScores;
         }
+
+        async public Task<bool> DeleteStatByIDasync(int statID)
+        {
+            string apiUrl = statsUrl;
+
+            try
+            {
+                // Construct the URL with the game ID as part of the endpoint
+                string urlWithId = $"{apiUrl}/{statID}";
+
+                using (HttpClient client = new HttpClient())
+                {
+                    HttpResponseMessage response = await client.DeleteAsync(urlWithId);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        Debug.WriteLine("Stat deleted successfully");
+                        return true;
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Failed to stat game. Status code: " + response.StatusCode);
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Error: " + ex.Message);
+                return false;
+            }
+        }
+
+            public async Task<List<Stat>> GetStats()
+            {
+                string apiUrl = statsUrl;
+
+                List<Stat> stats = null;
+
+                using (HttpClient client = new HttpClient())
+                {
+                    try
+                    {
+                        HttpResponseMessage response = await client.GetAsync(apiUrl);
+
+                        if (response.IsSuccessStatusCode)
+                        {
+                            string jsonString = await response.Content.ReadAsStringAsync();
+                            stats = JsonConvert.DeserializeObject<List<Stat>>(jsonString);
+
+                        }
+                        else
+                        {
+                            Debug.WriteLine("API request failed with status code: " + response.StatusCode);
+                            return null;
+
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine("Error: " + ex.Message);
+                        return null;
+                    }
+                }
+                return stats;
+            }
+
+        
     }
 }

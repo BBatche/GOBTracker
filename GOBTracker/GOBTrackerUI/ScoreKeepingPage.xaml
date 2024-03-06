@@ -18,18 +18,22 @@
         <!-- First column -->
         <VerticalStackLayout Grid.Column="0" VerticalOptions="FillAndExpand">
             <HorizontalStackLayout Padding="50" Spacing="25" HorizontalOptions="CenterAndExpand">
-                <Button Text="2PT Made" HeightRequest="200" WidthRequest="200" FontAttributes="Bold" FontSize="30" Clicked="Made2PTButton_Clicked"/>
-                <Button Text="2PT Miss" HeightRequest="200" WidthRequest="200" FontAttributes="Bold" FontSize="30" Clicked="Miss2PTButton_Clicked"/>
+                <Button Text="2PT Made" HeightRequest="150" WidthRequest="150" FontAttributes="Bold" FontSize="30" Clicked="Made2PTButton_Clicked"/>
+                <Button Text="2PT Miss" HeightRequest="150" WidthRequest="150" FontAttributes="Bold" FontSize="30" Clicked="Miss2PTButton_Clicked"/>
             </HorizontalStackLayout>
 
             <HorizontalStackLayout Padding="50" Spacing="25" HorizontalOptions="CenterAndExpand">
-                <Button Text="3PT Made" HeightRequest="200" WidthRequest="200" FontAttributes="Bold" FontSize="30" Clicked="Made3PTButton_Clicked"/>
-                <Button Text="3PT Miss" HeightRequest="200" WidthRequest="200" FontAttributes="Bold" FontSize="30" Clicked="Miss3PTButton_Clicked"/>
+                <Button Text="3PT Made" HeightRequest="150" WidthRequest="150" FontAttributes="Bold" FontSize="30" Clicked="Made3PTButton_Clicked"/>
+                <Button Text="3PT Miss" HeightRequest="150" WidthRequest="150" FontAttributes="Bold" FontSize="30" Clicked="Miss3PTButton_Clicked"/>
             </HorizontalStackLayout>
 
             <HorizontalStackLayout Padding="50" Spacing="25" HorizontalOptions="CenterAndExpand">
-                <Button Text="Off. Rebound" HeightRequest="200" WidthRequest="200" FontAttributes="Bold" FontSize="25" Clicked="OffRebButton_Clicked"/>
-                <Button Text="Assist" HeightRequest="200" WidthRequest="200" FontAttributes="Bold" FontSize="30" Clicked="AssistButton_Clicked"/>
+                <Button Text="Off. Rebound" HeightRequest="150" WidthRequest="150" FontAttributes="Bold" FontSize="25" Clicked="OffRebButton_Clicked"/>
+                <Button Text="Assist" HeightRequest="150" WidthRequest="150" FontAttributes="Bold" FontSize="30" Clicked="AssistButton_Clicked"/>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout Padding="50" Spacing="25" HorizontalOptions="CenterAndExpand">
+                <Button Text="FT Made" HeightRequest="150" WidthRequest="150" FontAttributes="Bold" FontSize="30" Clicked="FreeThrowButton_Clicked"/>
+                <Button Text="FT Miss" HeightRequest="150" WidthRequest="150" FontAttributes="Bold" FontSize="30" Clicked="FTMissButton_Clicked"/>
             </HorizontalStackLayout>
         </VerticalStackLayout>
 
@@ -99,9 +103,11 @@
             </HorizontalStackLayout>
 
             <HorizontalStackLayout Padding="50" Spacing="25" HorizontalOptions="CenterAndExpand">
-                <Button Text="Foul" HeightRequest="200" WidthRequest="200" FontAttributes="Bold" FontSize="30" Clicked="FoulButton_Clicked"/>
-                <Button Text="Undo" HeightRequest="200" WidthRequest="200" FontAttributes="Bold" FontSize="30" Clicked="UndoButton_Clicked"/>
+                <Button Text="Foul" HeightRequest="200" WidthRequest="150" FontAttributes="Bold" FontSize="30" Clicked="FoulButton_Clicked"/>
+                
+                <Button Text="Undo" HeightRequest="200" WidthRequest="150" FontAttributes="Bold" FontSize="30" Clicked="UndoButton_Clicked"/>
             </HorizontalStackLayout>
+            
         </VerticalStackLayout>
     </Grid>
 </ContentPage>
