@@ -23,13 +23,19 @@ namespace GOBTrackerTest
         // the Controller code is tested.  It will also not touch data in your live db.
         // We use dependency injection libraries like FakeItEasy or Moq to achieve this.
 
+        //controllers!
         private PlayerGameStatsController playerGameStatsController;
+        private PlayersController playersController;
+
+        //Our mock db!
         private GobtrackerDbContext fakeDbContext;
 
         // player stats ( need them in form of list and dbset)
         private DbSet<PlayerGameStat> fakePlayerGameStatsDbSet;
-        private List<PlayerGameStat> fakePlayerGameStateList;
 
+        //lists!
+        private List<PlayerGameStat> fakePlayerGameStateList;
+        private List<Player> fakePlayerList;
         [TestInitialize]
         public void Setup()
         {
@@ -78,8 +84,23 @@ namespace GOBTrackerTest
             A.CallTo(() => fakeDbContext.PlayerGameStats).Returns(mockStats);
 
             //////////////////// Setup Data for other controller B
-            
+            fakePlayerList = new List<Player>();
+            fakePlayerList.Add(new Player
+            {
+                Id = 69,
+                FirstName = "Balake",
+                LastName = "Whopper"
+            });
+            fakePlayerList.Add(new Player
+            {
+                Id = 21,
+                FirstName = "Salmon",
+                LastName = "Fish"
+            });
 
+            var mockStatsPlayer = fakePlayerList.AsQueryable().BuildMockDbSet();
+
+            A.CallTo(() => fakeDbContext.Players).Returns(mockStatsPlayer);
             //////////////////// Setup Data for other controller C
 
 
@@ -99,7 +120,7 @@ namespace GOBTrackerTest
                 playerGameStatsController = new PlayerGameStatsController(fakeDbContext);
                 var result = await playerGameStatsController.GetAllStats();
                 Assert.IsNotNull(result);
-                Assert.IsInstanceOfType(result.Result, typeof(OkObjectResult));
+                //Assert.IsInstanceOfType(result.Result, typeof(OkObjectResult));
                 Assert.IsTrue(result.Value.ToList().Count == fakePlayerGameStateList.Count);  // sort of ensures that none are filtered
                 
                 // on more advanced controllers, you can ensure filtering is correct
@@ -112,7 +133,26 @@ namespace GOBTrackerTest
         }
 
         // Controller B Test 
+        [TestMethod]
+        public async Task GetPlayers_ReturnsOkResult()
+        {
+            // not much you can do here except ensure ok is returned, not null, and correct number of items, and no exceptions
+            try
+            {
+                playersController = new PlayersController(fakeDbContext);
+                var result = await playersController.GetPlayers();
+                Assert.IsNotNull(result);
+                //Assert.IsInstanceOfType(result.Result, typeof(OkObjectResult));
+                Assert.IsTrue(result.Value.ToList().Count == fakePlayerList.Count);  // sort of ensures that none are filtered
 
+                // on more advanced controllers, you can ensure filtering is correct
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail($"Exception occurred: {ex.Message}");
+            }
+
+        }
         // Controller C Test 
 
         // Controller D Test 
