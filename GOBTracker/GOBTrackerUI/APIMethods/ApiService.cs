@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using GOBTrackerUI.Models;
 using System.Diagnostics;
+using static System.Net.WebRequestMethods;
 
 namespace GOBTrackerUI.APIMethods
 {
