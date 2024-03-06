@@ -33,14 +33,22 @@ namespace GOBTrackerTest
         private SchedulesController schedulesController;
         private StatsController statsController;
         private StatTypesController statTypesController;
-        private TeamRosterController TeamRosterController;
+        private TeamRosterController teamRosterController;
 
         //Our mock db!
         private GobtrackerDbContext fakeDbContext;
 
         // player stats ( need them in form of list and dbset)
         private DbSet<PlayerGameStat> fakePlayerGameStatsDbSet;
-
+        private DbSet<Player> fakePlayerDbSet;
+        private DbSet<Game> fakeGameDbSet;
+        private DbSet<OpponentTeamGameStat> fakeOpponentTeamGameStatsDbSet;
+        private DbSet<Team> fakeTeamDbSet;
+        private DbSet<PlayerTeam> fakePlayerTeamDbSet;
+        private DbSet<Schedule> fakeScheduleDbSet;
+        private DbSet<Stat> fakeStatDbSet;
+        private DbSet<StatType> fakeStatTypeDbSet;
+        private DbSet<TeamRoster> fakeTeamRosterDbSet;
         //lists!
         private List<PlayerGameStat> fakePlayerGameStateList;
         private List<Player> fakePlayerList;
@@ -389,7 +397,7 @@ namespace GOBTrackerTest
 
         }
 
-        // Controller B Test 
+        // --------------------------------------------- Controller B Test ----------------------------------------------------------------------
         [TestMethod]
         public async Task GetPlayers_ReturnsOkResult()
         {
@@ -410,7 +418,7 @@ namespace GOBTrackerTest
             }
 
         }
-        // Controller C Test 
+        //  --------------------------------------------- Controller C Test  ---------------------------------------------
         [TestMethod]
         public async Task GetGames_ReturnsOkResult()
         {
@@ -431,7 +439,7 @@ namespace GOBTrackerTest
             }
 
         }
-        // Controller D Test 
+        // --------------------------------------------- Controller D Test  ---------------------------------------------
 
 
         [TestMethod]
@@ -454,7 +462,7 @@ namespace GOBTrackerTest
             }
 
         }
-        // Controller D Test 
+        //  --------------------------------------------- Controller D Test  ---------------------------------------------
         [TestMethod]
         public async Task GetPlayerTeams_ReturnsOkResult()
         {
@@ -467,7 +475,6 @@ namespace GOBTrackerTest
                 //Assert.IsInstanceOfType(result.Result, typeof(OkObjectResult));
                 Assert.IsTrue(result.Value.ToList().Count == fakePlayerTeamList.Count);  // sort of ensures that none are filtered
 
-
             }
             catch (Exception ex)
             {
@@ -476,7 +483,7 @@ namespace GOBTrackerTest
 
         }
 
-        // --------------------------------- Set up FOR UNIT TEST F ------------------------------
+        // --------------------------------- Set up FOR UNIT TEST F ------------------------------ ---------------------------------------------
 
         [TestMethod]
         public async Task GetSchedules_ReturnsOkResult()
@@ -490,7 +497,6 @@ namespace GOBTrackerTest
                 //Assert.IsInstanceOfType(result.Result, typeof(OkObjectResult));
                 Assert.IsTrue(result.Value.ToList().Count == fakeScheduleList.Count);  // sort of ensures that none are filtered
 
-
             }
             catch (Exception ex)
             {
@@ -498,7 +504,7 @@ namespace GOBTrackerTest
             }
 
         }
-        // --------------------------------- Set up FOR UNIT TEST G ------------------------------
+        // --------------------------------- Set up FOR UNIT TEST G ------------------------------ ---------------------------------------------
 
         [TestMethod]
         public async Task GetStats_ReturnsOkResult()
@@ -512,7 +518,6 @@ namespace GOBTrackerTest
                 //Assert.IsInstanceOfType(result.Result, typeof(OkObjectResult));
                 Assert.IsTrue(result.Value.ToList().Count == fakeStatList.Count);  // sort of ensures that none are filtered
 
-
             }
             catch (Exception ex)
             {
@@ -520,7 +525,7 @@ namespace GOBTrackerTest
             }
         }
 
-        // --------------------------------- Set up FOR UNIT TEST H ------------------------------
+        // --------------------------------- Set up FOR UNIT TEST H ------------------------------ ---------------------------------------------
 
         [TestMethod]
         public async Task GetStatsType_ReturnsOkResult()
@@ -534,7 +539,6 @@ namespace GOBTrackerTest
                 //Assert.IsInstanceOfType(result.Result, typeof(OkObjectResult));
                 Assert.IsTrue(result.Value.ToList().Count == fakeStatTypeList.Count);  // sort of ensures that none are filtered
 
-
             }
             catch (Exception ex)
             {
@@ -542,7 +546,7 @@ namespace GOBTrackerTest
             }
         }
 
-        // --------------------------------- Set up FOR UNIT TEST I ------------------------------
+        // --------------------------------- Set up FOR UNIT TEST I ------------------------------ ---------------------------------------------
 
         [TestMethod]
         public async Task GetTeamRosters_ReturnsOkResult()
@@ -550,12 +554,11 @@ namespace GOBTrackerTest
             // not much you can do here except ensure ok is returned, not null, and correct number of items, and no exceptions
             try
             {
-                TeamRosterController = new TeamRosterController(fakeDbContext);
-                var result = await TeamRosterController.GetTeamRosters();
+                teamRosterController = new TeamRosterController(fakeDbContext);
+                var result = await teamRosterController.GetTeamRosters();
                 Assert.IsNotNull(result);
                 //Assert.IsInstanceOfType(result.Result, typeof(OkObjectResult));
                 Assert.IsTrue(result.Value.ToList().Count == fakeTeamRosterList.Count);  // sort of ensures that none are filtered
-
 
             }
             catch (Exception ex)
@@ -563,6 +566,5 @@ namespace GOBTrackerTest
                 Assert.Fail($"Exception occurred: {ex.Message}");
             }
         }
-
     }
 }
