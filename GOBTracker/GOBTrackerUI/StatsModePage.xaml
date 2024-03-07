@@ -16,48 +16,48 @@
         <Grid HorizontalOptions="CenterAndExpand" Margin = "10" Padding="10" BackgroundColor="LightGray"  >
             <Grid.ColumnDefinitions>
                 
-                <ColumnDefinition Width="110" />
-                <ColumnDefinition Width="110" />
-                <ColumnDefinition Width="75" />
-                <ColumnDefinition Width="75" />
-                <ColumnDefinition Width="75" />
-                <ColumnDefinition Width="75" />
-                <ColumnDefinition Width="75" />
-                <ColumnDefinition Width="75" />
-                <ColumnDefinition Width="75" />
-                <ColumnDefinition Width="75" />
-                <ColumnDefinition Width="75" />
-                <ColumnDefinition Width="75" />
-                <ColumnDefinition Width="75" />
-                <ColumnDefinition Width="75" />
-                <ColumnDefinition Width="75" />
-                <ColumnDefinition Width="75" />
-                <ColumnDefinition Width="110" />
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="65" />
+                <ColumnDefinition Width="65" />
+                <ColumnDefinition Width="65" />
+                <ColumnDefinition Width="65" />
+                <ColumnDefinition Width="65" />
+                <ColumnDefinition Width="65" />
+                <ColumnDefinition Width="65" />
+                <ColumnDefinition Width="65" />
+                <ColumnDefinition Width="65" />
+                <ColumnDefinition Width="65" />
+                <ColumnDefinition Width="65" />
+                <ColumnDefinition Width="65" />
+                <ColumnDefinition Width="65" />
+                <ColumnDefinition Width="65" />
+                <ColumnDefinition Width="100" />
                 
             </Grid.ColumnDefinitions>
 
 
-            <Label Grid.Column="0" Text="First" FontSize="14" HorizontalTextAlignment="Center" Margin="5" FontAttributes="Bold" />
-            <Label Grid.Column="1" Text="Last" FontSize="14" HorizontalTextAlignment="Center" Margin="5" FontAttributes="Bold" />
-            <Label Grid.Column="2" Text="Pts" FontSize="14" HorizontalTextAlignment="Center" Margin="5" FontAttributes="Bold" />
+            <Label Grid.Column="0" Text="First" FontSize="14" HorizontalTextAlignment="Center" Margin="2" FontAttributes="Bold" />
+            <Label Grid.Column="1" Text="Last" FontSize="14" HorizontalTextAlignment="Center" Margin="2" FontAttributes="Bold" />
+            <Label Grid.Column="2" Text="Pts" FontSize="14" HorizontalTextAlignment="Center" Margin="2" FontAttributes="Bold" />
 
-            <Label Grid.Column="3" Text="2Pts" FontSize="14" HorizontalTextAlignment="Center" Margin="5" FontAttributes="Bold" />
-            <Label Grid.Column="4" Text="2PtsMiss" FontSize="14" HorizontalTextAlignment="Center" Margin="5" FontAttributes="Bold" />
-            <Label Grid.Column="5" Text="3Pts" FontSize="14" HorizontalTextAlignment="Center" Margin="5" FontAttributes="Bold" />
-            <Label Grid.Column="6" Text="3PtsMiss" FontSize="14" HorizontalTextAlignment="Center" Margin="5" FontAttributes="Bold" />
+            <Label Grid.Column="3" Text="2Pts" FontSize="14" HorizontalTextAlignment="Center" Margin="2" FontAttributes="Bold" />
+            <Label Grid.Column="4" Text="2PtsMiss" FontSize="14" HorizontalTextAlignment="Center" Margin="2" FontAttributes="Bold" />
+            <Label Grid.Column="5" Text="3Pts" FontSize="14" HorizontalTextAlignment="Center" Margin="2" FontAttributes="Bold" />
+            <Label Grid.Column="6" Text="3PtsMiss" FontSize="14" HorizontalTextAlignment="Center" Margin="2" FontAttributes="Bold" />
 
-            <Label Grid.Column="7" Text="Ft" FontSize="14" HorizontalTextAlignment="Center" Margin="5" FontAttributes="Bold" />
-            <Label Grid.Column="8" Text="FtMiss" FontSize="14" HorizontalTextAlignment="Center" Margin="5" FontAttributes="Bold" />
+            <Label Grid.Column="7" Text="Ft" FontSize="14" HorizontalTextAlignment="Center" Margin="2" FontAttributes="Bold" />
+            <Label Grid.Column="8" Text="FtMiss" FontSize="14" HorizontalTextAlignment="Center" Margin="2" FontAttributes="Bold" />
 
-            <Label Grid.Column="9" Text="Stl" FontSize="14" HorizontalTextAlignment="Center" Margin="5" FontAttributes="Bold" />
-            <Label Grid.Column="10" Text="TO" FontSize="14" HorizontalTextAlignment="Center" Margin="5" FontAttributes="Bold" />
-            <Label Grid.Column="11" Text="Ast" FontSize="14" HorizontalTextAlignment="Center" Margin="5" FontAttributes="Bold" />
-            <Label Grid.Column="12" Text="Blk" FontSize="14" HorizontalTextAlignment="Center" Margin="5" FontAttributes="Bold" />
+            <Label Grid.Column="9" Text="Stl" FontSize="14" HorizontalTextAlignment="Center" Margin="2" FontAttributes="Bold" />
+            <Label Grid.Column="10" Text="TO" FontSize="14" HorizontalTextAlignment="Center" Margin="2" FontAttributes="Bold" />
+            <Label Grid.Column="11" Text="Ast" FontSize="14" HorizontalTextAlignment="Center" Margin="2" FontAttributes="Bold" />
+            <Label Grid.Column="12" Text="Blk" FontSize="14" HorizontalTextAlignment="Center" Margin="2" FontAttributes="Bold" />
 
-            <Label Grid.Column="13" Text="Foul" FontSize="14" HorizontalTextAlignment="Center" Margin="5" FontAttributes="Bold" />
-            <Label Grid.Column="14" Text="OReb" FontSize="14" HorizontalTextAlignment="Center" Margin="5" FontAttributes="Bold" />
-            <Label Grid.Column="15" Text="DReb" FontSize="14" HorizontalTextAlignment="Center" Margin="5" FontAttributes="Bold" />
-            <Label Grid.Column="16" Text="Time" FontSize="14" HorizontalTextAlignment="Center" Margin="5" FontAttributes="Bold" />
+            <Label Grid.Column="13" Text="Foul" FontSize="14" HorizontalTextAlignment="Center" Margin="2" FontAttributes="Bold" />
+            <Label Grid.Column="14" Text="OReb" FontSize="14" HorizontalTextAlignment="Center" Margin="2" FontAttributes="Bold" />
+            <Label Grid.Column="15" Text="DReb" FontSize="14" HorizontalTextAlignment="Center" Margin="2" FontAttributes="Bold" />
+            <Label Grid.Column="16" Text="Time" FontSize="14" HorizontalTextAlignment="Center" Margin="2" FontAttributes="Bold" />
 
         </Grid>
 
@@ -70,25 +70,23 @@
                     <Grid>
                         <Grid.ColumnDefinitions>
 
-                            <ColumnDefinition Width="110" />
-                            <ColumnDefinition Width="110" />
-                            <ColumnDefinition Width="75" />
-                            <ColumnDefinition Width="75" />
-                            <ColumnDefinition Width="75" />
-                            <ColumnDefinition Width="75" />
-                            <ColumnDefinition Width="75" />
-
-                            <ColumnDefinition Width="75" />
-                            <ColumnDefinition Width="75" />
-
-                            <ColumnDefinition Width="75" />
-                            <ColumnDefinition Width="75" />
-                            <ColumnDefinition Width="75" />
-                            <ColumnDefinition Width="75" />
-                            <ColumnDefinition Width="75" />
-                            <ColumnDefinition Width="75" />
-                            <ColumnDefinition Width="75" />
-                            <ColumnDefinition Width="110" />
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="65" />
+                            <ColumnDefinition Width="65" />
+                            <ColumnDefinition Width="65" />
+                            <ColumnDefinition Width="65" />
+                            <ColumnDefinition Width="65" />
+                            <ColumnDefinition Width="65" />
+                            <ColumnDefinition Width="65" />
+                            <ColumnDefinition Width="65" />
+                            <ColumnDefinition Width="65" />
+                            <ColumnDefinition Width="65" />
+                            <ColumnDefinition Width="65" />
+                            <ColumnDefinition Width="65" />
+                            <ColumnDefinition Width="65" />
+                            <ColumnDefinition Width="65" />
+                            <ColumnDefinition Width="100" />
 
 
                         </Grid.ColumnDefinitions>
