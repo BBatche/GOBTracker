@@ -25,7 +25,7 @@ namespace GOBTrackerUI.APIMethods
         private static readonly string teamRosterApiUrl = $"{baseURL}/TeamRoster";
         private static readonly string playersApiUrl = $"{baseURL}/Players";
         private static readonly string playerTeamsApiUrl = $"{baseURL}/PlayerTeams";
-        private static readonly string playerGameStatsApiUrl = $"{baseURL}i/PlayerGameStats";
+        private static readonly string playerGameStatsApiUrl = $"{baseURL}/PlayerGameStats";
         private static readonly string schedulesApiUrl = $"{baseURL}/Schedules";
         private static readonly string HomeTeamGameStatsApiUrl = $"{baseURL}/OurTeamGameStats";
         private static readonly string AwayTeamGameStatsApiUrl = $"{baseURL}/OpponentTeamGameStats";

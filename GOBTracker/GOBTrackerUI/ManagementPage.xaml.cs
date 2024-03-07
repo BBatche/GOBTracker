@@ -14,6 +14,7 @@ namespace GOBTrackerUI
         public Player selectedPlayer;
         public ApiService apiService;
         public Schedule selectedGame;
+        public TeamRoster selectedRoster;
         public ManagementPage()
         {
             InitializeComponent();
@@ -105,7 +106,7 @@ namespace GOBTrackerUI
         {
             if (Connectivity.Current.NetworkAccess == NetworkAccess.Internet)
             {
-                TeamRoster selectedRoster = (TeamRoster)rosterCollectionView.SelectedItem;
+                selectedRoster = (TeamRoster)rosterCollectionView.SelectedItem;
                 var players = await apiService.GetPlayersAsync();
                 selectedPlayer = players.FirstOrDefault(player => player.LastName == selectedRoster.LastName);
                 Debug.WriteLine(selectedPlayer.FirstName.ToString() + " selected");
@@ -160,6 +161,10 @@ namespace GOBTrackerUI
         // Event handler for adding a new player
         private async void AddPlayer_Clicked(object sender, EventArgs e)
         {
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                teamPicker.SelectedItem = null;
+            });
             if (Connectivity.Current.NetworkAccess == NetworkAccess.Internet)
             {
                 rosterCollectionView.IsVisible = false;
@@ -549,9 +554,42 @@ namespace GOBTrackerUI
     
 
         // Event handler for deleting a player
-        private void DeletePlayer_Clicked(object sender, EventArgs e)
+        private async void DeletePlayer_Clicked(object sender, EventArgs e)
         {
-            // Implement your logic for deleting a player
+            Debug.WriteLine("DeletePlayer_Clicked");
+            if (Connectivity.Current.NetworkAccess == NetworkAccess.Internet)
+            {
+
+
+                // Proceed with deleting the player
+                Player deletedPlayer = new Player {Id = selectedPlayer.Id, FirstName = selectedPlayer.FirstName, LastName = selectedPlayer.LastName, IsDeleted = 1 };
+
+                // Call the EditPlayerAsync method to attempt to delete the player by setting is_deleted
+                bool success = await apiService.EditPlayerByIdAsync(selectedPlayer.Id, deletedPlayer);
+
+                // Check if deleting the plyaer was successful
+                if (success)
+                {
+                    // Player deleted successfully, you can show a message or perform any other action here
+                    Debug.WriteLine("Player deleted successfully");
+                    await DisplayAlert("Player Deleted", $"Player '{deletedPlayer.FirstName}' '{deletedPlayer.LastName}' deleted successfully!", "OK");
+                    
+                    LoadTeamRoster(selectedTeam.Id);
+                    teamPicker.SelectedItem = selectedTeam;
+                    
+                }
+                else
+                {
+                    // Failed to delete player
+                    Debug.WriteLine("Failed to delete player");
+                }
+                LoadTeams();
+            }
+            else
+            {
+                await Shell.Current.DisplayAlert("Uh Oh!", "No Internet", "OK");
+                return;
+            }
         }
 
 
@@ -596,31 +634,40 @@ namespace GOBTrackerUI
                     // Check if fields are filled
                     if (!string.IsNullOrWhiteSpace(newLocation) || selectedHomeTeamName != null || selectedAwayTeamName != null)
                     {
-                        // Proceed with adding the game
-
-                        Game newGame = new Game { OurTeamId = selectedHomeTeamFromPicker.Id, OpponentTeamId = selectedAwayTeamFromPicker.Id, GameDateTime = selectedDateTime, Location = newLocation };
-
-                        // Call the AddTeamAsync method to attempt to add the game
-                        bool success = await apiService.AddGameAsync(newGame);
-
-                        // Check if adding the game was successful
-                        if (success)
+                        //check that it isn't the team playing itself
+                        if (selectedAwayTeamFromPicker != selectedHomeTeamFromPicker)
                         {
-                            // Player added successfully, you can show a message or perform any other action here
-                            Debug.WriteLine("Game added successfully");
-                            await DisplayAlert("Game Added", $"Game '{selectedHomeTeamName}' vs '{selectedAwayTeamName}' added successfully!", "OK");
+                            // Proceed with adding the game
 
+                            Game newGame = new Game { OurTeamId = selectedHomeTeamFromPicker.Id, OpponentTeamId = selectedAwayTeamFromPicker.Id, GameDateTime = selectedDateTime, Location = newLocation };
+
+                            // Call the AddTeamAsync method to attempt to add the game
+                            bool success = await apiService.AddGameAsync(newGame);
+
+                            // Check if adding the game was successful
+                            if (success)
+                            {
+                                // Player added successfully, you can show a message or perform any other action here
+                                Debug.WriteLine("Game added successfully");
+                                await DisplayAlert("Game Added", $"Game '{selectedHomeTeamName}' vs '{selectedAwayTeamName}' added successfully!", "OK");
+
+                            }
+                            else
+                            {
+                                // Failed to add player
+                                Debug.WriteLine("Failed to add game");
+                            }
+
+
+                            // Dismiss the popup
+                            await Navigation.PopModalAsync();
+                            LoadTeams();
                         }
                         else
                         {
-                            // Failed to add player
-                            Debug.WriteLine("Failed to add game");
+                            // Display an alert if any field is empty
+                            await DisplayAlert("Error", "Teams cannot play themselves.", "OK");
                         }
-
-
-                        // Dismiss the popup
-                        await Navigation.PopModalAsync();
-                        LoadTeams();
                     }
                     else
                     {
