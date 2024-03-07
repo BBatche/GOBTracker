@@ -48,8 +48,10 @@ public partial class GameViewModePage : ContentPage
 
     private async Task InitializeData()
     {
-        //call api method
-        var homePlayerStatsRawInGame = await apiService.GetHomeRawTeamStatsFromGameAsync(thisSchedule.GameId);
+        if (Connectivity.Current.NetworkAccess == NetworkAccess.Internet)
+        {
+            //call api method
+            var homePlayerStatsRawInGame = await apiService.GetHomeRawTeamStatsFromGameAsync(thisSchedule.GameId);
         var awayPlayerStatsRawInGame = await apiService.GetAwayRawTeamStatsFromGameAsync(thisSchedule.GameId);
 
         var teamsScoreInThisGame = await apiService.GetTeamGameScore(thisSchedule.GameId);
@@ -83,15 +85,22 @@ public partial class GameViewModePage : ContentPage
 
 
 
-
+        }
+        else
+        {
+            await Shell.Current.DisplayAlert("Uh Oh!", "No Internet", "OK");
+            return;
+        }
 
     }
 
 
     private async Task UpdateData()
     {
-        //call api method
-        var homePlayerStatsRawInGame = await apiService.GetHomeRawTeamStatsFromGameAsync(thisSchedule.GameId);
+        if (Connectivity.Current.NetworkAccess == NetworkAccess.Internet)
+        {
+            //call api method
+            var homePlayerStatsRawInGame = await apiService.GetHomeRawTeamStatsFromGameAsync(thisSchedule.GameId);
         var awayPlayerStatsRawInGame = await apiService.GetAwayRawTeamStatsFromGameAsync(thisSchedule.GameId);
 
         var teamsScoreInThisGame = await apiService.GetTeamGameScore(thisSchedule.GameId);
@@ -110,7 +119,12 @@ public partial class GameViewModePage : ContentPage
 
         UpdateCollectionViewStatus(view1Status, view2Status);
 
-        
+        }
+        else
+        {
+            await Shell.Current.DisplayAlert("Uh Oh!", "No Internet", "OK");
+            return;
+        }
 
 
     }
