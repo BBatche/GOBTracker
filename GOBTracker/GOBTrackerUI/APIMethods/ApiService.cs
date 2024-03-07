@@ -9,35 +9,30 @@ using GOBTrackerUI.Models;
 using System.Diagnostics;
 using static System.Net.WebRequestMethods;
 
+
 namespace GOBTrackerUI.APIMethods
 {
     public class ApiService
     {
         private readonly HttpClient _httpClient;
-        string teamsApiUrl = "https://localhost:7063/api/Teams";
-        string gamesApiUrl = "https://localhost:7063/api/Games";
-        string teamRosterApiUrl = "https://localhost:7063/api/TeamRoster";
-        string playersApiUrl = "https://localhost:7063/api/Players";
-        string playerTeamsApiUrl = "https://localhost:7063/api/PlayerTeams";
-        string playerGameStatsApiUrl = "https://localhost:7063/api/PlayerGameStats";
-        string schedulesApiUrl = "https://localhost:7063/api/Schedules";
-        string HomeTeamGameStatsApiUrl = "https://localhost:7063/api/OurTeamGameStats";
-        string AwayTeamGameStatsApiUrl = "https://localhost:7063/api/OpponentTeamGameStats";
-        string statsUrl = "https://localhost:7063/api/Stats";
-        string teamGameScoreApiUrl = "https://localhost:7063/api/TeamGameScore";
 
-        //string teamsApiUrl = "http://localhost:5123/api/Teams";
-        //string teamRosterApiUrl = "http://localhost:5123/api/TeamRoster";
-        //string playersApiUrl = "http://localhost:5123/api/Players";
-        //string playerTeamsApiUrl = "http://localhost:5123/api/PlayerTeams";
-        //string playerGameStatsApiUrl = "http://localhost:5123/api/PlayerGameStats";
-        //string gamesApiUrl = "http://localhost:5123/api/Games";
-        //string schedulesApiUrl = "http://localhost:5123/api/Schedules";
-        //string HomeTeamGameStatsApiUrl = "http://localhost:5123/api/OurTeamGameStats";
-        //string AwayTeamGameStatsApiUrl = "http://localhost:5123/api/OpponentTeamGameStats";
-        //string statsUrl = "http://localhost:5123/api/Stats";
-        //string teamGameScoreApiUrl = "http://localhost:5123/api/TeamGameScore";
+        
+        private static readonly string baseURL = "https://localhost:7063/api";
+        //private static readonly string baseURL = "http://localhost:5123/api";
 
+        private static readonly string teamsApiUrl = $"{baseURL}/Teams";
+        private static readonly string gamesApiUrl = $"{baseURL}/Games";
+        private static readonly string teamRosterApiUrl = $"{baseURL}/TeamRoster";
+        private static readonly string playersApiUrl = $"{baseURL}/Players";
+        private static readonly string playerTeamsApiUrl = $"{baseURL}/PlayerTeams";
+        private static readonly string playerGameStatsApiUrl = $"{baseURL}i/PlayerGameStats";
+        private static readonly string schedulesApiUrl = $"{baseURL}/Schedules";
+        private static readonly string HomeTeamGameStatsApiUrl = $"{baseURL}/OurTeamGameStats";
+        private static readonly string AwayTeamGameStatsApiUrl = $"{baseURL}/OpponentTeamGameStats";
+        private static readonly string statsUrl = $"{baseURL}/Stats";
+        private static readonly string teamGameScoreApiUrl = $"{baseURL}/TeamGameScore";
+
+     
         public ApiService()
         {
             _httpClient = new HttpClient();
