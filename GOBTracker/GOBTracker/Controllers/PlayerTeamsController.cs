@@ -112,7 +112,8 @@ namespace GOBTracker.Controllers
             _context.PlayerTeams.Add(playerTeam);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetPlayerTeam", new { id = playerTeam.Id }, playerTeam);
+            return CreatedAtAction("GetPlayerTeams", new { id = playerTeam.Id }, playerTeam);  // wow
+
         }
 
         // DELETE: api/PlayerTeams/5
