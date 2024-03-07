@@ -13,74 +13,80 @@
 
 
         <!--Column Headers-->
-        <Grid HorizontalOptions="CenterAndExpand" Margin = "-50, 0, 0, 0" Padding="0" BackgroundColor="Black"  >
+        <Grid HorizontalOptions="CenterAndExpand" Margin = "10" Padding="10" BackgroundColor="LightGray"  >
             <Grid.ColumnDefinitions>
                 
-                <ColumnDefinition Width="120" />
-                <ColumnDefinition Width="120" />
-                <ColumnDefinition Width="90" />
-                <ColumnDefinition Width="90" />
-                <ColumnDefinition Width="90" />
-                <ColumnDefinition Width="90" />
-                <ColumnDefinition Width="90" />
-                <ColumnDefinition Width="90" />
-                <ColumnDefinition Width="90" />
-                <ColumnDefinition Width="90" />
-                <ColumnDefinition Width="90" />
-                <ColumnDefinition Width="90" />
-                <ColumnDefinition Width="90" />
-                <ColumnDefinition Width="90" />
-                <ColumnDefinition Width="120" />
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="65" />
+                <ColumnDefinition Width="65" />
+                <ColumnDefinition Width="65" />
+                <ColumnDefinition Width="65" />
+                <ColumnDefinition Width="65" />
+                <ColumnDefinition Width="65" />
+                <ColumnDefinition Width="65" />
+                <ColumnDefinition Width="65" />
+                <ColumnDefinition Width="65" />
+                <ColumnDefinition Width="65" />
+                <ColumnDefinition Width="65" />
+                <ColumnDefinition Width="65" />
+                <ColumnDefinition Width="65" />
+                <ColumnDefinition Width="65" />
+                <ColumnDefinition Width="100" />
                 
             </Grid.ColumnDefinitions>
 
 
-            <Label Grid.Column="0" Text="First" FontSize="14" HorizontalTextAlignment="Center" Margin = "20, 0, 0, 0" FontAttributes="Bold" TextDecorations="Underline"/>
-            <Label Grid.Column="1" Text="Last" FontSize="14" HorizontalTextAlignment="Center" Margin = "20, 0, 0, 0" FontAttributes="Bold" TextDecorations="Underline"/>
-            <Label Grid.Column="2" Text="Pts" FontSize="14" HorizontalTextAlignment="Center" Margin = "0, 0, 0, 0" FontAttributes="Bold" TextDecorations="Underline"/>
+            <Label Grid.Column="0" Text="First" FontSize="14" HorizontalTextAlignment="Center" Margin="2" FontAttributes="Bold" />
+            <Label Grid.Column="1" Text="Last" FontSize="14" HorizontalTextAlignment="Center" Margin="2" FontAttributes="Bold" />
+            <Label Grid.Column="2" Text="Pts" FontSize="14" HorizontalTextAlignment="Center" Margin="2" FontAttributes="Bold" />
 
-            <Label Grid.Column="3" Text="2PtsMade" FontSize="14" HorizontalTextAlignment="Center" Margin = "0, 0, 0, 0" FontAttributes="Bold" TextDecorations="Underline"/>
-            <Label Grid.Column="4" Text="2PtsMiss" FontSize="14" HorizontalTextAlignment="Center" Margin = "0, 0, 0, 0" FontAttributes="Bold" TextDecorations="Underline"/>
-            <Label Grid.Column="5" Text="3PtsMade" FontSize="14" HorizontalTextAlignment="Center" Margin = "0, 0, 0, 0" FontAttributes="Bold" TextDecorations="Underline"/>
-            <Label Grid.Column="6" Text="3PtsMiss" FontSize="14" HorizontalTextAlignment="Center" Margin = "0, 0, 0, 0" FontAttributes="Bold" TextDecorations="Underline"/>
+            <Label Grid.Column="3" Text="2Pts" FontSize="14" HorizontalTextAlignment="Center" Margin="2" FontAttributes="Bold" />
+            <Label Grid.Column="4" Text="2PtsMiss" FontSize="14" HorizontalTextAlignment="Center" Margin="2" FontAttributes="Bold" />
+            <Label Grid.Column="5" Text="3Pts" FontSize="14" HorizontalTextAlignment="Center" Margin="2" FontAttributes="Bold" />
+            <Label Grid.Column="6" Text="3PtsMiss" FontSize="14" HorizontalTextAlignment="Center" Margin="2" FontAttributes="Bold" />
 
-            <Label Grid.Column="7" Text="STL" FontSize="14" HorizontalTextAlignment="Center" Margin = "0, 0, 0, 0" FontAttributes="Bold" TextDecorations="Underline"/>
-            <Label Grid.Column="8" Text="TRNVR" FontSize="14" HorizontalTextAlignment="Center" Margin = "0, 0, 0, 0" FontAttributes="Bold" TextDecorations="Underline"/>
-            <Label Grid.Column="9" Text="AST" FontSize="14" HorizontalTextAlignment="Center" Margin = "0, 0, 0, 0" FontAttributes="Bold" TextDecorations="Underline"/>
-            <Label Grid.Column="10" Text="BLK" FontSize="14" HorizontalTextAlignment="Center" Margin = "0, 0, 0, 0" FontAttributes="Bold" TextDecorations="Underline"/>
+            <Label Grid.Column="7" Text="Ft" FontSize="14" HorizontalTextAlignment="Center" Margin="2" FontAttributes="Bold" />
+            <Label Grid.Column="8" Text="FtMiss" FontSize="14" HorizontalTextAlignment="Center" Margin="2" FontAttributes="Bold" />
 
-            <Label Grid.Column="11" Text="FOUL" FontSize="14" HorizontalTextAlignment="Center" FontAttributes="Bold" TextDecorations="Underline"/>
-            <Label Grid.Column="12" Text="O-RBND" FontSize="14" HorizontalTextAlignment="Center" FontAttributes="Bold" TextDecorations="Underline"/>
-            <Label Grid.Column="13" Text="D-RBND" FontSize="14" HorizontalTextAlignment="Center" FontAttributes="Bold" TextDecorations="Underline"/>
-            <Label Grid.Column="14" Text="Time" FontSize="14" HorizontalTextAlignment="Center" FontAttributes="Bold" TextDecorations="Underline"/>
+            <Label Grid.Column="9" Text="Stl" FontSize="14" HorizontalTextAlignment="Center" Margin="2" FontAttributes="Bold" />
+            <Label Grid.Column="10" Text="TO" FontSize="14" HorizontalTextAlignment="Center" Margin="2" FontAttributes="Bold" />
+            <Label Grid.Column="11" Text="Ast" FontSize="14" HorizontalTextAlignment="Center" Margin="2" FontAttributes="Bold" />
+            <Label Grid.Column="12" Text="Blk" FontSize="14" HorizontalTextAlignment="Center" Margin="2" FontAttributes="Bold" />
+
+            <Label Grid.Column="13" Text="Foul" FontSize="14" HorizontalTextAlignment="Center" Margin="2" FontAttributes="Bold" />
+            <Label Grid.Column="14" Text="OReb" FontSize="14" HorizontalTextAlignment="Center" Margin="2" FontAttributes="Bold" />
+            <Label Grid.Column="15" Text="DReb" FontSize="14" HorizontalTextAlignment="Center" Margin="2" FontAttributes="Bold" />
+            <Label Grid.Column="16" Text="Time" FontSize="14" HorizontalTextAlignment="Center" Margin="2" FontAttributes="Bold" />
 
         </Grid>
 
 
 
         <!--Team1 Stat List-->
-        <CollectionView x:Name="playerStatCollectionView"  HorizontalOptions="CenterAndExpand" Margin = "0, 0, 0, 0">
+        <CollectionView x:Name="playerStatCollectionView"  HorizontalOptions="CenterAndExpand" Margin = "10">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
 
-                            <ColumnDefinition Width="120" />
-                            <ColumnDefinition Width="120" />
-                            <ColumnDefinition Width="90" />
-                            <ColumnDefinition Width="90" />
-                            <ColumnDefinition Width="90" />
-                            <ColumnDefinition Width="90" />
-                            <ColumnDefinition Width="90" />
-
-                            <ColumnDefinition Width="90" />
-                            <ColumnDefinition Width="90" />
-                            <ColumnDefinition Width="90" />
-                            <ColumnDefinition Width="90" />
-                            <ColumnDefinition Width="90" />
-                            <ColumnDefinition Width="90" />
-                            <ColumnDefinition Width="90" />
-                            <ColumnDefinition Width="120" />
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="65" />
+                            <ColumnDefinition Width="65" />
+                            <ColumnDefinition Width="65" />
+                            <ColumnDefinition Width="65" />
+                            <ColumnDefinition Width="65" />
+                            <ColumnDefinition Width="65" />
+                            <ColumnDefinition Width="65" />
+                            <ColumnDefinition Width="65" />
+                            <ColumnDefinition Width="65" />
+                            <ColumnDefinition Width="65" />
+                            <ColumnDefinition Width="65" />
+                            <ColumnDefinition Width="65" />
+                            <ColumnDefinition Width="65" />
+                            <ColumnDefinition Width="65" />
+                            <ColumnDefinition Width="100" />
 
 
                         </Grid.ColumnDefinitions>
@@ -89,164 +95,172 @@
 
                         <!-- First Name -->
                         <Frame Grid.Column="0"
-                           BorderColor="Black"
                            CornerRadius="5"
                            HasShadow="false"
                            Margin="5"
                            Padding="5">
-                            <Label Text="{Binding FirstName}" FontSize="13" />
+                            <Label Text="{Binding FirstName}" FontSize="13" HorizontalTextAlignment="Center" />
                         </Frame>
 
                         <!-- Last Name -->
                         <Frame Grid.Column="1"
-                           BorderColor="Black"
                            CornerRadius="5"
                            HasShadow="false"
                            Margin="5"
                            Padding="5">
-                            <Label Text="{Binding LastName}" FontSize="13" />
+                            <Label Text="{Binding LastName}" FontSize="13" HorizontalTextAlignment="Center" />
 
                         </Frame>
                         
                         <!-- Total Pts -->
                         <Frame Grid.Column="2"
-                         BorderColor="Black"
                          CornerRadius="5"
                          HasShadow="false"
                          Margin="5"
                          Padding="5">
-                            <Label Text="{Binding TotalPoints, StringFormat='{0:F0}'}" FontSize="13" />
+                            <Label Text="{Binding TotalPoints, StringFormat='{0:F0}'}" FontSize="13" HorizontalTextAlignment="Center" />
                         </Frame>
 
                         <!-- Total2ptsMade -->
                         <Frame Grid.Column="3"
-                            BorderColor="Black"
                             CornerRadius="5"
                             HasShadow="false"
                             Margin="5"
                             Padding="5">
-                            <Label Text="{Binding Total2ptsMade, StringFormat='{0:F0}'}" FontSize="13" />
+                            <Label Text="{Binding Total2ptsMade, StringFormat='{0:F0}'}" FontSize="13" HorizontalTextAlignment="Center"  />
                         </Frame>
 
 
                         <!-- Total2ptsMiss -->
                         <Frame Grid.Column="4"
-                            BorderColor="Black"
                             CornerRadius="5"
                             HasShadow="false"
                             Margin="5"
                             Padding="5">
-                            <Label Text="{Binding Total2ptsMissed, StringFormat='{0:F0}'}" FontSize="13" />
+                            <Label Text="{Binding Total2ptsMissed, StringFormat='{0:F0}'}" FontSize="13" HorizontalTextAlignment="Center"  />
                         </Frame>
 
 
                         <!-- Total3ptsMade -->
                         <Frame Grid.Column="5"
-                            BorderColor="Black"
                             CornerRadius="5"
                             HasShadow="false"
                             Margin="5"
                             Padding="5">
-                            <Label Text="{Binding Total3ptsMade, StringFormat='{0:F0}'}" FontSize="13" />
+                            <Label Text="{Binding Total3ptsMade, StringFormat='{0:F0}'}" FontSize="13" HorizontalTextAlignment="Center" />
 
                         </Frame>
 
 
                         <!-- Total3ptsMiss -->
                         <Frame Grid.Column="6"
-                            BorderColor="Black"
                             CornerRadius="5"
                             HasShadow="false"
                             Margin="5"
                             Padding="5">
-                            <Label Text="{Binding Total3ptsMissed, StringFormat='{0:F0}'}" FontSize="13" />
+                            <Label Text="{Binding Total3ptsMissed, StringFormat='{0:F0}'}" FontSize="13" HorizontalTextAlignment="Center" />
 
                         </Frame>
 
-                        <!-- Total Steals -->
+
+                        <!-- TotalFtMade -->
                         <Frame Grid.Column="7"
-                            BorderColor="Black"
                             CornerRadius="5"
                             HasShadow="false"
                             Margin="5"
                             Padding="5">
-                            <Label Text="{Binding TotalSteals, StringFormat='{0:F0}'}" FontSize="13" />
+                            <Label Text="{Binding TotalFtMade, StringFormat='{0:F0}'}" FontSize="13" HorizontalTextAlignment="Center" />
+
+                        </Frame>
+
+
+                        <!-- TotalFtMiss -->
+                        <Frame Grid.Column="8"
+                            CornerRadius="5"
+                            HasShadow="false"
+                            Margin="5"
+                            Padding="5">
+                            <Label Text="{Binding TotalFtMissed, StringFormat='{0:F0}'}" FontSize="13" HorizontalTextAlignment="Center" />
+
+                        </Frame>
+
+
+                        <!-- Total Steals -->
+                        <Frame Grid.Column="9"
+                            CornerRadius="5"
+                            HasShadow="false"
+                            Margin="5"
+                            Padding="5">
+                            <Label Text="{Binding TotalSteals, StringFormat='{0:F0}'}" FontSize="13" HorizontalTextAlignment="Center" />
                         </Frame>
 
 
                         <!-- Total Turnovers -->
-                        <Frame Grid.Column="8"
-                            BorderColor="Black"
+                        <Frame Grid.Column="10"
                             CornerRadius="5"
                             HasShadow="false"
                             Margin="5"
                             Padding="5">
-                            <Label Text="{Binding TotalTurnovers, StringFormat='{0:F0}'}" FontSize="13" />
+                            <Label Text="{Binding TotalTurnovers, StringFormat='{0:F0}'}" FontSize="13" HorizontalTextAlignment="Center" />
                         </Frame>
 
 
                         <!-- Total Assists -->
-                        <Frame Grid.Column="9"
-                            BorderColor="Black"
+                        <Frame Grid.Column="11"
                             CornerRadius="5"
                             HasShadow="false"
                             Margin="5"
                             Padding="5">
-                            <Label Text="{Binding TotalAssists, StringFormat='{0:F0}'}" FontSize="13" />
+                            <Label Text="{Binding TotalAssists, StringFormat='{0:F0}'}" FontSize="13" HorizontalTextAlignment="Center" />
                         </Frame>
 
 
                         <!-- Total Blocks -->
-                        <Frame Grid.Column="10"
-                            BorderColor="Black"
+                        <Frame Grid.Column="12"
                             CornerRadius="5"
                             HasShadow="false"
                             Margin="5"
                             Padding="5">
-                            <Label Text="{Binding TotalBlocks, StringFormat='{0:F0}'}" FontSize="13" />
+                            <Label Text="{Binding TotalBlocks, StringFormat='{0:F0}'}" FontSize="13" HorizontalTextAlignment="Center" />
                         </Frame>
 
 
                         <!-- Total Fouls -->
-                        <Frame Grid.Column="11"
-                            BorderColor="Black"
+                        <Frame Grid.Column="13"
                             CornerRadius="5"
                             HasShadow="false"
                             Margin="5"
                             Padding="5">
-                            <Label Text="{Binding TotalFouls, StringFormat='{0:F0}'}" FontSize="13" />
+                            <Label Text="{Binding TotalFouls, StringFormat='{0:F0}'}" FontSize="13" HorizontalTextAlignment="Center" />
                         </Frame>
 
 
                         <!-- Total Offensive Rebounds -->
-                        <Frame Grid.Column="12"
-                            BorderColor="Black"
+                        <Frame Grid.Column="14"
                             CornerRadius="5"
                             HasShadow="false"
                             Margin="5"
                             Padding="5">
-                            <Label Text="{Binding TotalOffensiveRebounds, StringFormat='{0:F0}'}" FontSize="13" />
+                            <Label Text="{Binding TotalOffensiveRebounds, StringFormat='{0:F0}'}" FontSize="13" HorizontalTextAlignment="Center" />
                         </Frame>
 
 
                         <!-- Total Deffensive Rebounds -->
-                        <Frame Grid.Column="13"
-                            BorderColor="Black"
+                        <Frame Grid.Column="15"
                             CornerRadius="5"
                             HasShadow="false"
                             Margin="5"
                             Padding="5">
-                            <Label Text="{Binding TotalDefensiveRebounds, StringFormat='{0:F0}'}" FontSize="13" />
+                            <Label Text="{Binding TotalDefensiveRebounds, StringFormat='{0:F0}'}" FontSize="13" HorizontalTextAlignment="Center" />
                         </Frame>
 
                         <!-- Total Pts -->
-                        <Frame Grid.Column="14"
-                             BorderColor="Black"
+                        <Frame Grid.Column="16"
                              CornerRadius="5"
                              HasShadow="false"
                              Margin="5"
                              Padding="5">
-                            <Label Text="{Binding GameDateTime}" FontSize="13" />
+                            <Label Text="{Binding GameDateTime, StringFormat='{0:MM/dd/yyyy hh:mm tt}'}" FontSize="13" HorizontalTextAlignment="Center" />
                         </Frame>
 
                     </Grid>

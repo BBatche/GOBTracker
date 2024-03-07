@@ -71,7 +71,6 @@ public partial class GobtrackerDbContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false);
 
-           
         });
 
         modelBuilder.Entity<OpponentTeamGameStat>(entity =>
@@ -93,6 +92,8 @@ public partial class GobtrackerDbContext : DbContext
             entity.Property(e => e.TotalBlocks).HasColumnType("decimal(38, 4)");
             entity.Property(e => e.TotalDefRebounds).HasColumnType("decimal(38, 4)");
             entity.Property(e => e.TotalFouls).HasColumnType("decimal(38, 4)");
+            entity.Property(e => e.TotalFreeThrowsMade).HasColumnType("decimal(38, 4)");
+            entity.Property(e => e.TotalFreeThrowsMissed).HasColumnType("decimal(38, 4)");
             entity.Property(e => e.TotalOffRebounds).HasColumnType("decimal(38, 4)");
             entity.Property(e => e.TotalPoints).HasColumnType("decimal(38, 4)");
             entity.Property(e => e.TotalSteals).HasColumnType("decimal(38, 4)");
@@ -130,6 +131,8 @@ public partial class GobtrackerDbContext : DbContext
             entity.Property(e => e.TotalBlocks).HasColumnType("decimal(38, 4)");
             entity.Property(e => e.TotalDefRebounds).HasColumnType("decimal(38, 4)");
             entity.Property(e => e.TotalFouls).HasColumnType("decimal(38, 4)");
+            entity.Property(e => e.TotalFreeThrowsMade).HasColumnType("decimal(38, 4)");
+            entity.Property(e => e.TotalFreeThrowsMissed).HasColumnType("decimal(38, 4)");
             entity.Property(e => e.TotalOffRebounds).HasColumnType("decimal(38, 4)");
             entity.Property(e => e.TotalPoints).HasColumnType("decimal(38, 4)");
             entity.Property(e => e.TotalSteals).HasColumnType("decimal(38, 4)");
@@ -153,6 +156,7 @@ public partial class GobtrackerDbContext : DbContext
             entity.Property(e => e.FirstName)
                 .HasMaxLength(50)
                 .IsUnicode(false);
+            entity.Property(e => e.IsDeleted).HasColumnName("is_deleted");
             entity.Property(e => e.LastName)
                 .HasMaxLength(50)
                 .IsUnicode(false);
@@ -195,6 +199,12 @@ public partial class GobtrackerDbContext : DbContext
             entity.Property(e => e.TotalFouls)
                 .HasColumnType("decimal(38, 4)")
                 .HasColumnName("Total Fouls");
+            entity.Property(e => e.TotalFtMade)
+                .HasColumnType("decimal(38, 4)")
+                .HasColumnName("Total FT Made");
+            entity.Property(e => e.TotalFtMissed)
+                .HasColumnType("decimal(38, 4)")
+                .HasColumnName("Total FT Missed");
             entity.Property(e => e.TotalOffensiveRebounds)
                 .HasColumnType("decimal(38, 4)")
                 .HasColumnName("Total Offensive Rebounds");
@@ -248,6 +258,7 @@ public partial class GobtrackerDbContext : DbContext
 
         modelBuilder.Entity<Team>(entity =>
         {
+            entity.Property(e => e.IsDeleted).HasColumnName("is_deleted");
             entity.Property(e => e.TeamName)
                 .HasMaxLength(50)
                 .IsUnicode(false);

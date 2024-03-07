@@ -10,4 +10,6 @@ public partial class Player
     public string FirstName { get; set; } = null!;
 
     public string LastName { get; set; } = null!;
+
+    public int? IsDeleted { get; set; }
 }

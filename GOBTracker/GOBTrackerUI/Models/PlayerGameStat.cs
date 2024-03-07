@@ -17,6 +17,10 @@ public partial class PlayerGameStat
 
     public decimal? Total3ptsMissed { get; set; }
 
+    public decimal? TotalFtMade { get; set; }
+
+    public decimal? TotalFtMissed { get; set; }
+
     public decimal? TotalSteals { get; set; }
 
     public decimal? TotalTurnovers { get; set; }
