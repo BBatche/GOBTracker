@@ -38,10 +38,6 @@ namespace GOBTrackerUI
 
                     }
 
-                    //foreach (var team in teams)
-                    //{
-                    //    teamPicker.Items.Add(team.TeamName);
-                    //}
                 });
             }
             else
@@ -181,7 +177,7 @@ namespace GOBTrackerUI
                     if (!string.IsNullOrWhiteSpace(firstName) && !string.IsNullOrWhiteSpace(lastName))
                     {
                         // Proceed with adding the player
-                        Player newPlayer = new Player { FirstName = firstName, LastName = lastName };
+                        Player newPlayer = new Player { FirstName = firstName, LastName = lastName, IsDeleted = 0 };
                         string playerName = $"{firstName} {lastName}";
                         // Call the AddPlayerAsync method to attempt to add the customer
                         bool success = await apiService.AddPlayerAsync(newPlayer);
@@ -197,7 +193,7 @@ namespace GOBTrackerUI
                             //Assign Player to current team
                             //get the player you just added
                             var players = await apiService.GetPlayersAsync();
-                            Player addedPlayer = players.FirstOrDefault(player => player.FirstName == firstNameEntry.Text);
+                            Player addedPlayer = players.FirstOrDefault(player => player.FirstName == firstNameEntry.Text && player.LastName == lastNameEntry.Text);
                             //players = players.Where(x => x.LastName.Trim() == lastName ).ToList();
                             //Player addedPlayer = players[0];
 
@@ -215,6 +211,7 @@ namespace GOBTrackerUI
                             else
                             {
                                 Debug.WriteLine("Failed to add PlayerTeam");
+                                await DisplayAlert("Player Not Added", $"Player '{playerName}' unable to be added successfully.", "OK");
                             }
 
 
@@ -432,9 +429,39 @@ namespace GOBTrackerUI
         }
 
 
-        private void DeleteTeam_Clicked(object sender, EventArgs e)
+        private async void DeleteTeam_Clicked(object sender, EventArgs e)
         {
-            
+            Debug.WriteLine("DeleteTeam_Clicked");
+            if (Connectivity.Current.NetworkAccess == NetworkAccess.Internet)
+            {
+
+                
+                // Proceed with deleting the team
+                Team deletedTeam = new Team { Id = selectedTeam.Id, TeamName = selectedTeam.TeamName, IsDeleted = 1 };
+
+                // Call the AddPlayerAsync method to attempt to add the customer
+                bool success = await apiService.EditTeamByIdAsync(selectedTeam.Id, deletedTeam);
+
+                // Check if adding the plyaer was successful
+                if (success)
+                {
+                    // Team deleted successfully, you can show a message or perform any other action here
+                    Debug.WriteLine("Team deleted successfully");
+                    await DisplayAlert("Team Deleted", $"Team '{deletedTeam.TeamName}' deleted successfully!", "OK");
+
+                }
+                else
+                {
+                    // Failed to add player
+                    Debug.WriteLine("Failed to delete team");
+                }
+                LoadTeams();
+            }
+            else
+            {
+                await Shell.Current.DisplayAlert("Uh Oh!", "No Internet", "OK");
+                return;
+            }
         }
 
         // Event handler for editing an existing player
@@ -457,7 +484,7 @@ namespace GOBTrackerUI
                     if (!string.IsNullOrWhiteSpace(firstName) && !string.IsNullOrWhiteSpace(lastName))
                     {
                         // Proceed with adding the player
-                        Player editedPlayer = new Player { Id = selectedPlayer.Id, FirstName = firstName, LastName = lastName };
+                        Player editedPlayer = new Player { Id = selectedPlayer.Id, FirstName = firstName, LastName = lastName, IsDeleted = 0 };
                         string playerName = $"{firstName} {lastName}";
                         // Call the AddPlayerAsync method to attempt to add the customer
                         bool success = await apiService.EditPlayerByIdAsync(selectedPlayer.Id, editedPlayer);

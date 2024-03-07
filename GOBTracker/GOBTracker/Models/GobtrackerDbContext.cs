@@ -71,7 +71,6 @@ public partial class GobtrackerDbContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false);
 
-            
         });
 
         modelBuilder.Entity<OpponentTeamGameStat>(entity =>
@@ -157,6 +156,7 @@ public partial class GobtrackerDbContext : DbContext
             entity.Property(e => e.FirstName)
                 .HasMaxLength(50)
                 .IsUnicode(false);
+            entity.Property(e => e.IsDeleted).HasColumnName("is_deleted");
             entity.Property(e => e.LastName)
                 .HasMaxLength(50)
                 .IsUnicode(false);
@@ -223,7 +223,6 @@ public partial class GobtrackerDbContext : DbContext
         {
             entity.HasIndex(e => new { e.PlayerId, e.TeamId }, "IX_PlayerTeamUnique").IsUnique();
 
-            
         });
 
         modelBuilder.Entity<Schedule>(entity =>
@@ -247,9 +246,6 @@ public partial class GobtrackerDbContext : DbContext
         {
             entity.Property(e => e.StatValue).HasColumnType("decimal(8, 4)");
 
-            
-
-            
         });
 
         modelBuilder.Entity<StatType>(entity =>
@@ -262,6 +258,7 @@ public partial class GobtrackerDbContext : DbContext
 
         modelBuilder.Entity<Team>(entity =>
         {
+            entity.Property(e => e.IsDeleted).HasColumnName("is_deleted");
             entity.Property(e => e.TeamName)
                 .HasMaxLength(50)
                 .IsUnicode(false);

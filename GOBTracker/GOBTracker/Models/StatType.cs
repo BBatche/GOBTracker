@@ -11,5 +11,3 @@ public partial class StatType
 
     public string StatNameAbr { get; set; } = null!;
 }
-
-   

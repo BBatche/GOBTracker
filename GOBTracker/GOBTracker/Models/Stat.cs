@@ -14,6 +14,4 @@ public partial class Stat
     public int StatTypeId { get; set; }
 
     public decimal StatValue { get; set; }
-
-   
 }

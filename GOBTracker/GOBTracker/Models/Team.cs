@@ -9,4 +9,5 @@ public partial class Team
 
     public string TeamName { get; set; } = null!;
 
+    public int? IsDeleted { get; set; }
 }
