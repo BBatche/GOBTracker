@@ -292,7 +292,7 @@ namespace GOBTrackerUI
                     if (!string.IsNullOrWhiteSpace(newTeamName))
                     {
                         // Proceed with adding the team
-                        Team newTeam = new Team { TeamName = newTeamName };
+                        Team newTeam = new Team { TeamName = newTeamName, IsDeleted = 0 };
 
                         // Call the AddTeamAsync method to attempt to add the team
                         bool success = await apiService.AddTeamAsync(newTeam);
@@ -371,7 +371,7 @@ namespace GOBTrackerUI
                     if (!string.IsNullOrWhiteSpace(editedTeamName))
                     {
                         // Proceed with adding the player
-                        Team editedTeam = new Team { Id = selectedTeam.Id, TeamName = editedTeamName };
+                        Team editedTeam = new Team { Id = selectedTeam.Id, TeamName = editedTeamName, IsDeleted = 0 };
 
                         // Call the AddPlayerAsync method to attempt to add the customer
                         bool success = await apiService.EditTeamByIdAsync(selectedTeam.Id, editedTeam);

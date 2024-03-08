@@ -14,12 +14,19 @@ public partial class StatsModePage : ContentPage
 
     private async void OnSearchButtonPressed(object sender, EventArgs e)
     {
-        string lastName = ((SearchBar)sender).Text;
+        if (Connectivity.Current.NetworkAccess == NetworkAccess.Internet)
+        {
+            string lastName = ((SearchBar)sender).Text;
 
         //call api method
         var stats = await apiService.GetRawStatsAsync(lastName);
 
         MainThread.BeginInvokeOnMainThread(() => { playerStatCollectionView.ItemsSource = stats; });
-
+        }
+        else
+        {
+            await Shell.Current.DisplayAlert("Uh Oh!", "No Internet", "OK");
+            return;
+        }
     }
 }

@@ -16,7 +16,7 @@ namespace GOBTrackerUI.APIMethods
     {
         private readonly HttpClient _httpClient;
 
-        
+
         private static readonly string baseURL = "https://localhost:7063/api";
         //private static readonly string baseURL = "http://localhost:5123/api";
 
