@@ -129,17 +129,22 @@ namespace GOBTrackerUI
         {
             if (Connectivity.Current.NetworkAccess == NetworkAccess.Internet)
             {
-                Stat stat = new Stat { GameId = selectedSchedule.GameId, PlayerTeamId = selectedPlayerTeam.Id, StatTypeId = 1, StatValue = 1 };
+                if (selectedPlayer != null)
+                {
 
-                bool success = await apiService.AddStats(stat);
-                if (success)
-                {
-                    mostRecentStat = stat;
-                    Debug.WriteLine("2PT Made added successfully");
-                }
-                else
-                {
-                    Debug.WriteLine("Add Failed");
+
+                    Stat stat = new Stat { GameId = selectedSchedule.GameId, PlayerTeamId = selectedPlayerTeam.Id, StatTypeId = 1, StatValue = 1 };
+
+                    bool success = await apiService.AddStats(stat);
+                    if (success)
+                    {
+                        mostRecentStat = stat;
+                        Debug.WriteLine("2PT Made added successfully");
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Add Failed");
+                    }
                 }
             }
 
@@ -156,16 +161,20 @@ namespace GOBTrackerUI
         {
             if (Connectivity.Current.NetworkAccess == NetworkAccess.Internet)
             {
-                Stat stat = new Stat { GameId = selectedSchedule.GameId, PlayerTeamId = selectedPlayerTeam.Id, StatTypeId = 2, StatValue = 1 };
-                bool success = await apiService.AddStats(stat);
-                if (success)
+                if (selectedPlayer != null)
                 {
-                    mostRecentStat = stat;
-                    Debug.WriteLine("2PT Miss added successfully");
-                }
-                else
-                {
-                    Debug.WriteLine("Add Failed");
+
+                    Stat stat = new Stat { GameId = selectedSchedule.GameId, PlayerTeamId = selectedPlayerTeam.Id, StatTypeId = 2, StatValue = 1 };
+                    bool success = await apiService.AddStats(stat);
+                    if (success)
+                    {
+                        mostRecentStat = stat;
+                        Debug.WriteLine("2PT Miss added successfully");
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Add Failed");
+                    }
                 }
             }
             else
@@ -179,16 +188,20 @@ namespace GOBTrackerUI
         {
             if (Connectivity.Current.NetworkAccess == NetworkAccess.Internet)
             {
-                Stat stat = new Stat { GameId = selectedSchedule.GameId, PlayerTeamId = selectedPlayerTeam.Id, StatTypeId = 3, StatValue = 1 };
-                bool success = await apiService.AddStats(stat);
-                if (success)
+                if (selectedPlayer != null)
                 {
-                    mostRecentStat = stat;
-                    Debug.WriteLine("3PT Made added successfully");
-                }
-                else
-                {
-                    Debug.WriteLine("Add Failed");
+
+                    Stat stat = new Stat { GameId = selectedSchedule.GameId, PlayerTeamId = selectedPlayerTeam.Id, StatTypeId = 3, StatValue = 1 };
+                    bool success = await apiService.AddStats(stat);
+                    if (success)
+                    {
+                        mostRecentStat = stat;
+                        Debug.WriteLine("3PT Made added successfully");
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Add Failed");
+                    }
                 }
             }
             else
@@ -202,16 +215,20 @@ namespace GOBTrackerUI
         {
             if (Connectivity.Current.NetworkAccess == NetworkAccess.Internet)
             {
-                Stat stat = new Stat { GameId = selectedSchedule.GameId, PlayerTeamId = selectedPlayerTeam.Id, StatTypeId = 4, StatValue = 1 };
-                bool success = await apiService.AddStats(stat);
-                if (success)
+                if (selectedPlayer != null)
                 {
-                    mostRecentStat = stat;
-                    Debug.WriteLine("3PT Miss added successfully");
-                }
-                else
-                {
-                    Debug.WriteLine("Add Failed");
+
+                    Stat stat = new Stat { GameId = selectedSchedule.GameId, PlayerTeamId = selectedPlayerTeam.Id, StatTypeId = 4, StatValue = 1 };
+                    bool success = await apiService.AddStats(stat);
+                    if (success)
+                    {
+                        mostRecentStat = stat;
+                        Debug.WriteLine("3PT Miss added successfully");
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Add Failed");
+                    }
                 }
             }
             else
@@ -225,16 +242,20 @@ namespace GOBTrackerUI
         {
             if (Connectivity.Current.NetworkAccess == NetworkAccess.Internet)
             {
-                Stat stat = new Stat { GameId = selectedSchedule.GameId, PlayerTeamId = selectedPlayerTeam.Id, StatTypeId = 12, StatValue = 1 };
-                bool success = await apiService.AddStats(stat);
-                if (success)
+                if (selectedPlayer != null)
                 {
-                    mostRecentStat = stat;
-                    Debug.WriteLine("OffReb added successfully");
-                }
-                else
-                {
-                    Debug.WriteLine("Add Failed");
+
+                    Stat stat = new Stat { GameId = selectedSchedule.GameId, PlayerTeamId = selectedPlayerTeam.Id, StatTypeId = 12, StatValue = 1 };
+                    bool success = await apiService.AddStats(stat);
+                    if (success)
+                    {
+                        mostRecentStat = stat;
+                        Debug.WriteLine("OffReb added successfully");
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Add Failed");
+                    }
                 }
             }
             else
@@ -248,16 +269,20 @@ namespace GOBTrackerUI
         {
             if (Connectivity.Current.NetworkAccess == NetworkAccess.Internet)
             {
-                Stat stat = new Stat { GameId = selectedSchedule.GameId, PlayerTeamId = selectedPlayerTeam.Id, StatTypeId = 9, StatValue = 1 };
-                bool success = await apiService.AddStats(stat);
-                if (success)
+                if (selectedPlayer != null)
                 {
-                    mostRecentStat = stat;
-                    Debug.WriteLine("Assist added successfully");
-                }
-                else
-                {
-                    Debug.WriteLine("Add Failed");
+
+                    Stat stat = new Stat { GameId = selectedSchedule.GameId, PlayerTeamId = selectedPlayerTeam.Id, StatTypeId = 9, StatValue = 1 };
+                    bool success = await apiService.AddStats(stat);
+                    if (success)
+                    {
+                        mostRecentStat = stat;
+                        Debug.WriteLine("Assist added successfully");
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Add Failed");
+                    }
                 }
             }
             else
@@ -271,16 +296,20 @@ namespace GOBTrackerUI
         {
             if (Connectivity.Current.NetworkAccess == NetworkAccess.Internet)
             {
-                Stat stat = new Stat { GameId = selectedSchedule.GameId, PlayerTeamId = selectedPlayerTeam.Id, StatTypeId = 8, StatValue = 1 };
-                bool success = await apiService.AddStats(stat);
-                if (success)
+                if (selectedPlayer != null)
                 {
-                    mostRecentStat = stat;
-                    Debug.WriteLine("Turnover added successfully");
-                }
-                else
-                {
-                    Debug.WriteLine("Add Failed");
+
+                    Stat stat = new Stat { GameId = selectedSchedule.GameId, PlayerTeamId = selectedPlayerTeam.Id, StatTypeId = 8, StatValue = 1 };
+                    bool success = await apiService.AddStats(stat);
+                    if (success)
+                    {
+                        mostRecentStat = stat;
+                        Debug.WriteLine("Turnover added successfully");
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Add Failed");
+                    }
                 }
             }
             else
@@ -294,16 +323,20 @@ namespace GOBTrackerUI
         {
             if (Connectivity.Current.NetworkAccess == NetworkAccess.Internet)
             {
-                Stat stat = new Stat { GameId = selectedSchedule.GameId, PlayerTeamId = selectedPlayerTeam.Id, StatTypeId = 6, StatValue = 1 };
-                bool success = await apiService.AddStats(stat);
-                if (success)
+                if (selectedPlayer != null)
                 {
-                    mostRecentStat = stat;
-                    Debug.WriteLine("Steal added successfully");
-                }
-                else
-                {
-                    Debug.WriteLine("Add Failed");
+
+                    Stat stat = new Stat { GameId = selectedSchedule.GameId, PlayerTeamId = selectedPlayerTeam.Id, StatTypeId = 6, StatValue = 1 };
+                    bool success = await apiService.AddStats(stat);
+                    if (success)
+                    {
+                        mostRecentStat = stat;
+                        Debug.WriteLine("Steal added successfully");
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Add Failed");
+                    }
                 }
             }
             else
@@ -317,16 +350,20 @@ namespace GOBTrackerUI
         {
             if (Connectivity.Current.NetworkAccess == NetworkAccess.Internet)
             {
-                Stat stat = new Stat { GameId = selectedSchedule.GameId, PlayerTeamId = selectedPlayerTeam.Id, StatTypeId = 13, StatValue = 1 };
-                bool success = await apiService.AddStats(stat);
-                if (success)
+                if (selectedPlayer != null)
                 {
-                    mostRecentStat = stat;
-                    Debug.WriteLine("DefReb added successfully");
-                }
-                else
-                {
-                    Debug.WriteLine("Add Failed");
+
+                    Stat stat = new Stat { GameId = selectedSchedule.GameId, PlayerTeamId = selectedPlayerTeam.Id, StatTypeId = 13, StatValue = 1 };
+                    bool success = await apiService.AddStats(stat);
+                    if (success)
+                    {
+                        mostRecentStat = stat;
+                        Debug.WriteLine("DefReb added successfully");
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Add Failed");
+                    }
                 }
             }
             else
@@ -340,16 +377,20 @@ namespace GOBTrackerUI
         {
             if (Connectivity.Current.NetworkAccess == NetworkAccess.Internet)
             {
-                Stat stat = new Stat { GameId = selectedSchedule.GameId, PlayerTeamId = selectedPlayerTeam.Id, StatTypeId = 10, StatValue = 1 };
-                bool success = await apiService.AddStats(stat);
-                if (success)
+                if (selectedPlayer != null)
                 {
-                    mostRecentStat = stat;
-                    Debug.WriteLine("Block added successfully");
-                }
-                else
-                {
-                    Debug.WriteLine("Add Failed");
+
+                    Stat stat = new Stat { GameId = selectedSchedule.GameId, PlayerTeamId = selectedPlayerTeam.Id, StatTypeId = 10, StatValue = 1 };
+                    bool success = await apiService.AddStats(stat);
+                    if (success)
+                    {
+                        mostRecentStat = stat;
+                        Debug.WriteLine("Block added successfully");
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Add Failed");
+                    }
                 }
             }
             else
@@ -363,16 +404,20 @@ namespace GOBTrackerUI
         {
             if (Connectivity.Current.NetworkAccess == NetworkAccess.Internet)
             {
-                Stat stat = new Stat { GameId = selectedSchedule.GameId, PlayerTeamId = selectedPlayerTeam.Id, StatTypeId = 11, StatValue = 1 };
-                bool success = await apiService.AddStats(stat);
-                if (success)
+                if (selectedPlayer != null)
                 {
-                    mostRecentStat = stat;
-                    Debug.WriteLine("Foul added successfully");
-                }
-                else
-                {
-                    Debug.WriteLine("Add Failed");
+
+                    Stat stat = new Stat { GameId = selectedSchedule.GameId, PlayerTeamId = selectedPlayerTeam.Id, StatTypeId = 11, StatValue = 1 };
+                    bool success = await apiService.AddStats(stat);
+                    if (success)
+                    {
+                        mostRecentStat = stat;
+                        Debug.WriteLine("Foul added successfully");
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Add Failed");
+                    }
                 }
             }
             else
@@ -386,17 +431,21 @@ namespace GOBTrackerUI
         {
             if (Connectivity.Current.NetworkAccess == NetworkAccess.Internet)
             {
-                Stat stat = new Stat { GameId = selectedSchedule.GameId, PlayerTeamId = selectedPlayerTeam.Id, StatTypeId = 14, StatValue = 1 };
-                bool success = await apiService.AddStats(stat);
-                if (success)
+                if (selectedPlayer != null)
                 {
 
-                    mostRecentStat = stat;
-                    Debug.WriteLine("Foul added successfully");
-                }
-                else
-                {
-                    Debug.WriteLine("Add Failed");
+                    Stat stat = new Stat { GameId = selectedSchedule.GameId, PlayerTeamId = selectedPlayerTeam.Id, StatTypeId = 14, StatValue = 1 };
+                    bool success = await apiService.AddStats(stat);
+                    if (success)
+                    {
+
+                        mostRecentStat = stat;
+                        Debug.WriteLine("Foul added successfully");
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Add Failed");
+                    }
                 }
             }
             else
@@ -410,16 +459,20 @@ namespace GOBTrackerUI
         {
             if (Connectivity.Current.NetworkAccess == NetworkAccess.Internet)
             {
-                Stat stat = new Stat { GameId = selectedSchedule.GameId, PlayerTeamId = selectedPlayerTeam.Id, StatTypeId = 15, StatValue = 1 };
-                bool success = await apiService.AddStats(stat);
-                if (success)
+                if (selectedPlayer != null)
                 {
-                    mostRecentStat = stat;
-                    Debug.WriteLine("Foul added successfully");
-                }
-                else
-                {
-                    Debug.WriteLine("Add Failed");
+
+                    Stat stat = new Stat { GameId = selectedSchedule.GameId, PlayerTeamId = selectedPlayerTeam.Id, StatTypeId = 15, StatValue = 1 };
+                    bool success = await apiService.AddStats(stat);
+                    if (success)
+                    {
+                        mostRecentStat = stat;
+                        Debug.WriteLine("Foul added successfully");
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Add Failed");
+                    }
                 }
             }
             else
@@ -433,19 +486,23 @@ namespace GOBTrackerUI
         {
             if (Connectivity.Current.NetworkAccess == NetworkAccess.Internet)
             {
-                if (mostRecentStat != null)
+                if (selectedPlayer != null)
                 {
-                    var allStats = await apiService.GetStats();
-                    Stat stat = allStats.LastOrDefault(allStats => allStats.PlayerTeamId == mostRecentStat.PlayerTeamId && allStats.GameId == mostRecentStat.GameId && allStats.StatTypeId == mostRecentStat.StatTypeId);
 
-                    bool success = await apiService.DeleteStatByIDasync(stat.Id);
-                    if (success)
+                    if (mostRecentStat != null)
                     {
-                        Debug.WriteLine("Stat Deleted Sucessfully");
-                    }
-                    else
-                    {
-                        Debug.WriteLine("Couldn't Delete Stat");
+                        var allStats = await apiService.GetStats();
+                        Stat stat = allStats.LastOrDefault(allStats => allStats.PlayerTeamId == mostRecentStat.PlayerTeamId && allStats.GameId == mostRecentStat.GameId && allStats.StatTypeId == mostRecentStat.StatTypeId);
+
+                        bool success = await apiService.DeleteStatByIDasync(stat.Id);
+                        if (success)
+                        {
+                            Debug.WriteLine("Stat Deleted Sucessfully");
+                        }
+                        else
+                        {
+                            Debug.WriteLine("Couldn't Delete Stat");
+                        }
                     }
                 }
             }
